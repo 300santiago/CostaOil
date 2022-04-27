@@ -53,9 +53,9 @@ public class ManagerScene : MonoBehaviour
     }
 
 
-    public void SceneLoader()
+    public void SceneLoader(string sceneLoader)
     {
-        SceneManager.LoadScene("LogInScene");
+        SceneManager.LoadScene(sceneLoader);
     }
 
     public void AddEmployer()

@@ -50,4 +50,23 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+
+    public async void ChangeNameSP()
+    {
+        string email = "superuser@hotmail.com";
+        //superUserclass.nameSuperUser = UserSettings.instance.nameSuperUser.text;
+
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(superUserclass)
+            }
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+
+    }
 }
