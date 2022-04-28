@@ -12,6 +12,7 @@ public class UserEmployer
     public string emailEmployer;
     public string passwordEmployer;
     public string sucursalEmployer;
+    public bool tutorialFirst;
 
     public UserEmployer()
     {

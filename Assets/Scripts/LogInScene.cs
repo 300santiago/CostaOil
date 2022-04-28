@@ -36,11 +36,6 @@ public class LogInScene : MonoBehaviour
         panelCredentials.SetActive(false);
         panelLogin.SetActive(true);
         panelLoading.SetActive(false);
-        //panelCheck.SetActive(false);
-        //panelFirstSesionSP.SetActive(false);
-        //panelLoading.SetActive(false);
-        //PlayerPrefs.GetInt("firstSesionSP");
-        //Debug.Log(PlayerPrefs.GetInt("firstSesionSP"));
     }
 
     void Update()
@@ -50,15 +45,21 @@ public class LogInScene : MonoBehaviour
 
     public void AuthenticationUsers()
     {
-        if (emailCredentials.text == superUserEmail && passwordCredentials.text == superUserPassword && DataHolder.superUserclass.tutorialFirst == false)
+        if (DataHolder.superUserclass.tutorialFirst == false)
         {
-            Debug.Log("login first sesion");
             SceneManager.LoadScene("TutorialScene");
         }
-
-        else if (emailCredentials.text == superUserEmail && passwordCredentials.text == superUserPassword && DataHolder.superUserclass.tutorialFirst == true)
+        else if (DataHolder.superUserclass.tutorialFirst == true)
         {
             SceneManager.LoadScene("ManagerScene");
+        }
+        else if (DataHolder.userEmployer.tutorialFirst == false)
+        {
+            SceneManager.LoadScene("TutorialScene");
+        }
+        else if (DataHolder.userEmployer.tutorialFirst == true)
+        {
+            SceneManager.LoadScene("ManagerScene"); 
         }
     }
 

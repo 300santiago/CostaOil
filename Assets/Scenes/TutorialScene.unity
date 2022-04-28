@@ -13434,13 +13434,14 @@ MonoBehaviour:
   - {fileID: 1983417769}
   inputNameSPpanel: {fileID: 2105133399}
   inputNameSucursal: {fileID: 337277605}
+  panelSPTutorial: {fileID: 1863994764}
   imageLogo: {fileID: 1051499229}
   panelLoading: {fileID: 1717838523}
-  panelSPTutorial: {fileID: 1863994764}
   textTutorial: {fileID: 1210489968}
   textTitle: {fileID: 634208209}
   textNameSuperUser: {fileID: 1733684251}
   textNameSucursal: {fileID: 1262479805}
+  titleEmployerText: {fileID: 667068836}
 --- !u!4 &1020274124
 Transform:
   m_ObjectHideFlags: 0
@@ -20248,8 +20249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This application allows you to organize your workspace. Here is a quick
-    explanation of the first steps
+  m_text: This application allows you to organize your workspace.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -24065,6 +24065,7 @@ MonoBehaviour:
     emailEmployer: 
     passwordEmployer: 
     sucursalEmployer: 
+    tutorialFirst: 0
 --- !u!1 &1983417769
 GameObject:
   m_ObjectHideFlags: 0

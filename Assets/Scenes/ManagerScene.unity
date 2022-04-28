@@ -3592,13 +3592,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1020274123}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LogInScene
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &275824590
@@ -4692,7 +4692,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1020274123}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
-        m_MethodName: AddEmployersNakama
+        m_MethodName: AddNewEmployer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22743,12 +22743,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2018858326}
   m_Layer: 0
-  m_Name: PanelHome
+  m_Name: PanelHomeSP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2018858326
 RectTransform:
   m_ObjectHideFlags: 0

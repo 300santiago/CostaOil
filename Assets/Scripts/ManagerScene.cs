@@ -65,7 +65,7 @@ public class ManagerScene : MonoBehaviour
 
     public void AddEmployerList()
     {
-        string charactersPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        /*string charactersPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         int longcharacters = charactersPassword.Length;
         char letter;
         int lengPassword = 10;
@@ -94,18 +94,39 @@ public class ManagerScene : MonoBehaviour
 
         GameObject _tempGo = Instantiate(generalEmployer,contentEmployers);
         _tempGo.GetComponent<GeneralUserEmployer>().AssignValueEmployer(_userEmployer);
+        */
     }
-
-
-    /*public void AddEmployersNakama()
-    {
-        HanlderAuthentication.instance.SignUp2();
-    }*/
 
     public void CancelEmployer()
     {
         textNameEmployer.text = string.Empty;
         textPositionEmployer.text = string.Empty;
         textEmailEmployer.text = string.Empty;
+    }
+
+    public void AddNewEmployer()
+    {
+
+        string _emailEmployer;
+        string _passwordEmployer;
+        string _nameEmployer;
+
+        string charactersPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        int longcharacters = charactersPassword.Length;
+        char letter;
+        int lengPassword = 10;
+        passwordaleatory = string.Empty;
+
+
+        for  (int i = 0; i<lengPassword; i++)
+        {
+            letter = charactersPassword[Random.Range(0,longcharacters)];
+            passwordaleatory += letter.ToString();
+        }
+
+        _emailEmployer = textEmailEmployer.text;
+        _passwordEmployer = passwordaleatory;
+        _nameEmployer = textNameEmployer.text;
+        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer);      
     }
 }

@@ -7,18 +7,25 @@ using UnityEngine.SceneManagement;
 
 public class TutorialScene : MonoBehaviour
 {
+    [Header("GameObjects panels")]
     [SerializeField] GameObject [] panelsTutorial;
+    [Header("SuperUserComponents")]
     [SerializeField] GameObject [] imagesTutorialSP;
     [SerializeField] GameObject [] numbersTutorialSP;
     [SerializeField] GameObject inputNameSPpanel;
     [SerializeField] GameObject inputNameSucursal;
+    [SerializeField] GameObject panelSPTutorial;
+
     [SerializeField] GameObject imageLogo;
     [SerializeField] GameObject panelLoading;
-    [SerializeField] GameObject panelSPTutorial;
+    
     [SerializeField] TMP_Text textTutorial;
     [SerializeField] TMP_Text textTitle;
     [SerializeField] TMP_InputField textNameSuperUser;
     [SerializeField] TMP_InputField textNameSucursal;
+
+    [Header("EmployerComponents")]
+    [SerializeField] TMP_Text titleEmployerText;
     
 
     private int counterTutorial = 0;
@@ -47,13 +54,19 @@ public class TutorialScene : MonoBehaviour
         inputNameSPpanel.SetActive(false);
         imageLogo.SetActive(false);
  
-        if (PlayerPrefs.GetInt("firstSesionSP") == 0)
+        if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
+        {
+            Debug.Log("employer");
+            panelsTutorial[2].SetActive(true);
+            titleEmployerText.text = $"Welcome {DataHolder.userEmployer.nameEmployer} This application allows you to organize your workspace.";
+        }
+        /*if (PlayerPrefs.GetInt("firstSesionSP") == 0)
         {
             panelsTutorial[0].SetActive(true);
             imagesTutorialSP[0].SetActive(true);
             textTutorial.text = $"This application allows you to organize your workspace. Here is a quick explanation of the first steps";
             textTitle.text = $"FIRST STEPS WITH THE PLATFORM SUPER USER";
-        }
+        }*/
     }
 
     public void ButtonNext(int counter)

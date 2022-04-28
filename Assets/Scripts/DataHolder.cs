@@ -14,6 +14,9 @@ public class DataHolder : MonoBehaviour
     
     public static DataHolder instance;
     public static SuperUserClass superUserclass;
+    public static UserEmployer userEmployer;
+    public static UsersPermissions usersPermissions;
+
     public IClient client;
     public ISession session;
     public IApiAccount account;
