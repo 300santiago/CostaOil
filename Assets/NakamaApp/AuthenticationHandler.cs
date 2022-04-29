@@ -22,12 +22,13 @@ public class AuthenticationHandler : MonoBehaviour
     public string serverKey;
 
     [Header("Variables credentials")]
-    private string email;
+    public string email;
     private string password;
     [Header("Classes")]
     public SuperUserClass superUserClass;
     public UserEmployer userEmployer;
     public UsersPermissions usersPermissions;
+    
     private int _case; //variable para dividir el log in de super user, manager y employer. 1:SP, 2: MG, 3: EMP
 
 
@@ -83,12 +84,19 @@ public class AuthenticationHandler : MonoBehaviour
     public async void StorageObjects(string email)
     {
         superUserClass = new SuperUserClass
-         {
+        {
              nameSuperUser = "",
              emailSuperUser =  LogInScene.instance.emailCredentials.text,
              passwordSuperUser = LogInScene.instance.passwordCredentials.text,
              tutorialFirst = false,
-         };
+        };
+         usersPermissions = new UsersPermissions
+        {
+            createUserEmployer = true,
+            createUserManager = true,
+            createNewSucursals = true,
+            createNewWorkCar = true,
+        };
 
         IApiWriteStorageObject[] writeObjects = new[]
         {
@@ -97,12 +105,19 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "UserInfoEmployer",
                 Value = JsonUtility.ToJson(superUserClass)
+            },
+
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserPermissions",
+                Value = JsonUtility.ToJson(usersPermissions)
             }
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.superUserclass = superUserClass;
+        DataHolder.usersPermissions = usersPermissions;
     }
-
 
      public async void ReadMyStorageObjects(string email)
     {
@@ -111,6 +126,12 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserInfoEmployer",
+                UserId = session.UserId
+            },
+            new StorageObjectId
+            {
+                Collection = email,
+                Key = "UserPermissions",
                 UserId = session.UserId
             }
         };
@@ -130,10 +151,16 @@ public class AuthenticationHandler : MonoBehaviour
                 DataHolder.superUserclass= JsonUtility.FromJson<SuperUserClass>(userData[i].Value);
 
             }
+            else if (userData[i].Key == "UserPermissions")
+            {
+                usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
+                DataHolder.usersPermissions = usersPermissions;
+            }
         }
         print(DataHolder.superUserclass);
         Debug.Log("");
     }
+
 
     IEnumerator delay()
     {

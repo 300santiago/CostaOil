@@ -26,6 +26,10 @@ public class ManagerScene : MonoBehaviour
     public RectTransform contentEmployers;
 
 
+
+    [Header("Employer")]
+    [SerializeField] GameObject panelHomeEmployer;
+
     private string nameManager;
     private int counterfirst = 0;
     public string passwordaleatory;
@@ -40,16 +44,27 @@ public class ManagerScene : MonoBehaviour
     {
         instance = this;
         panelHome.SetActive(false);
+        panelHomeEmployer.SetActive(false);
         backgroundNormal.SetActive(false);
         //background1Sesion.SetActive(false);
         //backgroundExplication.SetActive(false);
+
     }
     void Start()
     { 
-        panelHome.SetActive(true);
+        if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
+        {
+            panelHomeEmployer.SetActive(true);
+        }
+
+         else if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
+        {
+            panelHome.SetActive(true);
+            textTitleManager.text = $"Welcome: {DataHolder.superUserclass.nameSuperUser}";
+        }
+        //panelHome.SetActive(true);
         backgroundNormal.SetActive(true);
-        textTitleManager.text = $"Welcome: {DataHolder.superUserclass.nameSuperUser}";
-        Debug.Log(DataHolder.superUserclass.nameSuperUser);
+        //Debug.Log(DataHolder.superUserclass.nameSuperUser);
     }
 
 
