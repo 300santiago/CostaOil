@@ -889,7 +889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &344123929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4940,12 +4940,19 @@ MonoBehaviour:
   server: 127.0.0.1
   port: 7350
   serverKey: defaultkey
+  email: 
   userEmployer:
     nameEmployer: 
     positionEmployer: 
     emailEmployer: 
     passwordEmployer: 
     sucursalEmployer: 
+    tutorialFirst: 0
+  usersPermissions:
+    createUserEmployer: 0
+    createUserManager: 0
+    createNewSucursals: 0
+    createNewWorkCar: 0
 --- !u!4 &1954730989
 Transform:
   m_ObjectHideFlags: 0
