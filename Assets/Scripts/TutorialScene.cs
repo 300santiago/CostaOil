@@ -31,18 +31,31 @@ public class TutorialScene : MonoBehaviour
     [SerializeField] GameObject numbersEmployer;
     [SerializeField] GameObject passwordEmployer;
     [SerializeField] TMP_InputField inputPasswordEmployer;
-    
+
+    [Header("ManagerComponents")]
+     [SerializeField] TMP_Text explicationManagerText;
+    [SerializeField] TMP_Text titleTextManager;
+    [SerializeField] GameObject [] iconsManager;
+    [SerializeField] GameObject numbersManager;
+    [SerializeField] GameObject passwordManager;
+    [SerializeField] TMP_InputField inputPasswordManager;
 
     //variables to use in the script
     private int counterTutorial = 0; 
     private int counterEmployer = 0;
+    private int counterManager = 0;
     private string inputName_SP;
     private string inputName_Sucursal;
     private string emailSuperUser;
     public static SuperUserClass _superUserClass;
+    public static UserSucursals _userSucursals;
+    public GroupUsersSucursals groupUsersSucursals = new GroupUsersSucursals();
+    public static TutorialScene instance;
+
 
     private void Awake() 
     {
+        instance = this;
         for (int i =0; i<panelsTutorial.Length; i++)
         {
             panelsTutorial[i].SetActive(false);
@@ -56,6 +69,7 @@ public class TutorialScene : MonoBehaviour
             numbersTutorialSP[i].SetActive(false);
         }
         passwordEmployer.SetActive(false);
+        passwordManager.SetActive(false);
     }
 
     private void Start()
@@ -76,6 +90,15 @@ public class TutorialScene : MonoBehaviour
             panelsTutorial[0].SetActive(true);
             textTutorial.text = $"This application allows you to organize your workspace. Here is a quick explanation of the first steps";
             textTitle.text = $"FIRST STEPS WITH THE PLATFORM SUPER USER";
+        }
+
+        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        {
+            Debug.Log("manager user");
+            Debug.Log(DataHolder.userManager.nameManager);
+            panelsTutorial[1].SetActive(true);
+            iconsManager[0].SetActive(true);
+            explicationManagerText.text = $"Welcome {DataHolder.userManager.nameManager} This application allows you to organize your workspace.";
         }
         /*if (PlayerPrefs.GetInt("firstSesionSP") == 0)
         {
@@ -146,7 +169,6 @@ public class TutorialScene : MonoBehaviour
             case 6:
             textTitle.text = $"Finally";
             textTutorial.text = $"Great Job welcome to the Oil aplication";
-            textNameSucursal.text = string.Empty;
             inputNameSucursal.SetActive(false);
             imageLogo.SetActive(true);
             for (int i = 0; i<numbersTutorialSP.Length; i++)
@@ -154,11 +176,25 @@ public class TutorialScene : MonoBehaviour
                 numbersTutorialSP[i].SetActive(false);
             }
             emailSuperUser = AuthenticationHandler.instance.email;
-            DataHolder.instance.WriteBoolean(emailSuperUser);
+            DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
+
+           
+
+            _userSucursals = new UserSucursals
+            {
+                nameSucursal = textNameSucursal.text
+            };
+            
+
+            groupUsersSucursals.userSucursalsList.Add(_userSucursals);
+            DataHolder.userSucursals = _userSucursals;
+            DataHolder.groupUsersSucursals = groupUsersSucursals;
             counterTutorial++;
             break;
 
             case 7:
+            textNameSucursal.text = string.Empty;
+            Debug.Log(DataHolder.userSucursals.nameSucursal);
             StartCoroutine(ShowLoadingPanel(0));
             break;
         }
@@ -223,25 +259,77 @@ public class TutorialScene : MonoBehaviour
                 titleTextEmployer.text = "Enviroment settings of Employer User";
                 explicationEmployerText.text = "The first step is change your password for a personal password";
                 passwordEmployer.SetActive(true);
-                DataHolder.userEmployer.passwordEmployer = inputPasswordEmployer.text;
                 counterEmployer++;
             break;
 
             case 3:
-                passwordEmployer.SetActive(false);
+                //passwordEmployer.SetActive(false);
                 numbersEmployer.SetActive(false);
-                inputPasswordEmployer.text = string.Empty;
+                DataHolder.userEmployer.passwordEmployer = inputPasswordEmployer.text;
+                passwordEmployer.SetActive(false);
                 titleTextEmployer.text = "Finally";
                 explicationEmployerText.text = "Great Job Welcome to the Oil Aplication";
                 string emailEmployer;
                 emailEmployer =AuthenticationHandler.instance.email;
-                DataHolder.instance.WriteBoolean2(emailEmployer, DataHolder.userEmployer.passwordEmployer);
-
+                DataHolder.instance.ChangePasswordEmployer(emailEmployer);
                 counterEmployer++;
 
             break;
 
             case 4:
+                inputPasswordEmployer.text = string.Empty;
+                SceneManager.LoadScene("ManagerScene");
+            break;
+        }
+    }
+
+    public void ButtonNextManager(int _case)
+    {
+        _case = counterManager;
+
+        switch(_case)
+        {
+            case 0:
+                iconsManager[0].SetActive(false);
+                iconsManager[1].SetActive(true);
+                explicationManagerText.text = $"With this app you can add new workers with this button";
+                counterManager++;
+            break;
+
+            case 1:
+                iconsManager[0].SetActive(false);
+                iconsManager[1].SetActive(false);
+                iconsManager[2].SetActive(true);
+                explicationManagerText.text = $"Additionally, you can organize your work and show the progress";
+                counterManager++;
+            break;
+
+            case 2:
+                for (int i=0; i<iconsManager.Length; i++)
+                {
+                    iconsManager[i].SetActive(false);
+                }
+                numbersManager.SetActive(true);
+                titleTextManager.text = "Enviroment settings of Manager User";
+                explicationManagerText.text = "The first step is change your password for a personal password";
+                passwordManager.SetActive(true);
+                counterManager++;
+            break;
+
+            case 3:
+                numbersManager.SetActive(false);
+                DataHolder.userManager.passwordManager = inputPasswordManager.text;
+                titleTextManager.text = "Finally";
+                explicationManagerText.text = "Great Job Welcome to the Oil Aplication";
+                string emailManager;
+                emailManager =AuthenticationHandler.instance.email;
+                DataHolder.instance.ChangePasswordManager(emailManager);
+                passwordManager.SetActive(false);
+                counterManager++;
+            break;
+
+             case 4:
+                inputPasswordManager.text = string.Empty;
                 SceneManager.LoadScene("ManagerScene");
             break;
         }

@@ -30,10 +30,12 @@ public class UserSettings : MonoBehaviour
     public void TempChangeNameSuperUser()
     {
         DataHolder.superUserclass.nameSuperUser =  nameSuperUser.text;
-        DataHolder.instance.ChangeNameSP();
+        string email;
+        email = AuthenticationHandler.instance.email;
+        DataHolder.instance.ChangeNameSP(email);
     }
-    public void ChangeNameSuperUser()
+    public void ChangeNameSuperUser(string email)
     {
-        DataHolder.instance.ChangeNameSP();
+        DataHolder.instance.ChangeNameSP(email);
     }
 }

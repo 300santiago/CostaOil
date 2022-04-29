@@ -12,6 +12,7 @@ public class UserManager
     public string emailManager;
     public string passwordManager;
     public string sucursalManager;
+    public bool tutorialFirst;
 
     public UserManager()
     {

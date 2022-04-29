@@ -61,6 +61,15 @@ public class LogInScene : MonoBehaviour
         {
             SceneManager.LoadScene("ManagerScene"); 
         }
+
+        else if (DataHolder.userManager.tutorialFirst == true)
+        {
+            SceneManager.LoadScene("ManagerScene");
+        }
+        else if (DataHolder.userManager.tutorialFirst == false)
+        {
+            SceneManager.LoadScene("TutorialScene");
+        }
     }
 
     public void ShowLoadingPanel()

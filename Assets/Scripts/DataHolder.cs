@@ -16,6 +16,9 @@ public class DataHolder : MonoBehaviour
     public static SuperUserClass superUserclass;
     public static UserEmployer userEmployer;
     public static UsersPermissions usersPermissions;
+    public static UserManager userManager;
+    public static UserSucursals userSucursals;
+    public static GroupUsersSucursals groupUsersSucursals;
 
     public IClient client;
     public ISession session;
@@ -37,29 +40,26 @@ public class DataHolder : MonoBehaviour
         instance = this;   
     }
 
-    public async void WriteBoolean(string _email)
+    public async void WriteNakamaSuperUser(string email)
     {
-        Debug.Log("funcion");
+        Debug.Log("Funcion Nakama escribir super user");
         superUserclass.tutorialFirst = true;
-
         IApiWriteStorageObject[] writeObjects = new[]
         {
             
             new WriteStorageObject
             {
                 Collection = email,
-                Key = "UserInfoEmployer",
+                Key = "UserInfo",
                 Value = JsonUtility.ToJson(superUserclass)
             }
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
 
-    public async void ChangeNameSP()
+    public async void ChangeNameSP(string email)
     {
-        string email = "superuser@hotmail.com";
-        //superUserclass.nameSuperUser = UserSettings.instance.nameSuperUser.text;
-
+        Debug.Log("Funcion nakama sobreescribir nombre");
         IApiWriteStorageObject[] writeObjects = new[]
         {
             
@@ -74,20 +74,36 @@ public class DataHolder : MonoBehaviour
 
     }
 
-    public async void WriteBoolean2(string _email, string _password)
+    public async void ChangePasswordEmployer(string _email)
     {
-        Debug.Log("funcion");
+        Debug.Log("Cambiar password");
         userEmployer.tutorialFirst = true;
-        userEmployer.passwordEmployer = _password;
         IApiWriteStorageObject[] writeObjects = new[]
         {
-            
             new WriteStorageObject
             {
                 Collection = _email,
-                Key = "UserInfoEmployer",
+                Key = "UserInfo",
                 Value = JsonUtility.ToJson(userEmployer)
             }
+
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+    }
+
+    public async void ChangePasswordManager(string _email)
+    {
+        Debug.Log("Cambiar password");
+        userManager.tutorialFirst = true;
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = _email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(userManager)
+            }
+
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
