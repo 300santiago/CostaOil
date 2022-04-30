@@ -29,6 +29,8 @@ public class AuthenticationHandler : MonoBehaviour
 
     [Header("Classes")]
     public SuperUserClass superUserClass;
+    public ListSucursals listSucursals;
+    public Sucursals sucursals;
     public UserEmployer userEmployer;
     public UsersPermissions usersPermissions;
     public UserManager userManager;    
@@ -100,6 +102,16 @@ public class AuthenticationHandler : MonoBehaviour
             createNewWorkCar = true,
         };
 
+        sucursals = new Sucursals
+        {
+            nameSucursal = ""
+        };
+
+        listSucursals = new ListSucursals
+        {
+
+        };
+
         IApiWriteStorageObject[] writeObjects = new[]
         {
             new WriteStorageObject
@@ -114,15 +126,34 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "UserPermissions",
                 Value = JsonUtility.ToJson(usersPermissions)
-            }
+            },
+
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "Sucursal",
+                Value = JsonUtility.ToJson(sucursals)
+            },
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "ListSucursals",
+                Value = JsonUtility.ToJson(listSucursals)
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.superUserclass = superUserClass;
         DataHolder.usersPermissions = usersPermissions;
+        DataHolder.sucursals = sucursals;
+        DataHolder.listSucursals = listSucursals;
+
+
+
         Debug.Log("escritura de datos");
         Debug.Log(DataHolder.superUserclass.passwordSuperUser);
     }
 
+    //lectura de datos super user
      public async void ReadMyStorageObjects(string email)
     {
          IApiReadStorageObjectId[] objectsId = {
@@ -137,7 +168,20 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "UserPermissions",
                 UserId = session.UserId
-            }
+            },
+             new StorageObjectId
+            {
+                Collection = email,
+                Key = "Sucursal",
+                UserId = session.UserId
+            },
+            new StorageObjectId
+            {
+                Collection = email,
+                Key = "ListSucursals",
+                UserId = session.UserId
+            },
+
         };
         IApiStorageObjects objects = await client.ReadStorageObjectsAsync(session, objectsId);
         IApiStorageObject[] userData = objects.Objects.ToArray();
@@ -161,6 +205,20 @@ public class AuthenticationHandler : MonoBehaviour
                 usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
                 DataHolder.usersPermissions = usersPermissions;
             }
+             else if (userData[i].Key == "Sucursal")
+            {
+                Debug.Log("Lectura datos 3 super user");
+                sucursals = JsonUtility.FromJson<Sucursals>(userData[i].Value);
+                DataHolder.sucursals = sucursals;
+            }
+
+            else if (userData[i].Key == "ListSucursals")
+            {
+                Debug.Log("Lectura datos 4 super user");
+                listSucursals = JsonUtility.FromJson<ListSucursals>(userData[i].Value);
+                DataHolder.listSucursals = listSucursals;
+            }
+            
         }
     }
 

@@ -57,7 +57,9 @@ public class TutorialScene : MonoBehaviour
 
     private void Awake() 
     {
+        DontDestroyOnLoad(this.gameObject);
         instance = this;
+
         for (int i =0; i<panelsTutorial.Length; i++)
         {
             panelsTutorial[i].SetActive(false);
@@ -172,10 +174,8 @@ public class TutorialScene : MonoBehaviour
                 numbersTutorialSP[i].SetActive(false);
             }
             emailSuperUser = AuthenticationHandler.instance.email;
-            DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
             
-
-
+            
             //add sucursal:
             _sucursals = new Sucursals
             {
@@ -184,10 +184,12 @@ public class TutorialScene : MonoBehaviour
             DataHolder.sucursals = _sucursals;
             // add sucursal in the list:
             AddSucursal(_sucursals);
+            DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
             counterTutorial++;
             break;
 
             case 7:
+
             textNameSucursal.text = string.Empty;
             //Debug.Log(DataHolder.userSucursals.nameSucursal);
             Debug.Log($"Sucursal: {DataHolder.sucursals.nameSucursal}");
@@ -340,9 +342,15 @@ public class TutorialScene : MonoBehaviour
 
     public void AddSucursal(Sucursals _sucursals)
     {
+        string emailSuperUser = AuthenticationHandler.instance.email ;
         Debug.Log("add sucursal");
         listSucursals.teamSucursals.Add(_sucursals);
         DataHolder.listSucursals = listSucursals;
+        DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
+    }
 
+    public void sucursals()
+    {
+        Debug.Log("sucursals");
     }
 }

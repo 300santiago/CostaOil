@@ -116,6 +116,11 @@ public class ManagerScene : MonoBehaviour
         textNameSucursal.text = string.Empty;
     }
 
+
+    
+
+
+
     public void printListEmployers()
     {
         foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)

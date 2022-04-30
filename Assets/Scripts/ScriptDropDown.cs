@@ -9,10 +9,15 @@ public class ScriptDropDown : MonoBehaviour
 {
     
     public static ScriptDropDown instance;
+   
     private void Awake()
     {
         instance = this;
+        
     }
+    
+
+
 
     public void DropDownAddList()
     {

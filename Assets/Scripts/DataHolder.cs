@@ -19,6 +19,7 @@ public class DataHolder : MonoBehaviour
     public static UserManager userManager;
     public static Sucursals sucursals;
     public static ListSucursals listSucursals;
+    public static TutorialScene tutorialScene;
    
 
 
@@ -46,7 +47,9 @@ public class DataHolder : MonoBehaviour
     public async void WriteNakamaSuperUser(string email)
     {
         Debug.Log("Funcion Nakama escribir super user");
+        Debug.Log($"La sucursal que se guardara es: {DataHolder.sucursals.nameSucursal}");
         superUserclass.tutorialFirst = true;
+        
         IApiWriteStorageObject[] writeObjects = new[]
         {
             
@@ -56,9 +59,30 @@ public class DataHolder : MonoBehaviour
                 Key = "UserInfo",
                 Value = JsonUtility.ToJson(superUserclass)
             },
+
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserPermissions",
+                Value = JsonUtility.ToJson(usersPermissions)
+            },
+
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "Sucursal",
+                Value = JsonUtility.ToJson(sucursals)
+            },
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "ListSucursals",
+                Value = JsonUtility.ToJson(listSucursals)
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+
 
 
     public async void ChangeNameSP(string email)
