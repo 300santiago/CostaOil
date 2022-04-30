@@ -19,7 +19,7 @@ public class DataHolder : MonoBehaviour
     public static UserManager userManager;
     public static Sucursals sucursals;
     public static ListSucursals listSucursals;
-    public static TutorialScene tutorialScene;
+ 
    
 
 
@@ -135,4 +135,7 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+
+    
+    
 }

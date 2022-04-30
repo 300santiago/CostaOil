@@ -57,7 +57,6 @@ public class TutorialScene : MonoBehaviour
 
     private void Awake() 
     {
-        DontDestroyOnLoad(this.gameObject);
         instance = this;
 
         for (int i =0; i<panelsTutorial.Length; i++)
