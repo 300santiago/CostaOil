@@ -62,7 +62,6 @@ public class AuthenticationHandler : MonoBehaviour
         email = LogInScene.instance.emailCredentials.text;
         password = LogInScene.instance.passwordCredentials.text;
         session = await client.AuthenticateEmailAsync(email, password, "Super User", false);
-        //sessionEmployer = await client.AuthenticateEmailAsync(email, password, "", false);
         DataHolder.instance.session = session;
         DataHolder.instance.email = email;
         ReadMyStorageObjects(email);

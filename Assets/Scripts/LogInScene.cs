@@ -12,13 +12,12 @@ public class LogInScene : MonoBehaviour
     [SerializeField] GameObject panelCredentials;
     [SerializeField] GameObject panelLogin;
     [SerializeField] GameObject panelCheck;
-    //[SerializeField] GameObject panelFirstSesionSP;
+  
     [SerializeField] GameObject panelLoading; 
 
     [Header("Variables InputField")]
     public TMP_InputField emailCredentials; //ingreso de email
     public TMP_InputField passwordCredentials;
-    //[SerializeField] TMP_Text textFirstSesionSP;
     public static LogInScene instance;
 
 

@@ -44,7 +44,7 @@ public class ManagerScene : MonoBehaviour
     private int counterfirst = 0;
     public string passwordaleatory;
     public string passwordaleatoryManager;
-    //public UserEmployer userEmployer;
+    public Sucursals sucursals;
 
    
 
@@ -52,8 +52,8 @@ public class ManagerScene : MonoBehaviour
     [Header("classes in scene")]
 
     public GroupEmployers groupEmployers = new GroupEmployers();
-    public GroupUsersSucursals groupUsersSucursals = new GroupUsersSucursals();
-    public UserSucursals userSucursals = new UserSucursals();
+    //public GroupUsersSucursals groupUsersSucursals = new GroupUsersSucursals();
+    //public UserSucursals userSucursals = new UserSucursals();
     public static ManagerScene instance;
 
     private void Awake()
@@ -107,21 +107,18 @@ public class ManagerScene : MonoBehaviour
 
     public void AddEmployerList()
     {
-        userSucursals = new UserSucursals
+        sucursals = new Sucursals
         {
             nameSucursal = textNameSucursal.text
         };
-        Debug.Log(userSucursals.nameSucursal);
-        
-        //groupUsersSucursals.userSucursalsList.Add(userSucursals);
-        //DataHolder.userSucursals = userSucursals;
-        //DataHolder.groupUsersSucursals = groupUsersSucursals;
+        DataHolder.sucursals = sucursals;
+        TutorialScene.instance.AddSucursal(sucursals);
+        textNameSucursal.text = string.Empty;
     }
 
     public void printListEmployers()
     {
-        //Debug.Log(DataHolder.userSucursals.nameSucursal);
-         foreach (UserSucursals p in TutorialScene.instance.groupUsersSucursals.userSucursalsList)
+        foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
         {
             print(p.nameSucursal);
         }
@@ -185,4 +182,11 @@ public class ManagerScene : MonoBehaviour
 
         AuthenticationHandler.instance.SignUpNewManager( _emailManager, _passwordManager,  _nameManager); 
     }
+
+    public void AddListDropDown()
+    {
+        ScriptDropDown.instance.DropDownAddList();
+    }
+
+    
 }

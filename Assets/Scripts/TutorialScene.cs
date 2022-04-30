@@ -47,9 +47,11 @@ public class TutorialScene : MonoBehaviour
     private string inputName_SP;
     private string inputName_Sucursal;
     private string emailSuperUser;
+    
+
     public static SuperUserClass _superUserClass;
-    public static UserSucursals _userSucursals;
-    public GroupUsersSucursals groupUsersSucursals = new GroupUsersSucursals();
+    public static Sucursals _sucursals;
+    public static ListSucursals listSucursals = new ListSucursals();
     public static TutorialScene instance;
 
 
@@ -100,15 +102,9 @@ public class TutorialScene : MonoBehaviour
             iconsManager[0].SetActive(true);
             explicationManagerText.text = $"Welcome {DataHolder.userManager.nameManager} This application allows you to organize your workspace.";
         }
-        /*if (PlayerPrefs.GetInt("firstSesionSP") == 0)
-        {
-            panelsTutorial[0].SetActive(true);
-            imagesTutorialSP[0].SetActive(true);
-            textTutorial.text = $"This application allows you to organize your workspace. Here is a quick explanation of the first steps";
-            textTitle.text = $"FIRST STEPS WITH THE PLATFORM SUPER USER";
-        }*/
     }
 
+    // tutorial super user
     public void ButtonNext(int counter)
     {
         counter = counterTutorial;
@@ -177,24 +173,29 @@ public class TutorialScene : MonoBehaviour
             }
             emailSuperUser = AuthenticationHandler.instance.email;
             DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
-
-           
-
-            _userSucursals = new UserSucursals
-            {
-                nameSucursal = textNameSucursal.text
-            };
             
 
-            groupUsersSucursals.userSucursalsList.Add(_userSucursals);
-            DataHolder.userSucursals = _userSucursals;
-            DataHolder.groupUsersSucursals = groupUsersSucursals;
+
+            //add sucursal:
+            _sucursals = new Sucursals
+            {
+                nameSucursal = textNameSucursal.text,
+            };
+            DataHolder.sucursals = _sucursals;
+            // add sucursal in the list:
+            AddSucursal(_sucursals);
             counterTutorial++;
             break;
 
             case 7:
             textNameSucursal.text = string.Empty;
-            Debug.Log(DataHolder.userSucursals.nameSucursal);
+            //Debug.Log(DataHolder.userSucursals.nameSucursal);
+            Debug.Log($"Sucursal: {DataHolder.sucursals.nameSucursal}");
+
+            foreach (Sucursals p in listSucursals.teamSucursals)
+            {
+                print(p.nameSucursal);
+            }
             StartCoroutine(ShowLoadingPanel(0));
             break;
         }
@@ -283,6 +284,8 @@ public class TutorialScene : MonoBehaviour
         }
     }
 
+
+    //managers
     public void ButtonNextManager(int _case)
     {
         _case = counterManager;
@@ -333,5 +336,13 @@ public class TutorialScene : MonoBehaviour
                 SceneManager.LoadScene("ManagerScene");
             break;
         }
+    }
+
+    public void AddSucursal(Sucursals _sucursals)
+    {
+        Debug.Log("add sucursal");
+        listSucursals.teamSucursals.Add(_sucursals);
+        DataHolder.listSucursals = listSucursals;
+
     }
 }

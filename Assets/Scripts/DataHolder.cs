@@ -17,8 +17,11 @@ public class DataHolder : MonoBehaviour
     public static UserEmployer userEmployer;
     public static UsersPermissions usersPermissions;
     public static UserManager userManager;
-    public static UserSucursals userSucursals;
-    public static GroupUsersSucursals groupUsersSucursals;
+    public static Sucursals sucursals;
+    public static ListSucursals listSucursals;
+   
+
+
 
     public IClient client;
     public ISession session;
@@ -52,10 +55,11 @@ public class DataHolder : MonoBehaviour
                 Collection = email,
                 Key = "UserInfo",
                 Value = JsonUtility.ToJson(superUserclass)
-            }
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+
 
     public async void ChangeNameSP(string email)
     {

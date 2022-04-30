@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.UI;
+
 
 [Serializable]
-public class UserSucursals
+public class Sucursals 
 {
     public string nameSucursal;
 
-    public UserSucursals()
+    public Sucursals()
     {
-
+        
     }
 }
 
