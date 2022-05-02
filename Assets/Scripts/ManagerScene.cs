@@ -24,6 +24,7 @@ public class ManagerScene : MonoBehaviour
 
     [Header("RectTransform")]
     public RectTransform contentEmployers;
+    public RectTransform contentSucursals;
 
 
     [Header("InputFields New Manager")]
@@ -39,6 +40,9 @@ public class ManagerScene : MonoBehaviour
     [Header("Manager")]
     [SerializeField] GameObject panelHomeManager;
     [SerializeField] TMP_Text titleManager;
+
+    [Header("prefabs")]
+    public GameObject prefabSucurals;
 
     //private string nameManager;
     private int counterfirst = 0;
@@ -88,10 +92,12 @@ public class ManagerScene : MonoBehaviour
             titleManager.text = $"Welcome Manager: {DataHolder.userManager.nameManager}";
         }
 
-
+        
         //panelHome.SetActive(true);
         backgroundNormal.SetActive(true);
         //Debug.Log(DataHolder.superUserclass.nameSuperUser);
+
+        
     }
 
 
@@ -112,21 +118,26 @@ public class ManagerScene : MonoBehaviour
             nameSucursal = textNameSucursal.text
         };
         DataHolder.sucursals = sucursals;
-        TutorialScene.instance.AddSucursal(sucursals);
+        AuthenticationHandler.instance.AddSucursal(sucursals);
+        //instanciar el gameObject
+        //GameObject tempPrefabSucursal = Instantiate(prefabSucurals, contentSucursals);
+         //tempPrefabSucursal.GetComponent<PrefabSucursals>().AssignSucursal(sucursals)*/;
         textNameSucursal.text = string.Empty;
     }
 
 
+
     
-
-
-
     public void printListEmployers()
     {
         foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
         {
             print(p.nameSucursal);
         }
+        
+        GameObject tempPrefabSucursal = Instantiate(prefabSucurals, contentSucursals);
+        tempPrefabSucursal.GetComponent<PrefabSucursals>().AssignSucursal(DataHolder.listSucursals, DataHolder.sucursals);
+      
     }
 
     public void CancelEmployer()
@@ -191,6 +202,11 @@ public class ManagerScene : MonoBehaviour
     public void AddListDropDown()
     {
         ScriptDropDown.instance.DropDownAddList();
+    }
+
+    public void InstancePrefabs()
+    {
+        
     }
 
     

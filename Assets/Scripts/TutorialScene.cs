@@ -182,8 +182,9 @@ public class TutorialScene : MonoBehaviour
             };
             DataHolder.sucursals = _sucursals;
             // add sucursal in the list:
-            AddSucursal(_sucursals);
-            DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
+            AuthenticationHandler.instance.AddSucursal(_sucursals);
+            //AddSucursal(_sucursals);
+            //DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
             counterTutorial++;
             break;
 
@@ -339,14 +340,14 @@ public class TutorialScene : MonoBehaviour
         }
     }
 
-    public void AddSucursal(Sucursals _sucursals)
+    /*public void AddSucursal(Sucursals _sucursals)
     {
         string emailSuperUser = AuthenticationHandler.instance.email ;
         Debug.Log("add sucursal");
         listSucursals.teamSucursals.Add(_sucursals);
         DataHolder.listSucursals = listSucursals;
         DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
-    }
+    }*/
 
     public void sucursals()
     {

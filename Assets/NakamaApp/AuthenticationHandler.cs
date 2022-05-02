@@ -57,6 +57,8 @@ public class AuthenticationHandler : MonoBehaviour
             print(e.Message);
             throw;
         }
+
+        
     }
 
     public async void Login()
@@ -428,4 +430,16 @@ public class AuthenticationHandler : MonoBehaviour
         _case = 3;
         Debug.Log(_case);
     }
+
+
+    public void AddSucursal(Sucursals _sucursals)
+    {
+        Debug.Log("add sucursal");
+        listSucursals.teamSucursals.Add(_sucursals);
+        
+        DataHolder.listSucursals = listSucursals;
+        DataHolder.instance.WriteNakamaSuperUser(email);
+    }
+
+
 }
