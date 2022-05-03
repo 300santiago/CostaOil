@@ -69,7 +69,6 @@ public class ManagerScene : MonoBehaviour
         panelHomeManager.SetActive(false);
         //background1Sesion.SetActive(false);
         //backgroundExplication.SetActive(false);
-
     }
     void Start()
     { 
@@ -91,13 +90,7 @@ public class ManagerScene : MonoBehaviour
             panelHomeManager.SetActive(true);
             titleManager.text = $"Welcome Manager: {DataHolder.userManager.nameManager}";
         }
-
-        
-        //panelHome.SetActive(true);
         backgroundNormal.SetActive(true);
-        //Debug.Log(DataHolder.superUserclass.nameSuperUser);
-
-        
     }
 
 
@@ -119,9 +112,8 @@ public class ManagerScene : MonoBehaviour
         };
         DataHolder.sucursals = sucursals;
         AuthenticationHandler.instance.AddSucursal(sucursals);
-        //instanciar el gameObject
-        //GameObject tempPrefabSucursal = Instantiate(prefabSucurals, contentSucursals);
-         //tempPrefabSucursal.GetComponent<PrefabSucursals>().AssignSucursal(sucursals)*/;
+        //GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
+        //tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(sucursals);
         textNameSucursal.text = string.Empty;
     }
 
@@ -133,12 +125,23 @@ public class ManagerScene : MonoBehaviour
         foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
         {
             print(p.nameSucursal);
+            GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
+            tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(p.nameSucursal);
         }
         
-        GameObject tempPrefabSucursal = Instantiate(prefabSucurals, contentSucursals);
-        tempPrefabSucursal.GetComponent<PrefabSucursals>().AssignSucursal(DataHolder.listSucursals, DataHolder.sucursals);
-      
+
     }
+
+    public void CleanList()
+    {
+    }
+
+    public void SceneLoader()
+    {
+        SceneManager.LoadScene("ConsultSucursals");
+    }
+
+
 
     public void CancelEmployer()
     {

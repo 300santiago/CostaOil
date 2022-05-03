@@ -11,7 +11,7 @@ public class PrefabSucursals : MonoBehaviour
     //public ListSucursals listSucursals = new ListSucursals();
     public Sucursals thisSucursals = new Sucursals();
 
-    public ListSucursals listSucursals;
+    public ListSucursals listSucursals = new ListSucursals();
 
     private void Start()
     {
@@ -19,15 +19,9 @@ public class PrefabSucursals : MonoBehaviour
     }
 
 
-    public void AssignSucursal(ListSucursals sucursalslist, Sucursals _sucursals)
+    public void AssignSucursal(string name)
     {
-        listSucursals = sucursalslist;
-        nameSucursal.text = _sucursals.nameSucursal;
+        nameSucursal.text = name;
     }
-
-    public void ShowSucursals()
-    {
-
-    }
-
+    
 }

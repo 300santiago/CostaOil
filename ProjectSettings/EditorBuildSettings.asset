@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ProfileSettings.unity
     guid: 08220dfb0af0a9540b222729a5131ef8
+  - enabled: 1
+    path: Assets/Scenes/ConsultSucursals.unity
+    guid: e87a0df74e1f7144ebf30f09bf432718
   m_configObjects: {}
