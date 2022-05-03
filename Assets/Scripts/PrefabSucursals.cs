@@ -8,21 +8,16 @@ using UnityEngine.SceneManagement;
 public class PrefabSucursals : MonoBehaviour
 {
     [SerializeField] TMP_Text nameSucursal;
-    //public ListSucursals listSucursals = new ListSucursals();
-    public Sucursals thisSucursals = new Sucursals();
-
-    public ListSucursals listSucursals = new ListSucursals();
+    public Sucursals thisSucursal = new Sucursals();
 
     private void Start()
     {
 
     }
 
-
-    public void AssignSucursal(string name)
+    public void AssignSucursal(Sucursals sucursals)
     {
-        nameSucursal.text = name;
+        thisSucursal = sucursals;
+        nameSucursal.text = thisSucursal.nameSucursal;
     }
-    
-
 }

@@ -183,8 +183,6 @@ public class TutorialScene : MonoBehaviour
             DataHolder.sucursals = _sucursals;
             // add sucursal in the list:
             AuthenticationHandler.instance.AddSucursal(_sucursals);
-            //AddSucursal(_sucursals);
-            //DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
             counterTutorial++;
             break;
 

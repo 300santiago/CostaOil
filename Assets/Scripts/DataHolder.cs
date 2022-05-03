@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class DataHolder : MonoBehaviour
 {
-    
+    [Header("classes:")]
     public static DataHolder instance;
     public static SuperUserClass superUserclass;
     public static UserEmployer userEmployer;
@@ -19,6 +19,7 @@ public class DataHolder : MonoBehaviour
     public static UserManager userManager;
     public static Sucursals sucursals;
     public static ListSucursals listSucursals;
+    public static GroupEmployers groupEmployers;
  
    
 

@@ -56,8 +56,8 @@ public class ManagerScene : MonoBehaviour
     [Header("classes in scene")]
 
     public GroupEmployers groupEmployers = new GroupEmployers();
-    //public GroupUsersSucursals groupUsersSucursals = new GroupUsersSucursals();
-    //public UserSucursals userSucursals = new UserSucursals();
+    public ListSucursals listSucursals;
+   
     public static ManagerScene instance;
 
     private void Awake()
@@ -67,11 +67,11 @@ public class ManagerScene : MonoBehaviour
         panelHomeEmployer.SetActive(false);
         backgroundNormal.SetActive(false);
         panelHomeManager.SetActive(false);
-        //background1Sesion.SetActive(false);
-        //backgroundExplication.SetActive(false);
+      
     }
     void Start()
     { 
+        Debug.Log("carga escena");
         if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
         {
             panelHomeEmployer.SetActive(true);
@@ -104,7 +104,7 @@ public class ManagerScene : MonoBehaviour
         panelSavePlayers.SetActive(true);
     }
 
-    public void AddEmployerList()
+    public void AddSucursalList()
     {
         sucursals = new Sucursals
         {
@@ -112,37 +112,30 @@ public class ManagerScene : MonoBehaviour
         };
         DataHolder.sucursals = sucursals;
         AuthenticationHandler.instance.AddSucursal(sucursals);
-        //GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
-        //tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(sucursals);
         textNameSucursal.text = string.Empty;
     }
 
-
-
-    
     public void printListEmployers()
     {
-        foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
+        /*foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
         {
             print(p.nameSucursal);
             GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
             tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(p.nameSucursal);
+        }*/
+        /*if (DataHolder.groupEmployers.employers.Count < 0)
+        {
+            Debug.Log("no tiene trabajadores agregados");
         }
-        
+        else
+        {
+                foreach (UserEmployer p in DataHolder.groupEmployers.employers)
+            {
+                    print(p.nameEmployer);
+            }
+        }*/
 
     }
-
-    public void CleanList()
-    {
-    }
-
-    public void SceneLoader()
-    {
-        SceneManager.LoadScene("ConsultSucursals");
-    }
-
-
-
     public void CancelEmployer()
     {
         textNameEmployer.text = string.Empty;
@@ -173,7 +166,8 @@ public class ManagerScene : MonoBehaviour
         _emailEmployer = textEmailEmployer.text;
         _passwordEmployer = passwordaleatory;
         _nameEmployer = textNameEmployer.text;
-        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer);      
+        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer);
+           
     }
 
     public void AddNewManager()
@@ -206,11 +200,4 @@ public class ManagerScene : MonoBehaviour
     {
         ScriptDropDown.instance.DropDownAddList();
     }
-
-    public void InstancePrefabs()
-    {
-        
-    }
-
-    
 }

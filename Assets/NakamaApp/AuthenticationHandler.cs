@@ -33,7 +33,8 @@ public class AuthenticationHandler : MonoBehaviour
     public Sucursals sucursals;
     public UserEmployer userEmployer;
     public UsersPermissions usersPermissions;
-    public UserManager userManager;    
+    public UserManager userManager;
+    public GroupEmployers groupEmployers; 
     private int _case; //variable para dividir el log in de super user, manager y employer. 1:SP, 2: MG, 3: EMP
 
 
@@ -289,6 +290,9 @@ public class AuthenticationHandler : MonoBehaviour
         DataHolder.userEmployer = userEmployer;
         DataHolder.usersPermissions = usersPermissions;
         Debug.Log(DataHolder.userEmployer.emailEmployer);
+        //DataHolder.groupEmployers.employers.Add(userEmployer);
+        AddListEmployers(userEmployer);
+
     }
 
 
@@ -437,8 +441,14 @@ public class AuthenticationHandler : MonoBehaviour
         Debug.Log("add sucursal");
         listSucursals.teamSucursals.Add(_sucursals);
         DataHolder.listSucursals = listSucursals;
-        
         DataHolder.instance.WriteNakamaSuperUser(email);
+    }
+
+    public void AddListEmployers(UserEmployer _userEmployer)
+    {
+        Debug.Log("add employer List");
+        groupEmployers.employers.Add(_userEmployer);
+        DataHolder.groupEmployers = groupEmployers;
     }
 
 
