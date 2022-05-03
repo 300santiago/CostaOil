@@ -24,4 +24,5 @@ public class PrefabSucursals : MonoBehaviour
         nameSucursal.text = name;
     }
     
+
 }

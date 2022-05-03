@@ -437,7 +437,6 @@ public class AuthenticationHandler : MonoBehaviour
         Debug.Log("add sucursal");
         listSucursals.teamSucursals.Add(_sucursals);
         DataHolder.listSucursals = listSucursals;
-
         
         DataHolder.instance.WriteNakamaSuperUser(email);
     }
