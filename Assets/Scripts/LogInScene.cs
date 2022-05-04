@@ -16,13 +16,11 @@ public class LogInScene : MonoBehaviour
     [SerializeField] GameObject panelLoading; 
 
     [Header("Variables InputField")]
-    public TMP_InputField emailCredentials; //ingreso de email
+    public TMP_InputField emailCredentials;
     public TMP_InputField passwordCredentials;
     public static LogInScene instance;
 
 
-    private string superUserEmail = "superuser@hotmail.com";
-    private string superUserPassword = "12345678";
 
     // Start is called before the first frame update
 
@@ -61,6 +59,8 @@ public class LogInScene : MonoBehaviour
             SceneManager.LoadScene("ManagerScene"); 
         }
 
+
+        /*
         else if (DataHolder.userManager.tutorialFirst == true)
         {
             SceneManager.LoadScene("ManagerScene");
@@ -68,7 +68,7 @@ public class LogInScene : MonoBehaviour
         else if (DataHolder.userManager.tutorialFirst == false)
         {
             SceneManager.LoadScene("TutorialScene");
-        }
+        }*/
     }
 
     public void ShowLoadingPanel()
@@ -84,31 +84,4 @@ public class LogInScene : MonoBehaviour
 
 
 
-   /* public void LoginUserFirst()
-    {
-        SceneManager.LoadScene("ManagerScene");
-        Debug.Log(PlayerPrefs.GetInt("firstSesionSP"));
-    }
-
-    public void ResetPlayerPrefs()
-    {
-        PlayerPrefs.SetInt("firstSesionSP", 0);
-        Debug.Log(PlayerPrefs.GetInt("firstSesionSP"));  
-    }
-    
-    IEnumerator ShowLoadingPanel()
-    {
-        panelLoading.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        panelLoading.SetActive(false);
-        SceneManager.LoadScene("TutorialScene");
-    }
-
-     IEnumerator ShowLoadingPanel2()
-    {
-        panelLoading.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        panelLoading.SetActive(false);
-        SceneManager.LoadScene("ManagerScene");
-    }*/
 }

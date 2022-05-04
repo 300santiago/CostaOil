@@ -43,8 +43,4 @@ public class ConsultSucursals : MonoBehaviour
     {
         SceneManager.LoadScene("ManagerScene");
     }
-    public void imprimir()
-    {
-        Debug.Log("ja");
-    }
 }

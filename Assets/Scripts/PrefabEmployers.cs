@@ -7,13 +7,11 @@ using UnityEngine.SceneManagement;
 public class PrefabEmployers : MonoBehaviour
 {
     [SerializeField] TMP_Text nameEmployer;
+    //public UserEmployer thisUserEmployer = new UserEmployer();
 
 
-    public void AssignEmployers(string name)
+    public void AssignEmployers(UserEmployer userEmployer)
     {
-        nameEmployer.text = name;
+        nameEmployer.text = userEmployer.nameEmployer;
     }
-
-
-
 }

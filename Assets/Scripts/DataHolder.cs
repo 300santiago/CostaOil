@@ -21,10 +21,7 @@ public class DataHolder : MonoBehaviour
     public static ListSucursals listSucursals;
     public static GroupEmployers groupEmployers;
  
-   
-
-
-
+    [Header("nakama")]
     public IClient client;
     public ISession session;
     public ISession sessionEmployer;
@@ -80,6 +77,12 @@ public class DataHolder : MonoBehaviour
                 Key = "ListSucursals",
                 Value = JsonUtility.ToJson(listSucursals)
             },
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "ListEmployers",
+                Value = JsonUtility.ToJson(groupEmployers)
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
@@ -133,6 +136,22 @@ public class DataHolder : MonoBehaviour
                 Value = JsonUtility.ToJson(userManager)
             }
 
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+    }
+
+
+    public async void WriteNakamaSaveEmployerList(string email)
+    {
+        
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "ListEmployers",
+                Value = JsonUtility.ToJson(groupEmployers)
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
