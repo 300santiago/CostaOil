@@ -33,6 +33,7 @@ public class AuthenticationHandler : MonoBehaviour
     public UsersPermissions usersPermissions;
     public UserManager userManager;
     public GroupEmployers groupEmployers; 
+    public GroupManagers groupManagers;
     private int _case;
 
 
@@ -116,6 +117,11 @@ public class AuthenticationHandler : MonoBehaviour
         {
 
         };
+        groupManagers = new GroupManagers
+        {
+
+        };
+
 
         IApiWriteStorageObject[] writeObjects = new[]
         {
@@ -151,6 +157,12 @@ public class AuthenticationHandler : MonoBehaviour
                 Key = "ListEmployers",
                 Value = JsonUtility.ToJson(groupEmployers)
             },
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "ListManagers",
+                Value = JsonUtility.ToJson(groupManagers)
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.superUserclass = superUserClass;
@@ -158,6 +170,7 @@ public class AuthenticationHandler : MonoBehaviour
         DataHolder.sucursals = sucursals;
         DataHolder.listSucursals = listSucursals;
         DataHolder.groupEmployers = groupEmployers;
+        DataHolder.groupManagers = groupManagers;
     }
 
 
@@ -193,6 +206,12 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "ListEmployers",
+                UserId = session.UserId
+            },
+            new StorageObjectId
+            {
+                Collection = email,
+                Key = "ListManagers",
                 UserId = session.UserId
             },
 
@@ -237,6 +256,12 @@ public class AuthenticationHandler : MonoBehaviour
                 Debug.Log("Lectura datos 5 super user");
                 groupEmployers = JsonUtility.FromJson<GroupEmployers>(userData[i].Value);
                 DataHolder.groupEmployers = groupEmployers;
+            }
+            else if (userData[i].Key == "ListManagers")
+            {
+                Debug.Log("Lectura datos 6 super user");
+                groupManagers = JsonUtility.FromJson<GroupManagers>(userData[i].Value);
+                DataHolder.groupManagers = groupManagers; 
             }    
         }
     }
@@ -258,16 +283,16 @@ public class AuthenticationHandler : MonoBehaviour
     
     //creacion de usuarios nuevos por medio de SP
     //Usuario Employer:
-    public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer)
+    public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailEmployer,_password, _nameEmployer, true);
-        StorageObjectsEmployer(_emailEmployer, _password, _nameEmployer);
+        StorageObjectsEmployer(_emailEmployer, _password, _nameEmployer, _sucursal);
     }
 
 
 
 
-    public async void StorageObjectsEmployer(string email,  string _passwordEmployer, string _nameEmployer)
+    public async void StorageObjectsEmployer(string email,  string _passwordEmployer, string _nameEmployer, string _sucursal)
     {
         userEmployer = new UserEmployer
         {
@@ -275,7 +300,7 @@ public class AuthenticationHandler : MonoBehaviour
             positionEmployer = "",
             emailEmployer = email,
             passwordEmployer = _passwordEmployer,
-            sucursalEmployer = "",
+            sucursalEmployer = _sucursal,
             tutorialFirst = false,
         };
 
@@ -357,14 +382,15 @@ public class AuthenticationHandler : MonoBehaviour
 
 
 
-    public async void SignUpNewManager(string _emailManager, string _passwordManager, string _nameManager)
+    //creacion de usuario manager:
+    public async void SignUpNewManager(string _emailManager, string _passwordManager, string _nameManager, string _nameSucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailManager, _passwordManager, _nameManager, true);
-        StorageObjectsManager(_emailManager, _passwordManager, _nameManager);
+        StorageObjectsManager(_emailManager, _passwordManager, _nameManager, _nameSucursal);
     }
 
 
-    public async void StorageObjectsManager(string email,  string _password, string _name)
+    public async void StorageObjectsManager(string email,  string _password, string _name, string _nameSucursal)
     {
         Debug.Log("escritura de datos");
         userManager = new UserManager
@@ -372,7 +398,7 @@ public class AuthenticationHandler : MonoBehaviour
             nameManager = _name,
             emailManager = email,
             passwordManager = _password,
-            sucursalManager = "Houston",
+            sucursalManager = _nameSucursal,
             tutorialFirst = false,
         };
 
@@ -404,6 +430,7 @@ public class AuthenticationHandler : MonoBehaviour
         DataHolder.userManager = userManager;
         DataHolder.usersPermissions = usersPermissions;
         Debug.Log(DataHolder.userManager.emailManager);
+        AddListManagers(userManager);
     }
 
     public async void ReadMyStorageObjectsUserManager(string email)
@@ -465,5 +492,12 @@ public class AuthenticationHandler : MonoBehaviour
         groupEmployers.employers.Add(_userEmployer);
         DataHolder.groupEmployers = groupEmployers;
         DataHolder.instance.WriteNakamaSaveEmployerList(email);
+    }
+
+    public void AddListManagers(UserManager _userManager)
+    {
+        groupManagers.managers.Add(_userManager);
+        DataHolder.groupManagers = groupManagers;
+        DataHolder.instance.WriteNakamaSaveManagerList(email);
     }
 }

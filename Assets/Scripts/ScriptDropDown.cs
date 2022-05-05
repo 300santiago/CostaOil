@@ -7,7 +7,7 @@ using TMPro;
 
 public class ScriptDropDown : MonoBehaviour
 {
-    
+    public string nameSucursal;
     public static ScriptDropDown instance;
    
     private void Awake()
@@ -17,11 +17,8 @@ public class ScriptDropDown : MonoBehaviour
     }
     
 
-
-
     public void DropDownAddList()
     {
-        Debug.Log("agreegar lista dropdown");
        var dropDown = transform.GetComponent<TMP_Dropdown>();
         dropDown.options.Clear();
         foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
@@ -31,14 +28,11 @@ public class ScriptDropDown : MonoBehaviour
         DropdownItemsSelected(dropDown);
         dropDown.onValueChanged.AddListener(delegate { DropdownItemsSelected (dropDown);}); 
     }
-    void Start() 
-    {
-    }
+    
 
     void DropdownItemsSelected(TMP_Dropdown dropdown)
     {
         int index = dropdown.value;
-        Debug.Log(index);
-        
+        nameSucursal = dropdown.options[index].text; 
     }
 }

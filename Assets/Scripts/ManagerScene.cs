@@ -151,8 +151,23 @@ public class ManagerScene : MonoBehaviour
         //_passwordEmployer = passwordaleatory;
         _passwordEmployer = "12345678";
         _nameEmployer = textNameEmployer.text;
-        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer);
+
+        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer, ScriptDropDown.instance.nameSucursal);
     }
+
+    public void ClearInputFieldsEmployer()
+    {
+        textEmailEmployer.text = string.Empty;
+        textNameEmployer.text = string.Empty;
+    }
+    public void ClearInputFieldsManager()
+    {
+        emailManager.text = string.Empty;
+        nameManager.text = string.Empty;
+    }
+
+
+
 
     public void AddNewManager()
     {
@@ -174,10 +189,11 @@ public class ManagerScene : MonoBehaviour
         }
 
         _emailManager = emailManager.text;
-        _passwordManager = passwordaleatoryManager;
+        //_passwordManager = passwordaleatoryManager;
+        _passwordManager = "12345678";
         _nameManager = nameManager.text;
 
-        AuthenticationHandler.instance.SignUpNewManager( _emailManager, _passwordManager,  _nameManager); 
+        AuthenticationHandler.instance.SignUpNewManager( _emailManager, _passwordManager,  _nameManager, ScriptDropDown.instance.nameSucursal); 
     }
 
     public void AddListDropDown()

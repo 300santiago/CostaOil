@@ -155,7 +155,8 @@ public class TutorialScene : MonoBehaviour
 
             case 5:
             textTutorial.text = $"The second process is to enter the name of your first sucursal";
-            DataHolder.superUserclass.nameSuperUser = inputName_SP;
+            DataHolder.superUserclass.nameSuperUser = textNameSuperUser.text;
+            Debug.Log(DataHolder.superUserclass.nameSuperUser);
             textNameSuperUser.text = string.Empty;
             inputNameSPpanel.SetActive(false);
             inputNameSucursal.SetActive(true);
@@ -190,29 +191,12 @@ public class TutorialScene : MonoBehaviour
 
             textNameSucursal.text = string.Empty;
             //Debug.Log(DataHolder.userSucursals.nameSucursal);
-            Debug.Log($"Sucursal: {DataHolder.sucursals.nameSucursal}");
-
-            foreach (Sucursals p in listSucursals.teamSucursals)
-            {
-                print(p.nameSucursal);
-            }
             StartCoroutine(ShowLoadingPanel(0));
             break;
         }
     }
 
-    public void AsignNameSuperUser(string nameSP)
-    {
-        inputName_SP = nameSP;
-        Debug.Log(inputName_SP);
-        PlayerPrefs.SetString("nameSuperUser",inputName_SP);
-    }
-    public void AsignNameSucursal(string nameSC)
-    {
-        inputName_Sucursal = nameSC;
-        Debug.Log(inputName_Sucursal);
-        PlayerPrefs.SetString("nameSucursal", inputName_Sucursal);
-    }
+    
 
 
       IEnumerator ShowLoadingPanel(int _Scene)
@@ -338,14 +322,6 @@ public class TutorialScene : MonoBehaviour
         }
     }
 
-    /*public void AddSucursal(Sucursals _sucursals)
-    {
-        string emailSuperUser = AuthenticationHandler.instance.email ;
-        Debug.Log("add sucursal");
-        listSucursals.teamSucursals.Add(_sucursals);
-        DataHolder.listSucursals = listSucursals;
-        DataHolder.instance.WriteNakamaSuperUser(emailSuperUser);
-    }*/
 
     public void sucursals()
     {
