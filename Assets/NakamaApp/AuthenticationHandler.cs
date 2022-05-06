@@ -230,6 +230,7 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Debug.Log("Lectura datos 1 super user");
                 DataHolder.superUserclass= JsonUtility.FromJson<SuperUserClass>(userData[i].Value);
+                Debug.Log(DataHolder.superUserclass.emailSuperUser);
 
             }
             else if (userData[i].Key == "UserPermissions")
@@ -289,9 +290,6 @@ public class AuthenticationHandler : MonoBehaviour
         StorageObjectsEmployer(_emailEmployer, _password, _nameEmployer, _sucursal);
     }
 
-
-
-
     public async void StorageObjectsEmployer(string email,  string _passwordEmployer, string _nameEmployer, string _sucursal)
     {
         userEmployer = new UserEmployer
@@ -335,7 +333,7 @@ public class AuthenticationHandler : MonoBehaviour
     }
 
 
-
+    //lectura de datos deusuarios employers creados
     public async void ReadMyStorageObjectsUserEmployer(string email)
     {
          IApiReadStorageObjectId[] objectsId = {
@@ -382,7 +380,7 @@ public class AuthenticationHandler : MonoBehaviour
 
 
 
-    //creacion de usuario manager:
+    //creacion de usuario manager por medio se SP:
     public async void SignUpNewManager(string _emailManager, string _passwordManager, string _nameManager, string _nameSucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailManager, _passwordManager, _nameManager, true);
@@ -465,6 +463,7 @@ public class AuthenticationHandler : MonoBehaviour
                 Debug.Log("lectura de datos manager 1");
                 userManager = JsonUtility.FromJson<UserManager>(userData[i].Value);
                 DataHolder.userManager = userManager;
+               
             }
             else if (userData[i].Key == "UserPermissions")
             {
@@ -473,11 +472,60 @@ public class AuthenticationHandler : MonoBehaviour
                 DataHolder.userManager = userManager;
             }
         }
-        _case = 3;
-        Debug.Log(_case);
     }
 
 
+    //creación de employer nuevo a partir de usuario Manager:
+    public async void SignUpNewEmployers2(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
+    {
+        session = await client.AuthenticateEmailAsync(_emailEmployer,_password, _nameEmployer, true);
+        StorageObjectsEmployer2(_emailEmployer, _password, _nameEmployer, _sucursal);
+    }
+
+    public async void StorageObjectsEmployer2(string email,  string _passwordEmployer, string _nameEmployer, string _sucursal)
+    {
+        userEmployer = new UserEmployer
+        {
+            nameEmployer = _nameEmployer,
+            positionEmployer = "",
+            emailEmployer = email,
+            passwordEmployer = _passwordEmployer,
+            sucursalEmployer = _sucursal,
+            tutorialFirst = false,
+        };
+
+        usersPermissions = new UsersPermissions
+        {
+            createUserEmployer = false,
+            createUserManager = false,
+            createNewSucursals = false,
+            createNewWorkCar = true,
+        };
+
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(userEmployer)
+            },
+
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserPermissions",
+                Value = JsonUtility.ToJson(usersPermissions)        
+            }
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+        DataHolder.userEmployer = userEmployer;
+        DataHolder.usersPermissions = usersPermissions;
+        AddListEmployers2(userEmployer);
+    }
+
+
+    
     public void AddSucursal(Sucursals _sucursals)
     {
         Debug.Log("add sucursal");
@@ -488,10 +536,17 @@ public class AuthenticationHandler : MonoBehaviour
 
     public void AddListEmployers(UserEmployer _userEmployer)
     {
-        Debug.Log("add employer List");
         groupEmployers.employers.Add(_userEmployer);
         DataHolder.groupEmployers = groupEmployers;
         DataHolder.instance.WriteNakamaSaveEmployerList(email);
+    }
+
+    public void AddListEmployers2(UserEmployer _userEmployer)
+    {
+        groupEmployers.employers.Add(_userEmployer);
+        DataHolder.groupEmployers = groupEmployers;
+        DataHolder.instance.WriteNakamaSaveEmployerList(email);
+        //DataHolder.instance.WriteNakamaSaveEmployerList2("s@hotmail.com");
     }
 
     public void AddListManagers(UserManager _userManager)

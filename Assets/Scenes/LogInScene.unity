@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19187604, y: 0.24231325}
   m_AnchorMax: {x: 0.79077524, y: 0.31643775}
-  m_AnchoredPosition: {x: 2.5, y: -735}
+  m_AnchoredPosition: {x: 2.5, y: -394}
   m_SizeDelta: {x: 4.779999, y: 5.8099976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &15300908
@@ -3558,8 +3558,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: COSTA OIL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
-  m_sharedMaterial: {fileID: 7374927986402738804, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e1f5ceef8fdf1a040b2afa2440f724a8, type: 2}
+  m_sharedMaterial: {fileID: 7374927986402738804, guid: e1f5ceef8fdf1a040b2afa2440f724a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

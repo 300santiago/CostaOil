@@ -157,6 +157,22 @@ public class DataHolder : MonoBehaviour
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
 
+    public async void WriteNakamaSaveEmployerList2(string email)
+    {
+        
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "ListEmployers",
+                Value = JsonUtility.ToJson(groupEmployers)
+            },
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+    }
+
+
     public async void WriteNakamaSaveManagerList(string email)
     {
         

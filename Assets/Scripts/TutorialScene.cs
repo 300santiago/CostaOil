@@ -9,6 +9,7 @@ public class TutorialScene : MonoBehaviour
 {
     [Header("GameObjects panels")]
     [SerializeField] GameObject [] panelsTutorial;
+
     [Header("SuperUserComponents")]
     [SerializeField] GameObject [] imagesTutorialSP;
     [SerializeField] GameObject [] numbersTutorialSP;
@@ -82,6 +83,7 @@ public class TutorialScene : MonoBehaviour
         
         if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
         {
+            //employer user
             Debug.Log("employer");
             panelsTutorial[2].SetActive(true);
             explicationEmployerText.text = $"Welcome {DataHolder.userEmployer.nameEmployer} This application allows you to organize your workspace.";
@@ -89,12 +91,13 @@ public class TutorialScene : MonoBehaviour
 
         else if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
         {
+            // super user
             Debug.Log("super User");
             panelsTutorial[0].SetActive(true);
             textTutorial.text = $"This application allows you to organize your workspace. Here is a quick explanation of the first steps";
             textTitle.text = $"FIRST STEPS WITH THE PLATFORM SUPER USER";
         }
-
+        //manager user
         else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
         {
             Debug.Log("manager user");
@@ -269,7 +272,8 @@ public class TutorialScene : MonoBehaviour
     }
 
 
-    //managers
+
+    //Totorial managers
     public void ButtonNextManager(int _case)
     {
         _case = counterManager;
