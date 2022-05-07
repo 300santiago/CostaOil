@@ -16,7 +16,7 @@ public class ManagerScene : MonoBehaviour
     [SerializeField] TMP_InputField textNameSucursal;
     public TMP_InputField textEmailEmployer;
 
-    [Header("GameObjects")]
+    [Header("GameObjects panels")]
     [SerializeField] GameObject panelHome;
     [SerializeField] GameObject panelSavePlayers;
     [SerializeField] GameObject backgroundNormal;
@@ -75,7 +75,6 @@ public class ManagerScene : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log("carga escena");
         if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
         {
             panelHomeEmployer.SetActive(true);
@@ -133,7 +132,6 @@ public class ManagerScene : MonoBehaviour
         string _emailEmployer;
         string _passwordEmployer;
         string _nameEmployer;
-
         string charactersPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         int longcharacters = charactersPassword.Length;
         char letter;
@@ -180,8 +178,6 @@ public class ManagerScene : MonoBehaviour
         char letter;
         int lengPassword = 10;
         passwordaleatoryManager = string.Empty;
-
-
         for  (int i = 0; i<lengPassword; i++)
         {
             letter = charactersPassword[Random.Range(0,longcharacters)];
@@ -199,13 +195,5 @@ public class ManagerScene : MonoBehaviour
     public void AddListDropDown()
     {
         ScriptDropDown.instance.DropDownAddList();
-    }
-
-    public void printListEmployers()
-    {
-        foreach (UserEmployer p in DataHolder.groupEmployers.employers)
-        {
-            print(p.nameEmployer);
-        }    
     }
 }

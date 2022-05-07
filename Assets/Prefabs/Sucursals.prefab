@@ -527,6 +527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbefa003d7fccd41a00221f92bcf1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameSucursal: {fileID: 3768151347559300790}
-  thisSucursals:
+  panelShowInfo: {fileID: 0}
+  panelSucursals: {fileID: 0}
+  nameSucursalPrefb: {fileID: 3768151347559300790}
+  nameSucursals: {fileID: 0}
+  thisSucursal:
     nameSucursal: 

@@ -16939,6 +16939,8 @@ MonoBehaviour:
     tutorialFirst: 0
   groupEmployers:
     employers: []
+  listSucursals:
+    teamSucursals: []
 --- !u!4 &1020274124
 Transform:
   m_ObjectHideFlags: 0

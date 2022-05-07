@@ -238,7 +238,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1954730988}
         m_TargetAssemblyTypeName: AuthenticationHandler, Assembly-CSharp
-        m_MethodName: SignUp
+        m_MethodName: SignUpSuperAdminUser
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -734,7 +734,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1954730988}
         m_TargetAssemblyTypeName: AuthenticationHandler, Assembly-CSharp
-        m_MethodName: WriteObjects
+        m_MethodName: LoginSadmin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -914,6 +914,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1453461718}
+  - {fileID: 1424195337}
   - {fileID: 1886606065}
   - {fileID: 1149228637}
   m_Father: {fileID: 1466524513}
@@ -2691,12 +2692,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 344123929}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.33800003, y: 0.1722267}
-  m_AnchorMax: {x: 0.6574074, y: 0.34643695}
-  m_AnchoredPosition: {x: 1.8800049, y: 2.119995}
-  m_SizeDelta: {x: -0.20999146, y: 9.790009}
+  m_AnchorMin: {x: 0.33800003, y: 0.38364717}
+  m_AnchorMax: {x: 0.6517037, y: 0.55078983}
+  m_AnchoredPosition: {x: 4.880005, y: -4}
+  m_SizeDelta: {x: 5.7900085, y: 23.790009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149228638
 MonoBehaviour:
@@ -3518,6 +3519,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382908151}
   m_CullTransparentMesh: 1
+--- !u!1 &1424195336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1424195337}
+  - component: {fileID: 1424195339}
+  - component: {fileID: 1424195338}
+  m_Layer: 0
+  m_Name: TextExplication
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1424195337
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424195336}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 344123929}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.14748147, y: 0.5792688}
+  m_AnchorMax: {x: 0.8457038, y: 0.70400006}
+  m_AnchoredPosition: {x: 8.329956, y: -1}
+  m_SizeDelta: {x: 4.619995, y: 2.413269}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1424195338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424195336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: The app you need to organize your business
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 46
+  m_fontSizeBase: 46
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1424195339
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424195336}
+  m_CullTransparentMesh: 1
 --- !u!1 &1453461715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3556,10 +3691,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: COSTA OIL
+  m_text: Welcome to costa oil
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e1f5ceef8fdf1a040b2afa2440f724a8, type: 2}
-  m_sharedMaterial: {fileID: 7374927986402738804, guid: e1f5ceef8fdf1a040b2afa2440f724a8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3589,7 +3724,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3647,10 +3782,10 @@ RectTransform:
   m_Father: {fileID: 344123929}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.14748147, y: 0.59362507}
-  m_AnchorMax: {x: 0.8457038, y: 0.7125835}
-  m_AnchoredPosition: {x: 8.329956, y: -5.532776}
-  m_SizeDelta: {x: 4.619995, y: 13.413254}
+  m_AnchorMin: {x: 0.14748147, y: 0.7492871}
+  m_AnchorMax: {x: 0.8457038, y: 0.8857734}
+  m_AnchoredPosition: {x: 8.329956, y: -5.5}
+  m_SizeDelta: {x: 4.619995, y: -19.586731}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1466524512
 GameObject:
@@ -4333,10 +4468,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOGIN
+  m_text: Start Now
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
-  m_sharedMaterial: {fileID: 7374927986402738804, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4366,7 +4501,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4787,12 +4922,12 @@ RectTransform:
   m_Children:
   - {fileID: 1712257083}
   m_Father: {fileID: 344123929}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.14748147, y: 0.4245}
-  m_AnchorMax: {x: 0.8457038, y: 0.5156668}
-  m_AnchoredPosition: {x: 8.650085, y: 8.839081}
-  m_SizeDelta: {x: 4.700012, y: -3.0262184}
+  m_AnchorMin: {x: 0.14748147, y: 0.18770568}
+  m_AnchorMax: {x: 0.8457038, y: 0.28085738}
+  m_AnchoredPosition: {x: 8.650085, y: -10.9999695}
+  m_SizeDelta: {x: 4.700012, y: -7.0262146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1886606066
 MonoBehaviour:
@@ -4953,6 +5088,12 @@ MonoBehaviour:
   port: 7350
   serverKey: defaultkey
   email: 
+  superUserClass:
+    nameSuperUser: 
+    emailSuperUser: 
+    tutorialFirst: 0
+  listSucursals:
+    teamSucursals: []
   sucursals:
     nameSucursal: 
   userEmployer:
@@ -4977,6 +5118,11 @@ MonoBehaviour:
     employers: []
   groupManagers:
     managers: []
+  listEmployersClass:
+    listEmployers: []
+  superAdminClass:
+    nameAdmin: 
+    listSucursals: []
 --- !u!4 &1954730989
 Transform:
   m_ObjectHideFlags: 0

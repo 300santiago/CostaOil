@@ -3686,10 +3686,6 @@ PrefabInstance:
       propertyPath: panelSucursals
       value: 
       objectReference: {fileID: 1026861651}
-    - target: {fileID: 123500630392824013, guid: db25e851ed667f34db55ced41b2a951c, type: 3}
-      propertyPath: nameSucursalPrefb
-      value: 
-      objectReference: {fileID: 1342510885}
     - target: {fileID: 2415349125079005366, guid: db25e851ed667f34db55ced41b2a951c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3808,17 +3804,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db25e851ed667f34db55ced41b2a951c, type: 3}
---- !u!114 &1342510885 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3768151347559300790, guid: db25e851ed667f34db55ced41b2a951c, type: 3}
-  m_PrefabInstance: {fileID: 1342510884}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1342510886 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8794462211225991650, guid: db25e851ed667f34db55ced41b2a951c, type: 3}

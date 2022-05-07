@@ -10,10 +10,12 @@ using System.Linq;
 public class AuthenticationHandler : MonoBehaviour
 {
     
+
     [Header("variables Nakama")]
     //variables nakama
     private IClient client;
     private ISession session;
+    private ISession sessionSuperAdmin;
     private ISession sessionEmployer;
     private IApiAccount account;
     public string protocol;
@@ -24,6 +26,7 @@ public class AuthenticationHandler : MonoBehaviour
     [Header("Variables credentials")]
     public string email;
     private string password;
+    
 
     [Header("Classes")]
     public SuperUserClass superUserClass;
@@ -34,11 +37,11 @@ public class AuthenticationHandler : MonoBehaviour
     public UserManager userManager;
     public GroupEmployers groupEmployers; 
     public GroupManagers groupManagers;
-    private int _case;
-
-
-
+    public ListEmployersClass listEmployersClass;
+    public SuperAdminClass superAdminClass;
     public static  AuthenticationHandler instance;
+
+
 
     private void Awake()
     {
@@ -62,20 +65,90 @@ public class AuthenticationHandler : MonoBehaviour
 
     }
 
-    
+    //log in de super usuario administrador:
+    public async void LoginSadmin()
+    {
+        string _emailSuperAdmin = "admin@hotmail.com";
+        string _passwordSuperAdmin = "12345678";
+        sessionSuperAdmin = await client.AuthenticateEmailAsync(_emailSuperAdmin, _passwordSuperAdmin, "Super User Admin", false);
+        ReadMyStorageObjectsSadmin(_emailSuperAdmin);
+
+    }
+    // log in normal de usuarios:
     public async void Login()
     {
         email = LogInScene.instance.emailCredentials.text;
         password = LogInScene.instance.passwordCredentials.text;
         session = await client.AuthenticateEmailAsync(email, password, "", false);
-        DataHolder.instance.session = session;
-        DataHolder.instance.email = email;
-        ReadMyStorageObjects(email);
+        ReadMyStorageObjectsSuser(email);
         ReadMyStorageObjectsUserEmployer(email);
         ReadMyStorageObjectsUserManager(email);
         StartCoroutine(delay());
     }
 
+    //sign up de Super Usuario Administrador:
+    public async void SignUpSuperAdminUser()
+    {
+        string _emailSuperAdmin;
+        string _passwordSuperAdmin;
+        _emailSuperAdmin = LogInScene.instance.emailCredentials.text;
+        _passwordSuperAdmin = "12345678";
+        sessionSuperAdmin = await client.AuthenticateEmailAsync(_emailSuperAdmin, _passwordSuperAdmin, "Super User Admin", true);
+        StorageObjectsSadmin(_emailSuperAdmin);
+    }
+    //escritura nakama Super Usuario Administrador:
+    public async void StorageObjectsSadmin(string _emailSuperAdmin)
+    {
+        superAdminClass = new SuperAdminClass
+        {
+            nameAdmin = "Super Admin"
+        };
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = _emailSuperAdmin,
+                Key = "InfoAdmin",
+                Value = JsonUtility.ToJson(superAdminClass)
+            },
+        };
+        await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
+        DataHolder.superAdminClass = superAdminClass;
+    }
+    //Lectura nakama Super Usuario Administrador:
+    public async void ReadMyStorageObjectsSadmin(string _emailSuperAdmin)
+    {
+         IApiReadStorageObjectId[] objectsId =
+        {
+            new StorageObjectId
+            {
+                Collection = _emailSuperAdmin,
+                Key = "InfoAdmin",
+                UserId = sessionSuperAdmin.UserId
+            },
+        };
+        IApiStorageObjects objects = await client.ReadStorageObjectsAsync(sessionSuperAdmin, objectsId);
+        IApiStorageObject[] userData = objects.Objects.ToArray();
+
+        foreach (IApiStorageObject o in userData)
+        {
+            //print(o.Key + "/" + o.Value);
+        }
+
+        for (int i = 0; i < userData.Length; i++)
+        {
+            if (userData[i].Key == "InfoAdmin")
+            {
+                DataHolder.superAdminClass= JsonUtility.FromJson<SuperAdminClass>(userData[i].Value);
+            }
+        }
+    }
+
+   
+   
+   
+   
+    //sign up de super usuario:
     public async void SignUp()
     {
         email = LogInScene.instance.emailCredentials.text;
@@ -83,9 +156,6 @@ public class AuthenticationHandler : MonoBehaviour
         session = await client.AuthenticateEmailAsync(email, password, "Super User", true);
         StorageObjects(email);
     }
-
-
-
     //escribir en nakama super user unico registro
     public async void StorageObjects(string email)
     {
@@ -93,7 +163,6 @@ public class AuthenticationHandler : MonoBehaviour
         {
              nameSuperUser = "",
              emailSuperUser =  LogInScene.instance.emailCredentials.text,
-             passwordSuperUser = LogInScene.instance.passwordCredentials.text,
              tutorialFirst = false,
         };
          usersPermissions = new UsersPermissions
@@ -103,25 +172,6 @@ public class AuthenticationHandler : MonoBehaviour
             createNewSucursals = true,
             createNewWorkCar = true,
         };
-
-        sucursals = new Sucursals
-        {
-            nameSucursal = ""
-        };
-
-        listSucursals = new ListSucursals
-        {
-
-        };
-        groupEmployers = new GroupEmployers
-        {
-
-        };
-        groupManagers = new GroupManagers
-        {
-
-        };
-
 
         IApiWriteStorageObject[] writeObjects = new[]
         {
@@ -138,44 +188,15 @@ public class AuthenticationHandler : MonoBehaviour
                 Key = "UserPermissions",
                 Value = JsonUtility.ToJson(usersPermissions)
             },
-
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "Sucursal",
-                Value = JsonUtility.ToJson(sucursals)
-            },
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "ListSucursals",
-                Value = JsonUtility.ToJson(listSucursals)
-            },
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "ListEmployers",
-                Value = JsonUtility.ToJson(groupEmployers)
-            },
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "ListManagers",
-                Value = JsonUtility.ToJson(groupManagers)
-            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.superUserclass = superUserClass;
         DataHolder.usersPermissions = usersPermissions;
-        DataHolder.sucursals = sucursals;
-        DataHolder.listSucursals = listSucursals;
-        DataHolder.groupEmployers = groupEmployers;
-        DataHolder.groupManagers = groupManagers;
     }
 
 
     //lectura de datos super user
-     public async void ReadMyStorageObjects(string email)
+     public async void ReadMyStorageObjectsSuser(string email)
     {
          IApiReadStorageObjectId[] objectsId = {
             new StorageObjectId
@@ -190,85 +211,27 @@ public class AuthenticationHandler : MonoBehaviour
                 Key = "UserPermissions",
                 UserId = session.UserId
             },
-             new StorageObjectId
-            {
-                Collection = email,
-                Key = "Sucursal",
-                UserId = session.UserId
-            },
-            new StorageObjectId
-            {
-                Collection = email,
-                Key = "ListSucursals",
-                UserId = session.UserId
-            },
-            new StorageObjectId
-            {
-                Collection = email,
-                Key = "ListEmployers",
-                UserId = session.UserId
-            },
-            new StorageObjectId
-            {
-                Collection = email,
-                Key = "ListManagers",
-                UserId = session.UserId
-            },
-
         };
         IApiStorageObjects objects = await client.ReadStorageObjectsAsync(session, objectsId);
         IApiStorageObject[] userData = objects.Objects.ToArray();
 
         foreach (IApiStorageObject o in userData)
         {
-            print(o.Key + "/" + o.Value);
+            //print(o.Key + "/" + o.Value);
         }
 
         for (int i = 0; i < userData.Length; i++)
         {
             if (userData[i].Key == "UserInfo")
             {
-                Debug.Log("Lectura datos 1 super user");
                 DataHolder.superUserclass= JsonUtility.FromJson<SuperUserClass>(userData[i].Value);
-                Debug.Log(DataHolder.superUserclass.emailSuperUser);
-
             }
             else if (userData[i].Key == "UserPermissions")
             {
-                Debug.Log("Lectura datos 2 super user");
-                usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
-                DataHolder.usersPermissions = usersPermissions;
+                DataHolder.usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
             }
-             else if (userData[i].Key == "Sucursal")
-            {
-                Debug.Log("Lectura datos 3 super user");
-                sucursals = JsonUtility.FromJson<Sucursals>(userData[i].Value);
-                DataHolder.sucursals = sucursals;
-            }
-
-            else if (userData[i].Key == "ListSucursals")
-            {
-                Debug.Log("Lectura datos 4 super user");
-                listSucursals = JsonUtility.FromJson<ListSucursals>(userData[i].Value);
-                DataHolder.listSucursals = listSucursals;
-            }
-            else if (userData[i].Key == "ListEmployers")
-            {
-                Debug.Log("Lectura datos 5 super user");
-                groupEmployers = JsonUtility.FromJson<GroupEmployers>(userData[i].Value);
-                DataHolder.groupEmployers = groupEmployers;
-            }
-            else if (userData[i].Key == "ListManagers")
-            {
-                Debug.Log("Lectura datos 6 super user");
-                groupManagers = JsonUtility.FromJson<GroupManagers>(userData[i].Value);
-                DataHolder.groupManagers = groupManagers; 
-            }    
         }
     }
-
-
-
 
     IEnumerator delay()
     {
@@ -282,7 +245,13 @@ public class AuthenticationHandler : MonoBehaviour
 
 
     
+
+
+
+
+
     //creacion de usuarios nuevos por medio de SP
+    ///////////////////////////////////////////////////////////////
     //Usuario Employer:
     public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
     {
@@ -297,7 +266,6 @@ public class AuthenticationHandler : MonoBehaviour
             nameEmployer = _nameEmployer,
             positionEmployer = "",
             emailEmployer = email,
-            passwordEmployer = _passwordEmployer,
             sucursalEmployer = _sucursal,
             tutorialFirst = false,
         };
@@ -329,11 +297,11 @@ public class AuthenticationHandler : MonoBehaviour
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.userEmployer = userEmployer;
         DataHolder.usersPermissions = usersPermissions;
-        AddListEmployers(userEmployer);
+        AddEmployerList(userEmployer);
     }
 
 
-    //lectura de datos deusuarios employers creados
+    //lectura de datos de usuarios employers creados
     public async void ReadMyStorageObjectsUserEmployer(string email)
     {
          IApiReadStorageObjectId[] objectsId = {
@@ -356,31 +324,27 @@ public class AuthenticationHandler : MonoBehaviour
 
         foreach (IApiStorageObject o in userData)
         {
-            print(o.Key + "/" + o.Value);
+            //print(o.Key + "/" + o.Value);
         }
 
         for (int i = 0; i < userData.Length; i++)
         {
             if (userData[i].Key == "UserInfo")
             {
-                Debug.Log("lectura de datos employer 1");
-                userEmployer = JsonUtility.FromJson<UserEmployer>(userData[i].Value);
-                DataHolder.userEmployer = userEmployer;
+                DataHolder.userEmployer = JsonUtility.FromJson<UserEmployer>(userData[i].Value);
             }
             else if (userData[i].Key == "UserPermissions")
             {
-                Debug.Log("lectura de datos employer 2");
-                usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
-                DataHolder.usersPermissions = usersPermissions;
+                DataHolder.usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
             }
         }
-        _case = 2;
-        Debug.Log(_case);
+
     }
 
 
 
     //creacion de usuario manager por medio se SP:
+    ///////////////////////////////////////////////////////////////
     public async void SignUpNewManager(string _emailManager, string _passwordManager, string _nameManager, string _nameSucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailManager, _passwordManager, _nameManager, true);
@@ -390,12 +354,10 @@ public class AuthenticationHandler : MonoBehaviour
 
     public async void StorageObjectsManager(string email,  string _password, string _name, string _nameSucursal)
     {
-        Debug.Log("escritura de datos");
         userManager = new UserManager
         {
             nameManager = _name,
             emailManager = email,
-            passwordManager = _password,
             sucursalManager = _nameSucursal,
             tutorialFirst = false,
         };
@@ -427,8 +389,7 @@ public class AuthenticationHandler : MonoBehaviour
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.userManager = userManager;
         DataHolder.usersPermissions = usersPermissions;
-        Debug.Log(DataHolder.userManager.emailManager);
-        AddListManagers(userManager);
+        AddManagerList(userManager);
     }
 
     public async void ReadMyStorageObjectsUserManager(string email)
@@ -453,53 +414,92 @@ public class AuthenticationHandler : MonoBehaviour
 
         foreach (IApiStorageObject o in userData)
         {
-            print(o.Key + "/" + o.Value);
+            //print(o.Key + "/" + o.Value);
         }
 
         for (int i = 0; i < userData.Length; i++)
         {
             if (userData[i].Key == "UserInfo")
             {
-                Debug.Log("lectura de datos manager 1");
-                userManager = JsonUtility.FromJson<UserManager>(userData[i].Value);
-                DataHolder.userManager = userManager;
+                DataHolder.userManager = JsonUtility.FromJson<UserManager>(userData[i].Value);
+                
                
             }
             else if (userData[i].Key == "UserPermissions")
             {
-                Debug.Log("lectura de datos manager 2");
-                usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
-                DataHolder.userManager = userManager;
+                DataHolder.usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);     
             }
         }
     }
-
-
-    //creación de employer nuevo a partir de usuario Manager:
-    public async void SignUpNewEmployers2(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
+ 
+    public void AddSucursal(Sucursals _sucursals)
     {
-        session = await client.AuthenticateEmailAsync(_emailEmployer,_password, _nameEmployer, true);
-        StorageObjectsEmployer2(_emailEmployer, _password, _nameEmployer, _sucursal);
+        string _emailSuperAdmin = "admin@hotmail.com"; 
+        DataHolder.superAdminClass.listSucursals.Add(_sucursals);
+        WriteNakamaSuperUser(email);   
+        WriteNakamaAdminUser(_emailSuperAdmin);
     }
 
-    public async void StorageObjectsEmployer2(string email,  string _passwordEmployer, string _nameEmployer, string _sucursal)
+    public void AddEmployerList(UserEmployer _userEmployer)
     {
-        userEmployer = new UserEmployer
+        string _emailSuperAdmin = "admin@hotmail.com";
+        DataHolder.superAdminClass.listEmployers.Add(_userEmployer);
+        WriteNakamaAdminUser(_emailSuperAdmin);
+    }
+
+    public void AddManagerList(UserManager _userManager)
+    {
+        string _emailSuperAdmin = "admin@hotmail.com";
+        DataHolder.superAdminClass.listManagers.Add(_userManager);
+        WriteNakamaAdminUser(_emailSuperAdmin);
+    }
+
+    public async void WriteNakamaSuperUser(string email)
+    {
+        superUserClass = new SuperUserClass
         {
-            nameEmployer = _nameEmployer,
-            positionEmployer = "",
-            emailEmployer = email,
-            passwordEmployer = _passwordEmployer,
-            sucursalEmployer = _sucursal,
-            tutorialFirst = false,
+            nameSuperUser = DataHolder.superUserclass.nameSuperUser,
+            tutorialFirst = DataHolder.superUserclass.tutorialFirst,
+            
+        };
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(superUserClass)
+            },
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+    }
+
+     public async void WriteNakamaAdminUser(string email)
+    {
+        superAdminClass = new SuperAdminClass
+        {
+            listEmployers = DataHolder.superAdminClass.listEmployers,
+            listManagers = DataHolder.superAdminClass.listManagers,
+            listSucursals = DataHolder.superAdminClass.listSucursals,
         };
 
-        usersPermissions = new UsersPermissions
+        IApiWriteStorageObject[] writeObjects = new[]
         {
-            createUserEmployer = false,
-            createUserManager = false,
-            createNewSucursals = false,
-            createNewWorkCar = true,
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "InfoAdmin",
+                Value = JsonUtility.ToJson(superAdminClass)
+            },
+        };
+        await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
+    }
+
+    public async void WriteNakamaManagerUser(string email)
+    {
+        userManager = new UserManager
+        {
+            tutorialFirst = DataHolder.userManager.tutorialFirst
         };
 
         IApiWriteStorageObject[] writeObjects = new[]
@@ -508,31 +508,36 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserInfo",
-                Value = JsonUtility.ToJson(userEmployer)
+                Value = JsonUtility.ToJson(userManager)
             },
-
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "UserPermissions",
-                Value = JsonUtility.ToJson(usersPermissions)        
-            }
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-        DataHolder.userEmployer = userEmployer;
-        DataHolder.usersPermissions = usersPermissions;
-        AddListEmployers2(userEmployer);
     }
 
 
-    
-    public void AddSucursal(Sucursals _sucursals)
-    {
-        Debug.Log("add sucursal");
-        listSucursals.teamSucursals.Add(_sucursals);
-        DataHolder.listSucursals = listSucursals;
-        DataHolder.instance.WriteNakamaSuperUser(email);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void AddListEmployers(UserEmployer _userEmployer)
     {

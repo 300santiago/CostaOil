@@ -16,6 +16,7 @@ public class PrefabSucursals : MonoBehaviour
     [SerializeField] TMP_Text nameSucursals;
     [Header("Classes")]
     public Sucursals thisSucursal = new Sucursals();
+   
 
     private void Start()
     {

@@ -12,7 +12,7 @@ public class ConsultEmployers : MonoBehaviour
 
     void Start()
     {
-         foreach (UserEmployer p in DataHolder.groupEmployers.employers)
+         foreach (UserEmployer p in DataHolder.superAdminClass.listEmployers)
         {
             print(p.nameEmployer);
             GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);

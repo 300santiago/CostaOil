@@ -10,7 +10,6 @@ public class UserManager
     public string nameManager;
     //public string positionEmployer;
     public string emailManager;
-    public string passwordManager;
     public string sucursalManager;
     public bool tutorialFirst;
 

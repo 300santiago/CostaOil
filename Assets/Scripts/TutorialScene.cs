@@ -101,7 +101,6 @@ public class TutorialScene : MonoBehaviour
         else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
         {
             Debug.Log("manager user");
-            Debug.Log(DataHolder.userManager.nameManager);
             panelsTutorial[1].SetActive(true);
             iconsManager[0].SetActive(true);
             explicationManagerText.text = $"Welcome {DataHolder.userManager.nameManager} This application allows you to organize your workspace.";
@@ -179,12 +178,14 @@ public class TutorialScene : MonoBehaviour
             emailSuperUser = AuthenticationHandler.instance.email;
             
             
+
             //add sucursal:
             _sucursals = new Sucursals
             {
                 nameSucursal = textNameSucursal.text,
             };
             DataHolder.sucursals = _sucursals;
+            DataHolder.superUserclass.tutorialFirst = true;
             // add sucursal in the list:
             AuthenticationHandler.instance.AddSucursal(_sucursals);
             counterTutorial++;
@@ -193,7 +194,6 @@ public class TutorialScene : MonoBehaviour
             case 7:
 
             textNameSucursal.text = string.Empty;
-            //Debug.Log(DataHolder.userSucursals.nameSucursal);
             StartCoroutine(ShowLoadingPanel(0));
             break;
         }
@@ -207,7 +207,6 @@ public class TutorialScene : MonoBehaviour
 
         panelLoading.SetActive(true);
         yield return new WaitForSeconds(0.8f);
-        
         switch(_Scene)
         {
             case 0:
@@ -253,7 +252,7 @@ public class TutorialScene : MonoBehaviour
             case 3:
                 //passwordEmployer.SetActive(false);
                 numbersEmployer.SetActive(false);
-                DataHolder.userEmployer.passwordEmployer = inputPasswordEmployer.text;
+                //DataHolder.userEmployer.passwordEmployer = inputPasswordEmployer.text;
                 passwordEmployer.SetActive(false);
                 titleTextEmployer.text = "Finally";
                 explicationEmployerText.text = "Great Job Welcome to the Oil Aplication";
@@ -309,12 +308,16 @@ public class TutorialScene : MonoBehaviour
 
             case 3:
                 numbersManager.SetActive(false);
-                DataHolder.userManager.passwordManager = inputPasswordManager.text;
+                //DataHolder.userManager.passwordManager = inputPasswordManager.text;
                 titleTextManager.text = "Finally";
                 explicationManagerText.text = "Great Job Welcome to the Oil Aplication";
                 string emailManager;
                 emailManager =AuthenticationHandler.instance.email;
-                DataHolder.instance.ChangePasswordManager(emailManager);
+                //DataHolder.instance.ChangePasswordManager(emailManager);
+                DataHolder.userManager.tutorialFirst = true;
+                AuthenticationHandler.instance.WriteNakamaManagerUser(emailManager);
+                string _emailSuperAdmin = "admin@hotmail.com";
+                AuthenticationHandler.instance.WriteNakamaAdminUser(_emailSuperAdmin);
                 passwordManager.SetActive(false);
                 counterManager++;
             break;

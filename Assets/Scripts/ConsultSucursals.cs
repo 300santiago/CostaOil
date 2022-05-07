@@ -30,11 +30,10 @@ public class ConsultSucursals : MonoBehaviour
 
     private void Start()
     {
-        titlePrincipal.text = $"SUCURSALS CREATED: {DataHolder.listSucursals.teamSucursals.Count}";
+        titlePrincipal.text = $"SUCURSALS CREATED: {DataHolder.superAdminClass.listSucursals.Count}";
     
-        foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
+        foreach (Sucursals p in DataHolder.superAdminClass.listSucursals)
         {
-            print(p.nameSucursal);
             GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
             tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(p);
         }    

@@ -21,7 +21,7 @@ public class ScriptDropDown : MonoBehaviour
     {
        var dropDown = transform.GetComponent<TMP_Dropdown>();
         dropDown.options.Clear();
-        foreach (Sucursals p in DataHolder.listSucursals.teamSucursals)
+        foreach (Sucursals p in DataHolder.superAdminClass.listSucursals)
         {
             dropDown.options.Add(new TMP_Dropdown.OptionData() { text = p.nameSucursal });
         }

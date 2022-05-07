@@ -21,6 +21,9 @@ public class DataHolder : MonoBehaviour
     public static ListSucursals listSucursals;
     public static GroupEmployers groupEmployers;
     public static GroupManagers groupManagers;
+    public static ListEmployersClass listEmployersClass;
+    public static SuperAdminClass superAdminClass;
+
  
     [Header("nakama")]
     public IClient client;
@@ -30,8 +33,6 @@ public class DataHolder : MonoBehaviour
     
 
     public string email;
-
-
     private void Awake()
     {
         if (instance != null)
@@ -42,6 +43,18 @@ public class DataHolder : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         instance = this;   
     }
+
+    
+
+    
+
+
+
+
+
+
+
+
 
     public async void WriteNakamaSuperUser(string email)
     {
@@ -187,6 +200,7 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+
     
     
 }
