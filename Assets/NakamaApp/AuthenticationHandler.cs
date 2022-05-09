@@ -25,6 +25,7 @@ public class AuthenticationHandler : MonoBehaviour
 
     [Header("Variables credentials")]
     public string email;
+    public string _emailSuperAdmin = "admin@hotmail.com";
     private string password;
     
 
@@ -35,7 +36,6 @@ public class AuthenticationHandler : MonoBehaviour
     public UserEmployer userEmployer;
     public UsersPermissions usersPermissions;
     public UserManager userManager;
-    public GroupEmployers groupEmployers; 
     public GroupManagers groupManagers;
     public ListEmployersClass listEmployersClass;
     public SuperAdminClass superAdminClass;
@@ -68,11 +68,10 @@ public class AuthenticationHandler : MonoBehaviour
     //log in de super usuario administrador:
     public async void LoginSadmin()
     {
-        string _emailSuperAdmin = "admin@hotmail.com";
         string _passwordSuperAdmin = "12345678";
         sessionSuperAdmin = await client.AuthenticateEmailAsync(_emailSuperAdmin, _passwordSuperAdmin, "Super User Admin", false);
+        DataHolder.instance.sessionSuperAdmin = sessionSuperAdmin;
         ReadMyStorageObjectsSadmin(_emailSuperAdmin);
-
     }
     // log in normal de usuarios:
     public async void Login()
@@ -80,12 +79,15 @@ public class AuthenticationHandler : MonoBehaviour
         email = LogInScene.instance.emailCredentials.text;
         password = LogInScene.instance.passwordCredentials.text;
         session = await client.AuthenticateEmailAsync(email, password, "", false);
+        DataHolder.instance.session = session;
         ReadMyStorageObjectsSuser(email);
-        ReadMyStorageObjectsUserEmployer(email);
-        ReadMyStorageObjectsUserManager(email);
+        //ReadMyStorageObjectsUserEmployer(email);
+        //ReadMyStorageObjectsUserManager(email);
+        //DataHolder.instance.ReceiveDataNakama(client, session, sessionSuperAdmin);
         StartCoroutine(delay());
     }
 
+  
     //sign up de Super Usuario Administrador:
     public async void SignUpSuperAdminUser()
     {
@@ -109,12 +111,15 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = _emailSuperAdmin,
                 Key = "InfoAdmin",
-                Value = JsonUtility.ToJson(superAdminClass)
+                Value = JsonUtility.ToJson(superAdminClass),
+                PermissionRead = 2,
             },
         };
         await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
         DataHolder.superAdminClass = superAdminClass;
     }
+
+
     //Lectura nakama Super Usuario Administrador:
     public async void ReadMyStorageObjectsSadmin(string _emailSuperAdmin)
     {
@@ -144,10 +149,7 @@ public class AuthenticationHandler : MonoBehaviour
         }
     }
 
-   
-   
-   
-   
+
     //sign up de super usuario:
     public async void SignUp()
     {
@@ -253,7 +255,7 @@ public class AuthenticationHandler : MonoBehaviour
     //creacion de usuarios nuevos por medio de SP
     ///////////////////////////////////////////////////////////////
     //Usuario Employer:
-    public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
+    /*public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailEmployer,_password, _nameEmployer, true);
         StorageObjectsEmployer(_emailEmployer, _password, _nameEmployer, _sucursal);
@@ -434,17 +436,18 @@ public class AuthenticationHandler : MonoBehaviour
  
     public void AddSucursal(Sucursals _sucursals)
     {
-        string _emailSuperAdmin = "admin@hotmail.com"; 
-        DataHolder.superAdminClass.listSucursals.Add(_sucursals);
-        WriteNakamaSuperUser(email);   
-        WriteNakamaAdminUser(_emailSuperAdmin);
+        //string _emailSuperAdmin = "admin@hotmail.com"; 
+        //DataHolder.superAdminClass.listSucursals.Add(_sucursals);
+        //WriteNakamaSuperUser(email);   
+        //WriteNakamaAdminUser(_emailSuperAdmin);
     }
 
     public void AddEmployerList(UserEmployer _userEmployer)
     {
         string _emailSuperAdmin = "admin@hotmail.com";
-        DataHolder.superAdminClass.listEmployers.Add(_userEmployer);
-        WriteNakamaAdminUser(_emailSuperAdmin);
+        //DataHolder.superAdminClass.listEmployers.Add(_userEmployer);
+        //DataHolder.instance.WriteNakamaAdmUser(_emailSuperAdmin);
+        //WriteNakamaAdminUser(_emailSuperAdmin);
     }
 
     public void AddManagerList(UserManager _userManager)
@@ -514,6 +517,15 @@ public class AuthenticationHandler : MonoBehaviour
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
 
+    public void print()
+    {
+         foreach (UserEmployer p in DataHolder.superAdminClass.listEmployers)
+        {
+            print("creados" + p.nameEmployer);
+        }
+
+    }
+
 
 
 
@@ -560,4 +572,5 @@ public class AuthenticationHandler : MonoBehaviour
         DataHolder.groupManagers = groupManagers;
         DataHolder.instance.WriteNakamaSaveManagerList(email);
     }
+    */
 }

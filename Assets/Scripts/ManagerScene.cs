@@ -56,7 +56,7 @@ public class ManagerScene : MonoBehaviour
 
     [Header("classes in scene")]
 
-    public GroupEmployers groupEmployers = new GroupEmployers();
+    //public GroupEmployers groupEmployers = new GroupEmployers();
     public ListSucursals listSucursals;
    
     public static ManagerScene instance;
@@ -116,7 +116,7 @@ public class ManagerScene : MonoBehaviour
             nameSucursal = textNameSucursal.text
         };
         DataHolder.sucursals = sucursals;
-        AuthenticationHandler.instance.AddSucursal(sucursals);
+        //AuthenticationHandler.instance.AddSucursal(sucursals);
         textNameSucursal.text = string.Empty;
     }
 
@@ -150,7 +150,7 @@ public class ManagerScene : MonoBehaviour
         _passwordEmployer = "12345678";
         _nameEmployer = textNameEmployer.text;
 
-        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer, ScriptDropDown.instance.nameSucursal);
+        //AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer, ScriptDropDown.instance.nameSucursal);
     }
 
     public void ClearInputFieldsEmployer()
@@ -189,7 +189,7 @@ public class ManagerScene : MonoBehaviour
         _passwordManager = "12345678";
         _nameManager = nameManager.text;
 
-        AuthenticationHandler.instance.SignUpNewManager( _emailManager, _passwordManager,  _nameManager, ScriptDropDown.instance.nameSucursal); 
+        //AuthenticationHandler.instance.SignUpNewManager( _emailManager, _passwordManager,  _nameManager, ScriptDropDown.instance.nameSucursal); 
     }
 
     public void AddListDropDown()

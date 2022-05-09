@@ -238,7 +238,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1954730988}
         m_TargetAssemblyTypeName: AuthenticationHandler, Assembly-CSharp
-        m_MethodName: SignUpSuperAdminUser
+        m_MethodName: SignUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5088,6 +5088,7 @@ MonoBehaviour:
   port: 7350
   serverKey: defaultkey
   email: 
+  _emailSuperAdmin: admin@hotmail.com
   superUserClass:
     nameSuperUser: 
     emailSuperUser: 
@@ -5100,7 +5101,6 @@ MonoBehaviour:
     nameEmployer: 
     positionEmployer: 
     emailEmployer: 
-    passwordEmployer: 
     sucursalEmployer: 
     tutorialFirst: 0
   usersPermissions:
@@ -5111,11 +5111,8 @@ MonoBehaviour:
   userManager:
     nameManager: 
     emailManager: 
-    passwordManager: 
     sucursalManager: 
     tutorialFirst: 0
-  groupEmployers:
-    employers: []
   groupManagers:
     managers: []
   listEmployersClass:
@@ -5123,6 +5120,7 @@ MonoBehaviour:
   superAdminClass:
     nameAdmin: 
     listSucursals: []
+    listEmployers: []
 --- !u!4 &1954730989
 Transform:
   m_ObjectHideFlags: 0

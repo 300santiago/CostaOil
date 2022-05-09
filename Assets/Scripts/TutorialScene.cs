@@ -158,7 +158,8 @@ public class TutorialScene : MonoBehaviour
             case 5:
             textTutorial.text = $"The second process is to enter the name of your first sucursal";
             DataHolder.superUserclass.nameSuperUser = textNameSuperUser.text;
-            Debug.Log(DataHolder.superUserclass.nameSuperUser);
+            DataHolder.superUserclass.tutorialFirst = true;
+            DataHolder.instance.WriteNakamaSuperUser(AuthenticationHandler.instance.email);
             textNameSuperUser.text = string.Empty;
             inputNameSPpanel.SetActive(false);
             inputNameSucursal.SetActive(true);
@@ -175,24 +176,18 @@ public class TutorialScene : MonoBehaviour
             {
                 numbersTutorialSP[i].SetActive(false);
             }
-            emailSuperUser = AuthenticationHandler.instance.email;
-            
-            
-
             //add sucursal:
             _sucursals = new Sucursals
             {
                 nameSucursal = textNameSucursal.text,
             };
-            DataHolder.sucursals = _sucursals;
-            DataHolder.superUserclass.tutorialFirst = true;
             // add sucursal in the list:
-            AuthenticationHandler.instance.AddSucursal(_sucursals);
+            DataHolder.superAdminClass.listSucursals.Add(_sucursals);
+            DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
             counterTutorial++;
             break;
 
             case 7:
-
             textNameSucursal.text = string.Empty;
             StartCoroutine(ShowLoadingPanel(0));
             break;
@@ -258,7 +253,11 @@ public class TutorialScene : MonoBehaviour
                 explicationEmployerText.text = "Great Job Welcome to the Oil Aplication";
                 string emailEmployer;
                 emailEmployer =AuthenticationHandler.instance.email;
-                DataHolder.instance.ChangePasswordEmployer(emailEmployer);
+                //DataHolder.instance.ChangePasswordEmployer(emailEmployer);
+                DataHolder.userEmployer.tutorialFirst = true;
+
+                //DataHolder.instance.WriteNakamaEmployerUser(emailEmployer);
+                //DataHolder.instance.WriteNakamaAdmUser("admin@hotmail.com");
                 counterEmployer++;
 
             break;
@@ -315,9 +314,9 @@ public class TutorialScene : MonoBehaviour
                 emailManager =AuthenticationHandler.instance.email;
                 //DataHolder.instance.ChangePasswordManager(emailManager);
                 DataHolder.userManager.tutorialFirst = true;
-                AuthenticationHandler.instance.WriteNakamaManagerUser(emailManager);
+                //AuthenticationHandler.instance.WriteNakamaManagerUser(emailManager);
                 string _emailSuperAdmin = "admin@hotmail.com";
-                AuthenticationHandler.instance.WriteNakamaAdminUser(_emailSuperAdmin);
+                //AuthenticationHandler.instance.WriteNakamaAdminUser(_emailSuperAdmin);
                 passwordManager.SetActive(false);
                 counterManager++;
             break;

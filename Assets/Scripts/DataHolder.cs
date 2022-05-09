@@ -19,7 +19,7 @@ public class DataHolder : MonoBehaviour
     public static UserManager userManager;
     public static Sucursals sucursals;
     public static ListSucursals listSucursals;
-    public static GroupEmployers groupEmployers;
+    //public static GroupEmployers groupEmployers;
     public static GroupManagers groupManagers;
     public static ListEmployersClass listEmployersClass;
     public static SuperAdminClass superAdminClass;
@@ -28,8 +28,8 @@ public class DataHolder : MonoBehaviour
     [Header("nakama")]
     public IClient client;
     public ISession session;
-    public ISession sessionEmployer;
-    public IApiAccount account;
+    public ISession sessionSuperAdmin;
+
     
 
     public string email;
@@ -42,6 +42,48 @@ public class DataHolder : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         instance = this;   
+    }
+    public async void WriteNakamaAdmUser(string email)
+    {
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "InfoAdmin",
+                Value = JsonUtility.ToJson(superAdminClass),
+                PermissionRead = 2,
+            },
+        };
+        await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
+    }
+
+    public async void WriteNakamaSuperUser(string email)
+    {
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(superUserclass)
+            },
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+    }
+
+    public async void WriteNakamaEmployerUser(string email)
+    {
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(userEmployer)
+            },
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
     }
 
     
@@ -56,7 +98,55 @@ public class DataHolder : MonoBehaviour
 
 
 
-    public async void WriteNakamaSuperUser(string email)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*public async void WriteNakamaSuperUser(string email)
     {
         Debug.Log("Funcion Nakama escribir super user");
         Debug.Log($"La sucursal que se guardara es: {DataHolder.sucursals.nameSucursal}");
@@ -99,108 +189,5 @@ public class DataHolder : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-
-
-    public async void ChangeNameSP(string email)
-    {
-        Debug.Log("Funcion nakama sobreescribir nombre");
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "UserInfo",
-                Value = JsonUtility.ToJson(superUserclass)
-            }
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-
-    }
-
-    public async void ChangePasswordEmployer(string _email)
-    {
-        Debug.Log("Cambiar password");
-        userEmployer.tutorialFirst = true;
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = _email,
-                Key = "UserInfo",
-                Value = JsonUtility.ToJson(userEmployer)
-            }
-
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-    public async void ChangePasswordManager(string _email)
-    {
-        Debug.Log("Cambiar password");
-        userManager.tutorialFirst = true;
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = _email,
-                Key = "UserInfo",
-                Value = JsonUtility.ToJson(userManager)
-            }
-
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-
-    public async void WriteNakamaSaveEmployerList(string email)
-    {
-        
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "ListEmployers",
-                Value = JsonUtility.ToJson(groupEmployers)
-            },
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-    public async void WriteNakamaSaveEmployerList2(string email)
-    {
-        
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "ListEmployers",
-                Value = JsonUtility.ToJson(groupEmployers)
-            },
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-
-    public async void WriteNakamaSaveManagerList(string email)
-    {
-        
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "ListManagers",
-                Value = JsonUtility.ToJson(groupManagers)
-            },
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-    
-    
+    }*/
 }

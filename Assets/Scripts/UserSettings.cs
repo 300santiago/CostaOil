@@ -26,16 +26,4 @@ public class UserSettings : MonoBehaviour
     {
         SceneManager.LoadScene(sceneLoader);
     }
-
-    public void TempChangeNameSuperUser()
-    {
-        DataHolder.superUserclass.nameSuperUser =  nameSuperUser.text;
-        string email;
-        email = AuthenticationHandler.instance.email;
-        DataHolder.instance.ChangeNameSP(email);
-    }
-    public void ChangeNameSuperUser(string email)
-    {
-        DataHolder.instance.ChangeNameSP(email);
-    }
 }
