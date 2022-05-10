@@ -75,6 +75,7 @@ public class ManagerScene : MonoBehaviour
     }
     void Start()
     {
+
         if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
         {
             panelHomeEmployer.SetActive(true);
@@ -115,8 +116,10 @@ public class ManagerScene : MonoBehaviour
         {
             nameSucursal = textNameSucursal.text
         };
-        DataHolder.sucursals = sucursals;
+        //DataHolder.sucursals = sucursals;
         //AuthenticationHandler.instance.AddSucursal(sucursals);
+        DataHolder.superAdminClass.listSucursals.Add(sucursals);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
         textNameSucursal.text = string.Empty;
     }
 

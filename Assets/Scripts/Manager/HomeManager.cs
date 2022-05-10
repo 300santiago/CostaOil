@@ -40,6 +40,7 @@ public class HomeManager : MonoBehaviour
         string _emailEmployer = emailEmployer.text;
         string _password = "12345678";
         string _sucursal = DataHolder.userManager.sucursalManager;
+        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _password, _nameEmployer, _sucursal);
     }
 
 }

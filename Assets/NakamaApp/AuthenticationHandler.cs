@@ -244,16 +244,6 @@ public class AuthenticationHandler : MonoBehaviour
         LogInScene.instance.DontShowLoadingPanel();
         LogInScene.instance.AuthenticationUsers();
     }
-
-
-
-
-    
-
-
-
-
-
     //creacion de usuarios nuevos por medio de SP
     ///////////////////////////////////////////////////////////////
     //Usuario Employer:
@@ -295,7 +285,8 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserInfo",
-                Value = JsonUtility.ToJson(userEmployer)
+                Value = JsonUtility.ToJson(userEmployer),
+                PermissionRead = 2,
             },
 
             new WriteStorageObject
@@ -309,7 +300,7 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "BasicInfoUser",
-                Value = JsonUtility.ToJson(basicUserEmployer)
+                Value = JsonUtility.ToJson(basicUserEmployer),
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
@@ -339,7 +330,7 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "BasicInfoUser",
-                UserId = session.UserId
+                UserId = session.UserId,
             }
         };
         IApiStorageObjects objects = await client.ReadStorageObjectsAsync(session, objectsId);
@@ -427,9 +418,6 @@ public class AuthenticationHandler : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-        //DataHolder.userManager = userManager;
-        //DataHolder.usersPermissions = usersPermissions;
-        //AddManagerList(userManager);
         DataHolder.superAdminClass.listManagers.Add(basicUserManager);
         DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
     }

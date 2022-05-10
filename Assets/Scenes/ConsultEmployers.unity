@@ -2384,6 +2384,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReadInfoEmployers
+      objectReference: {fileID: 0}
     - target: {fileID: 7850165392129176411, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
       propertyPath: textInfo
       value: 
@@ -3314,6 +3318,12 @@ MonoBehaviour:
     createUserManager: 0
     createNewSucursals: 0
     createNewWorkCar: 0
+  usersPermissions2:
+    createUserEmployer: 0
+    createUserManager: 0
+    createNewSucursals: 0
+    createNewWorkCar: 0
+  titleText: {fileID: 877013336}
 --- !u!4 &1020274124
 Transform:
   m_ObjectHideFlags: 0
