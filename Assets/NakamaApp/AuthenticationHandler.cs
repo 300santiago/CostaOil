@@ -39,6 +39,8 @@ public class AuthenticationHandler : MonoBehaviour
     public GroupManagers groupManagers;
     public ListEmployersClass listEmployersClass;
     public SuperAdminClass superAdminClass;
+    public BasicUserEmployer basicUserEmployer;
+    public BasicUserManager basicUserManager;
     public static  AuthenticationHandler instance;
 
 
@@ -81,8 +83,8 @@ public class AuthenticationHandler : MonoBehaviour
         session = await client.AuthenticateEmailAsync(email, password, "", false);
         DataHolder.instance.session = session;
         ReadMyStorageObjectsSuser(email);
-        //ReadMyStorageObjectsUserEmployer(email);
-        //ReadMyStorageObjectsUserManager(email);
+        ReadMyStorageObjectsUserEmployer(email);
+        ReadMyStorageObjectsUserManager(email);
         //DataHolder.instance.ReceiveDataNakama(client, session, sessionSuperAdmin);
         StartCoroutine(delay());
     }
@@ -255,7 +257,7 @@ public class AuthenticationHandler : MonoBehaviour
     //creacion de usuarios nuevos por medio de SP
     ///////////////////////////////////////////////////////////////
     //Usuario Employer:
-    /*public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
+    public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailEmployer,_password, _nameEmployer, true);
         StorageObjectsEmployer(_emailEmployer, _password, _nameEmployer, _sucursal);
@@ -263,6 +265,7 @@ public class AuthenticationHandler : MonoBehaviour
 
     public async void StorageObjectsEmployer(string email,  string _passwordEmployer, string _nameEmployer, string _sucursal)
     {
+
         userEmployer = new UserEmployer
         {
             nameEmployer = _nameEmployer,
@@ -279,6 +282,12 @@ public class AuthenticationHandler : MonoBehaviour
             createNewSucursals = false,
             createNewWorkCar = true,
         };
+        basicUserEmployer = new BasicUserEmployer
+        {
+            nameEmployer = _nameEmployer,
+            sucursalEmployer = _sucursal,
+            idEmployer = session.UserId,
+        };
 
         IApiWriteStorageObject[] writeObjects = new[]
         {
@@ -294,12 +303,18 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "UserPermissions",
                 Value = JsonUtility.ToJson(usersPermissions)        
-            }
+            },
+
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "BasicInfoUser",
+                Value = JsonUtility.ToJson(basicUserEmployer)
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-        DataHolder.userEmployer = userEmployer;
-        DataHolder.usersPermissions = usersPermissions;
-        AddEmployerList(userEmployer);
+        DataHolder.superAdminClass.listEmployers.Add(basicUserEmployer);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
     }
 
 
@@ -318,6 +333,12 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserPermissions",
+                UserId = session.UserId
+            },
+            new StorageObjectId
+            {
+                Collection = email,
+                Key = "BasicInfoUser",
                 UserId = session.UserId
             }
         };
@@ -339,12 +360,15 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 DataHolder.usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);
             }
+            else if (userData[i].Key == "BasicInfoUser")
+            {
+                DataHolder.basicUserEmployer = JsonUtility.FromJson<BasicUserEmployer>(userData[i].Value);
+            }
         }
-
     }
 
 
-
+    
     //creacion de usuario manager por medio se SP:
     ///////////////////////////////////////////////////////////////
     public async void SignUpNewManager(string _emailManager, string _passwordManager, string _nameManager, string _nameSucursal)
@@ -372,6 +396,14 @@ public class AuthenticationHandler : MonoBehaviour
             createNewWorkCar = false,
         };
 
+        basicUserManager = new BasicUserManager
+        {
+            nameManager = _name,
+            sucursalManager = _nameSucursal,
+            idManager = session.UserId,
+        };
+
+
         IApiWriteStorageObject[] writeObjects = new[]
         {
             new WriteStorageObject
@@ -386,12 +418,20 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "UserPermissions",
                 Value = JsonUtility.ToJson(usersPermissions)        
-            }
+            },
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "BasicInfoUser",
+                Value = JsonUtility.ToJson(basicUserManager)        
+            },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-        DataHolder.userManager = userManager;
-        DataHolder.usersPermissions = usersPermissions;
-        AddManagerList(userManager);
+        //DataHolder.userManager = userManager;
+        //DataHolder.usersPermissions = usersPermissions;
+        //AddManagerList(userManager);
+        DataHolder.superAdminClass.listManagers.Add(basicUserManager);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
     }
 
     public async void ReadMyStorageObjectsUserManager(string email)
@@ -408,6 +448,12 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserPermissions",
+                UserId = session.UserId
+            },
+            new StorageObjectId
+            {
+                Collection = email,
+                Key = "BasicInfoUser",
                 UserId = session.UserId
             }
         };
@@ -431,146 +477,10 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 DataHolder.usersPermissions = JsonUtility.FromJson<UsersPermissions>(userData[i].Value);     
             }
+            else if (userData[i].Key == "BasicInfoUser")
+            {
+                DataHolder.basicUserManager = JsonUtility.FromJson<BasicUserManager>(userData[i].Value);     
+            }
         }
     }
- 
-    public void AddSucursal(Sucursals _sucursals)
-    {
-        //string _emailSuperAdmin = "admin@hotmail.com"; 
-        //DataHolder.superAdminClass.listSucursals.Add(_sucursals);
-        //WriteNakamaSuperUser(email);   
-        //WriteNakamaAdminUser(_emailSuperAdmin);
-    }
-
-    public void AddEmployerList(UserEmployer _userEmployer)
-    {
-        string _emailSuperAdmin = "admin@hotmail.com";
-        //DataHolder.superAdminClass.listEmployers.Add(_userEmployer);
-        //DataHolder.instance.WriteNakamaAdmUser(_emailSuperAdmin);
-        //WriteNakamaAdminUser(_emailSuperAdmin);
-    }
-
-    public void AddManagerList(UserManager _userManager)
-    {
-        string _emailSuperAdmin = "admin@hotmail.com";
-        DataHolder.superAdminClass.listManagers.Add(_userManager);
-        WriteNakamaAdminUser(_emailSuperAdmin);
-    }
-
-    public async void WriteNakamaSuperUser(string email)
-    {
-        superUserClass = new SuperUserClass
-        {
-            nameSuperUser = DataHolder.superUserclass.nameSuperUser,
-            tutorialFirst = DataHolder.superUserclass.tutorialFirst,
-            
-        };
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "UserInfo",
-                Value = JsonUtility.ToJson(superUserClass)
-            },
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-     public async void WriteNakamaAdminUser(string email)
-    {
-        superAdminClass = new SuperAdminClass
-        {
-            listEmployers = DataHolder.superAdminClass.listEmployers,
-            listManagers = DataHolder.superAdminClass.listManagers,
-            listSucursals = DataHolder.superAdminClass.listSucursals,
-        };
-
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "InfoAdmin",
-                Value = JsonUtility.ToJson(superAdminClass)
-            },
-        };
-        await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
-    }
-
-    public async void WriteNakamaManagerUser(string email)
-    {
-        userManager = new UserManager
-        {
-            tutorialFirst = DataHolder.userManager.tutorialFirst
-        };
-
-        IApiWriteStorageObject[] writeObjects = new[]
-        {
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "UserInfo",
-                Value = JsonUtility.ToJson(userManager)
-            },
-        };
-        await client.WriteStorageObjectsAsync(session, writeObjects);
-    }
-
-    public void print()
-    {
-         foreach (UserEmployer p in DataHolder.superAdminClass.listEmployers)
-        {
-            print("creados" + p.nameEmployer);
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void AddListEmployers(UserEmployer _userEmployer)
-    {
-        groupEmployers.employers.Add(_userEmployer);
-        DataHolder.groupEmployers = groupEmployers;
-        DataHolder.instance.WriteNakamaSaveEmployerList(email);
-    }
-
-    public void AddListEmployers2(UserEmployer _userEmployer)
-    {
-        groupEmployers.employers.Add(_userEmployer);
-        DataHolder.groupEmployers = groupEmployers;
-        DataHolder.instance.WriteNakamaSaveEmployerList(email);
-        //DataHolder.instance.WriteNakamaSaveEmployerList2("s@hotmail.com");
-    }
-
-    public void AddListManagers(UserManager _userManager)
-    {
-        groupManagers.managers.Add(_userManager);
-        DataHolder.groupManagers = groupManagers;
-        DataHolder.instance.WriteNakamaSaveManagerList(email);
-    }
-    */
 }

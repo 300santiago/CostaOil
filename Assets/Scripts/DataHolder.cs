@@ -23,6 +23,8 @@ public class DataHolder : MonoBehaviour
     public static GroupManagers groupManagers;
     public static ListEmployersClass listEmployersClass;
     public static SuperAdminClass superAdminClass;
+    public static BasicUserEmployer basicUserEmployer;
+    public static BasicUserManager basicUserManager;
 
  
     [Header("nakama")]

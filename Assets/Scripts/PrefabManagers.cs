@@ -18,11 +18,11 @@ public class PrefabManagers : MonoBehaviour
     private string emailManager;
     private string sucursalManager;
 
-      public void AssignManagers(UserManager _userManager)
+      public void AssignManagers(BasicUserManager _userManager)
     {
         nameManager.text = _userManager.nameManager;
         _nameManager = _userManager.nameManager;
-        emailManager = _userManager.emailManager;
+        //emailManager = _userManager.emailManager;
         sucursalManager = _userManager.sucursalManager;
     }
 

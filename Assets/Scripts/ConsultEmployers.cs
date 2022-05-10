@@ -12,12 +12,11 @@ public class ConsultEmployers : MonoBehaviour
 
     void Start()
     {
-         /*foreach (UserEmployer p in DataHolder.superAdminClass.listEmployers)
+         foreach (BasicUserEmployer p in DataHolder.superAdminClass.listEmployers)
         {
-            print(p.nameEmployer);
             GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
             tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
-        }*/    
+        }
         
     }
 

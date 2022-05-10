@@ -22,7 +22,10 @@ public class HomeManager : MonoBehaviour
 
     private void Start()
     {
-        //sucursalManager.text = $"You are the admin of {DataHolder.userManager.sucursalManager} sucursal";   
+        if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        {
+            sucursalManager.text = $"You are the admin of {DataHolder.basicUserManager.sucursalManager} sucursal";  
+        } 
     }
 
     public void CleanDates()
@@ -37,7 +40,6 @@ public class HomeManager : MonoBehaviour
         string _emailEmployer = emailEmployer.text;
         string _password = "12345678";
         string _sucursal = DataHolder.userManager.sucursalManager;
-        //AuthenticationHandler.instance.SignUpNewEmployers2(_emailEmployer, _password, _nameEmployer, _sucursal);
     }
 
 }

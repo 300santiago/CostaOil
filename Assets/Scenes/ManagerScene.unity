@@ -16934,11 +16934,8 @@ MonoBehaviour:
     nameEmployer: 
     positionEmployer: 
     emailEmployer: 
-    passwordEmployer: 
     sucursalEmployer: 
     tutorialFirst: 0
-  groupEmployers:
-    employers: []
   listSucursals:
     teamSucursals: []
 --- !u!4 &1020274124

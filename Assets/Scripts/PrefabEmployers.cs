@@ -18,11 +18,11 @@ public class PrefabEmployers : MonoBehaviour
     private string emailEmployer;
     private string sucursalEmployer;
 
-    public void AssignEmployers(UserEmployer userEmployer)
+    public void AssignEmployers(BasicUserEmployer userEmployer)
     {
         nameEmployer.text = userEmployer.nameEmployer;
         _nameEmployer = userEmployer.nameEmployer;
-        emailEmployer = userEmployer.emailEmployer;
+        //emailEmployer = userEmployer.emailEmployer;
         sucursalEmployer = userEmployer.sucursalEmployer;
     }
 

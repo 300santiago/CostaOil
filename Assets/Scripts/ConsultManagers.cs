@@ -12,9 +12,8 @@ public class ConsultManagers : MonoBehaviour
 
     private void Start()
     {
-        foreach (UserManager p in DataHolder.groupManagers.managers)
+        foreach (BasicUserManager p in DataHolder.superAdminClass.listManagers)
         {
-            print(p.nameManager);
             GameObject tempPrefabManag = Instantiate(prefabManagers, contentManagers);
             tempPrefabManag.GetComponent<PrefabManagers>().AssignManagers(p);
         }    
