@@ -297,13 +297,17 @@ public class AuthenticationHandler : MonoBehaviour
                 Key = "UserInfo",
                 Value = JsonUtility.ToJson(userEmployer),
                 PermissionRead = 2,
+                PermissionWrite = 1
             },
 
             new WriteStorageObject
             {
                 Collection = email,
                 Key = "UserPermissions",
-                Value = JsonUtility.ToJson(usersPermissions)        
+                Value = JsonUtility.ToJson(usersPermissions),
+                PermissionRead = 2,
+                PermissionWrite = 1
+        
             },
 
             new WriteStorageObject
@@ -312,6 +316,8 @@ public class AuthenticationHandler : MonoBehaviour
                 Key = "BasicInfoUser",
                 Value = JsonUtility.ToJson(basicUserEmployer),
                 PermissionRead = 2,
+                PermissionWrite = 1
+
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
@@ -324,7 +330,6 @@ public class AuthenticationHandler : MonoBehaviour
     //lectura de datos de usuarios employers creados
     public async void ReadMyStorageObjectsUserEmployer(string email)
     {
-        Debug.Log("lectura de usuario");
          IApiReadStorageObjectId[] objectsId = {
             new StorageObjectId
             {
@@ -359,9 +364,7 @@ public class AuthenticationHandler : MonoBehaviour
         {
             if (userData[i].Key == "UserInfo")
             {
-                Debug.Log("lectura user info");
                 DataHolder.userEmployer = JsonUtility.FromJson<UserEmployer>(userData[i].Value);
-                Debug.Log("el nombre es:" + DataHolder.userEmployer.nameEmployer);
             }
             else if (userData[i].Key == "UserPermissions")
             {

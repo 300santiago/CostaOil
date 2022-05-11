@@ -21,6 +21,7 @@ public class ConsultEmployers : MonoBehaviour
         if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
         {
             titleText.text = $"Employers for alls sucursals: {DataHolder.superAdminClass.listEmployers.Count}";
+
             foreach (BasicUserEmployer p in DataHolder.superAdminClass.listEmployers)
             {
                 GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
@@ -42,7 +43,6 @@ public class ConsultEmployers : MonoBehaviour
             
              titleText.text = $"Employers for this sucursal {DataHolder.basicUserManager.sucursalManager} : {count}";
         }
-        
     }
 
     public void SceneLoader()

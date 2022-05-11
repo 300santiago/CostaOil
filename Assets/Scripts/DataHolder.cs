@@ -54,7 +54,7 @@ public class DataHolder : MonoBehaviour
                 Collection = email,
                 Key = "InfoAdmin",
                 Value = JsonUtility.ToJson(superAdminClass),
-                PermissionRead = 2,
+                //PermissionRead = 2,
             },
         };
         await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
@@ -87,7 +87,7 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
-
+}
     
 
     
@@ -192,4 +192,4 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }*/
-}
+

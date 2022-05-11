@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Nakama;
+using System.Linq;
 
 public class PrefabEmployers : MonoBehaviour
 {
@@ -17,26 +19,43 @@ public class PrefabEmployers : MonoBehaviour
     private string _nameEmployer;
     private string emailEmployer;
     private string sucursalEmployer;
+    private string idEmployer;
+    
+
+
+    public BasicUserEmployer thisBasicUserEmployer = new BasicUserEmployer();
     
 
     public void AssignEmployers(BasicUserEmployer userEmployer)
     {
-        nameEmployer.text = userEmployer.nameEmployer;
-        _nameEmployer = userEmployer.nameEmployer;
-        emailEmployer = userEmployer.emailEmployer;
-        sucursalEmployer = userEmployer.sucursalEmployer;
-        Debug.Log(emailEmployer);
-        AuthenticationHandler.instance.Login2(emailEmployer, "12345678");
-        
+        thisBasicUserEmployer = userEmployer;
+        thisBasicUserEmployer.emailEmployer = userEmployer.emailEmployer;
+        thisBasicUserEmployer.idEmployer = userEmployer.idEmployer;
     }
 
-    public void ShowInfoEmployer()
+    public async void ReadUserEmployer()
     {
-        panelInfo.SetActive(true);
-        panelEmployers.SetActive(false);
-        //textInfoName.text = $"Name Employer: {user}";
-        textInfoName.text = $"Name Employer: {_nameEmployer}";
-        //textInfoEmail.text = $"Email Employer : {emailEmployer}";
-        textSucursal.text = $"Sucursal Employer : {sucursalEmployer}";
+         IApiReadStorageObjectId[] objectsId = 
+        {
+            new StorageObjectId
+            {
+                Collection = thisBasicUserEmployer.emailEmployer,
+                Key = "UserInfo",
+                UserId = thisBasicUserEmployer.idEmployer,
+            },
+        };
+        IApiStorageObjects objects = await DataHolder.instance.client.ReadStorageObjectsAsync(DataHolder.instance.session, objectsId);
+        IApiStorageObject[] userData = objects.Objects.ToArray();
+
+        for (int i = 0; i < userData.Length; i++)
+        {
+            if (userData[i].Key == "UserInfo")
+            {
+                DataHolder.userEmployer = JsonUtility.FromJson<UserEmployer>(userData[i].Value);
+                Debug.Log(DataHolder.userEmployer.nameEmployer);
+                textInfoEmail.text = DataHolder.userEmployer.emailEmployer;
+                textInfoName.text = DataHolder.userEmployer.nameEmployer;
+            }
+        }
     }
 }
