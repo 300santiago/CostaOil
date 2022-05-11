@@ -17,13 +17,17 @@ public class PrefabEmployers : MonoBehaviour
     private string _nameEmployer;
     private string emailEmployer;
     private string sucursalEmployer;
+    
 
     public void AssignEmployers(BasicUserEmployer userEmployer)
     {
         nameEmployer.text = userEmployer.nameEmployer;
         _nameEmployer = userEmployer.nameEmployer;
-        //emailEmployer = userEmployer.emailEmployer;
+        emailEmployer = userEmployer.emailEmployer;
         sucursalEmployer = userEmployer.sucursalEmployer;
+        Debug.Log(emailEmployer);
+        AuthenticationHandler.instance.Login2(emailEmployer, "12345678");
+        
     }
 
     public void ShowInfoEmployer()
@@ -34,13 +38,5 @@ public class PrefabEmployers : MonoBehaviour
         textInfoName.text = $"Name Employer: {_nameEmployer}";
         //textInfoEmail.text = $"Email Employer : {emailEmployer}";
         textSucursal.text = $"Sucursal Employer : {sucursalEmployer}";
-    }
-
-    public void ReadInfoEmployers()
-    {
-        panelInfo.SetActive(true);  
-        panelEmployers.SetActive(false);
-        AuthenticationHandler.instance.ReadMyStorageObjectsUserEmployer(DataHolder.instance.email);
-        
     }
 }

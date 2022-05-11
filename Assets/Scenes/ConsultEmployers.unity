@@ -2385,8 +2385,44 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ReadInfoEmployers
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PrefabEmployers, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: s@hotmail.com
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102455178123225161, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7850165392129176411, guid: 54324a5508cc1734189504bc72d1881a, type: 3}
       propertyPath: textInfo

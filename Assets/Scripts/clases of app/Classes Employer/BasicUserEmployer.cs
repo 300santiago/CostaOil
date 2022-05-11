@@ -9,6 +9,7 @@ public class BasicUserEmployer
     public string nameEmployer;
     public string sucursalEmployer;
     public string idEmployer;
+    public string emailEmployer;
     public BasicUserEmployer()
     {
         

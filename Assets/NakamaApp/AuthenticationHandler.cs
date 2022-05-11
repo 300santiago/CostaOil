@@ -88,6 +88,15 @@ public class AuthenticationHandler : MonoBehaviour
         //DataHolder.instance.ReceiveDataNakama(client, session, sessionSuperAdmin);
         StartCoroutine(delay());
     }
+     public async void Login2(string email, string password)
+    {
+        session = await client.AuthenticateEmailAsync(email, password, "", false);
+        //DataHolder.instance.session = session;
+        ReadMyStorageObjectsUserEmployer(email);
+        //ReadMyStorageObjectsUserManager(email);
+        //DataHolder.instance.ReceiveDataNakama(client, session, sessionSuperAdmin);
+        //StartCoroutine(delay());
+    }
 
   
     //sign up de Super Usuario Administrador:
@@ -276,6 +285,7 @@ public class AuthenticationHandler : MonoBehaviour
         {
             nameEmployer = _nameEmployer,
             sucursalEmployer = _sucursal,
+            emailEmployer = email,
             idEmployer = session.UserId,
         };
 
@@ -301,9 +311,11 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "BasicInfoUser",
                 Value = JsonUtility.ToJson(basicUserEmployer),
+                PermissionRead = 2,
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
+        DataHolder.userManager = userManager;
         DataHolder.superAdminClass.listEmployers.Add(basicUserEmployer);
         DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
     }
@@ -312,12 +324,14 @@ public class AuthenticationHandler : MonoBehaviour
     //lectura de datos de usuarios employers creados
     public async void ReadMyStorageObjectsUserEmployer(string email)
     {
+        Debug.Log("lectura de usuario");
          IApiReadStorageObjectId[] objectsId = {
             new StorageObjectId
             {
                 Collection = email,
                 Key = "UserInfo",
-                UserId = session.UserId
+                UserId = session.UserId,
+               
             },
 
             new StorageObjectId
@@ -345,7 +359,9 @@ public class AuthenticationHandler : MonoBehaviour
         {
             if (userData[i].Key == "UserInfo")
             {
+                Debug.Log("lectura user info");
                 DataHolder.userEmployer = JsonUtility.FromJson<UserEmployer>(userData[i].Value);
+                Debug.Log("el nombre es:" + DataHolder.userEmployer.nameEmployer);
             }
             else if (userData[i].Key == "UserPermissions")
             {

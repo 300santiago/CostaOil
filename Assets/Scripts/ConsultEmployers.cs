@@ -25,9 +25,7 @@ public class ConsultEmployers : MonoBehaviour
             {
                 GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
                 tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
-                //tempPrefabEmp.GetComponent<PrefabEmployers>().ReadInfoEmployers(p);
             }
-
         }
 
         else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
@@ -39,7 +37,6 @@ public class ConsultEmployers : MonoBehaviour
                     count = count + 1;
                     GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
                     tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
-
                 }
             }
             
@@ -49,7 +46,7 @@ public class ConsultEmployers : MonoBehaviour
     }
 
     public void SceneLoader()
-    {
+    {   
         if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
         {
             usersPermissions = new UsersPermissions
