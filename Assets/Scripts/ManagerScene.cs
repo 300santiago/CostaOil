@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ManagerScene : MonoBehaviour
 {
-     [Header("Variables Texts")]
+    [Header("Variables Texts")]
     [SerializeField] TMP_Text textTitleManager;
 
     [Header("Variables InputField")]
@@ -35,7 +35,7 @@ public class ManagerScene : MonoBehaviour
 
     [Header("Employer")]
     [SerializeField] GameObject panelHomeEmployer;
-    [SerializeField] TMP_Text titleEmployer;
+    //[SerializeField] TMP_Text titleEmployer;
 
     [Header("Manager")]
     [SerializeField] GameObject panelHomeManager;
@@ -79,8 +79,7 @@ public class ManagerScene : MonoBehaviour
         if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
         {
             panelHomeEmployer.SetActive(true);
-            titleEmployer.text = $"Welcome Employer: {DataHolder.userEmployer.nameEmployer}";
-
+            //titleEmployer.text = $"Welcome Employer: {DataHolder.userEmployer.nameEmployer}";
         }
 
 

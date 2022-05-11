@@ -87,6 +87,20 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+
+    public async void WriteNakamaManagerrUser(string email)
+    {
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(userManager)
+            },
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+    }
 }
     
 

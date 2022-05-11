@@ -85,20 +85,9 @@ public class AuthenticationHandler : MonoBehaviour
         ReadMyStorageObjectsSuser(email);
         ReadMyStorageObjectsUserEmployer(email);
         ReadMyStorageObjectsUserManager(email);
-        //DataHolder.instance.ReceiveDataNakama(client, session, sessionSuperAdmin);
         StartCoroutine(delay());
     }
-     public async void Login2(string email, string password)
-    {
-        session = await client.AuthenticateEmailAsync(email, password, "", false);
-        //DataHolder.instance.session = session;
-        ReadMyStorageObjectsUserEmployer(email);
-        //ReadMyStorageObjectsUserManager(email);
-        //DataHolder.instance.ReceiveDataNakama(client, session, sessionSuperAdmin);
-        //StartCoroutine(delay());
-    }
 
-  
     //sign up de Super Usuario Administrador:
     public async void SignUpSuperAdminUser()
     {
@@ -321,7 +310,7 @@ public class AuthenticationHandler : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-        DataHolder.userManager = userManager;
+        DataHolder.userEmployer = userEmployer;
         DataHolder.superAdminClass.listEmployers.Add(basicUserEmployer);
         DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
     }
@@ -437,6 +426,7 @@ public class AuthenticationHandler : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
+        DataHolder.userManager = userManager;
         DataHolder.superAdminClass.listManagers.Add(basicUserManager);
         DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
     }

@@ -251,13 +251,9 @@ public class TutorialScene : MonoBehaviour
                 passwordEmployer.SetActive(false);
                 titleTextEmployer.text = "Finally";
                 explicationEmployerText.text = "Great Job Welcome to the Oil Aplication";
-                string emailEmployer;
-                emailEmployer =AuthenticationHandler.instance.email;
                 //DataHolder.instance.ChangePasswordEmployer(emailEmployer);
                 DataHolder.userEmployer.tutorialFirst = true;
-
-                //DataHolder.instance.WriteNakamaEmployerUser(emailEmployer);
-                //DataHolder.instance.WriteNakamaAdmUser("admin@hotmail.com");
+                DataHolder.instance.WriteNakamaEmployerUser(AuthenticationHandler.instance.email);
                 counterEmployer++;
 
             break;
@@ -314,9 +310,7 @@ public class TutorialScene : MonoBehaviour
                 emailManager =AuthenticationHandler.instance.email;
                 //DataHolder.instance.ChangePasswordManager(emailManager);
                 DataHolder.userManager.tutorialFirst = true;
-                //AuthenticationHandler.instance.WriteNakamaManagerUser(emailManager);
-                string _emailSuperAdmin = "admin@hotmail.com";
-                //AuthenticationHandler.instance.WriteNakamaAdminUser(_emailSuperAdmin);
+                DataHolder.instance.WriteNakamaManagerrUser(AuthenticationHandler.instance.email);
                 passwordManager.SetActive(false);
                 counterManager++;
             break;

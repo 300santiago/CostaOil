@@ -13,6 +13,8 @@ public class UserEmployer
     public string sucursalEmployer;
     public bool tutorialFirst;
 
+    public List<CarJobsClass> listCars = new List<CarJobsClass>();
+
     public UserEmployer()
     {
 
