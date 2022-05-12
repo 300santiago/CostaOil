@@ -79,7 +79,6 @@ public class ManagerScene : MonoBehaviour
         if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
         {
             panelHomeEmployer.SetActive(true);
-            //titleEmployer.text = $"Welcome Employer: {DataHolder.userEmployer.nameEmployer}";
         }
 
 

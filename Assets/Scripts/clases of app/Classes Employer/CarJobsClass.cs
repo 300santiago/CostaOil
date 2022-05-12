@@ -7,10 +7,14 @@ using System;
 public class CarJobsClass
 {
 
+    public string nameUser;
+    public string ageUser;
+    public string cellPhoneUser;
+    public string numberLicense;
+    public string brandVehicle;
+    public string modelVehicle;
     public string numberChasis;
     public string descriptionJob;
-    public string modelCar;
-    public string brandCar;
 
     public CarJobsClass()
     {

@@ -5103,6 +5103,7 @@ MonoBehaviour:
     emailEmployer: 
     sucursalEmployer: 
     tutorialFirst: 0
+    listCars: []
   usersPermissions:
     createUserEmployer: 0
     createUserManager: 0
@@ -5121,6 +5122,16 @@ MonoBehaviour:
     nameAdmin: 
     listSucursals: []
     listEmployers: []
+    listManagers: []
+  basicUserEmployer:
+    nameEmployer: 
+    sucursalEmployer: 
+    idEmployer: 
+    emailEmployer: 
+  basicUserManager:
+    nameManager: 
+    sucursalManager: 
+    idManager: 
 --- !u!4 &1954730989
 Transform:
   m_ObjectHideFlags: 0

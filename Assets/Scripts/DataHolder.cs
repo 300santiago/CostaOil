@@ -25,6 +25,7 @@ public class DataHolder : MonoBehaviour
     public static SuperAdminClass superAdminClass;
     public static BasicUserEmployer basicUserEmployer;
     public static BasicUserManager basicUserManager;
+    //public static CarJobsClass carJobsClass;
 
  
     [Header("nakama")]
