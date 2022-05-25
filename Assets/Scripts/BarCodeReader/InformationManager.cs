@@ -19,8 +19,17 @@ public class InformationManager : MonoBehaviour
         ReadBrand();
         ReadManufacturer();
         ReadModel();
+        ReadModelYear();
     }
-
+    private void ReadModelYear()
+    {
+        for(int i = 0; i < QRDecodeTest.instance.results.Results.Count; i++){
+            if(QRDecodeTest.instance.results.Results[i].Variable == "Model Year"){
+                content[3].text = QRDecodeTest.instance.results.Results[i].Value;
+                return;
+            }
+        }
+    }
     private void ReadModel()
     {
         for(int i = 0; i < QRDecodeTest.instance.results.Results.Count; i++){

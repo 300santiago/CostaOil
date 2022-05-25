@@ -72,15 +72,13 @@ public class QRDecodeTest : MonoBehaviour
 		print(url);
         RestClient.Get<GeneralBody>(url).Then(response =>
         {
-            //print(response.Data);
-            //print(response.Text);
-            print("enter");
+            print(response);
             results = response;
+            InformationManager.instance.LoadVinInfoScreen();
         }).Catch(error =>
         {
             print("error");
         });
-        InformationManager.instance.LoadVinInfoScreen();
     }
     public void Reset()
     {
