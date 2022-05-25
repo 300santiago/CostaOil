@@ -467,7 +467,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: ClearInputFieldsEmployer
         m_Mode: 1
@@ -2514,7 +2514,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: CleanList
         m_Mode: 1
@@ -2963,7 +2963,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -5212,7 +5212,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: AddListDropDown
         m_Mode: 1
@@ -5929,7 +5929,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -6116,7 +6116,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: AddNewEmployer
         m_Mode: 1
@@ -6128,7 +6128,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: ClearInputFieldsEmployer
         m_Mode: 1
@@ -6726,7 +6726,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274125}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeManager, Assembly-CSharp
         m_MethodName: CreateNewEmployer
         m_Mode: 1
@@ -7752,7 +7752,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -7885,7 +7885,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: printListEmployers
         m_Mode: 1
@@ -7897,7 +7897,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -8298,7 +8298,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -9951,7 +9951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NAME
+  m_text: Worker1 Work Space
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 743b35c56f6099546b2a347df29cf4a4, type: 2}
   m_sharedMaterial: {fileID: 21594192671380784, guid: 743b35c56f6099546b2a347df29cf4a4, type: 2}
@@ -10667,7 +10667,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274125}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeManager, Assembly-CSharp
         m_MethodName: CleanDates
         m_Mode: 1
@@ -10974,7 +10974,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 500518097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1020274123}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ScanScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &500518097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13481,7 +13493,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274126}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeEmployer, Assembly-CSharp
         m_MethodName: DeleteDates
         m_Mode: 1
@@ -13807,7 +13819,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274126}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeEmployer, Assembly-CSharp
         m_MethodName: DeleteDates
         m_Mode: 1
@@ -19138,7 +19150,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274126}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeEmployer, Assembly-CSharp
         m_MethodName: AsignDatesUser
         m_Mode: 1
@@ -19358,7 +19370,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -20747,7 +20759,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: ClearInputFieldsManager
         m_Mode: 1
@@ -21551,7 +21563,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: AddListDropDown
         m_Mode: 1
@@ -22915,8 +22927,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1020274124}
   - component: {fileID: 1020274123}
-  - component: {fileID: 1020274125}
-  - component: {fileID: 1020274126}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -22933,39 +22943,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1020274122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef7c2a6f2dc54e42bf962aac295525e, type: 3}
+  m_Script: {fileID: 11500000, guid: a52033a194f882749b1625da1909522f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textTitleManager: {fileID: 1453461716}
-  textNameEmployer: {fileID: 678434439}
-  textPositionEmployer: {fileID: 681726282}
-  textNameSucursal: {fileID: 490228858}
-  textEmailEmployer: {fileID: 795928579}
-  panelHome: {fileID: 810198834}
-  panelSavePlayers: {fileID: 870649426}
-  backgroundNormal: {fileID: 1987960292}
-  generalEmployer: {fileID: 0}
-  contentEmployers: {fileID: 0}
-  contentSucursals: {fileID: 39160050}
-  nameManager: {fileID: 1629491081}
-  emailManager: {fileID: 394781781}
-  panelHomeEmployer: {fileID: 394251067}
-  panelHomeManager: {fileID: 509230459}
-  titleManager: {fileID: 1776127521}
-  prefabSucurals: {fileID: 0}
-  passwordaleatory: 
-  passwordaleatoryManager: 
-  sucursals:
-    nameSucursal: 
-  userEmployer:
-    nameEmployer: 
-    positionEmployer: 
-    emailEmployer: 
-    sucursalEmployer: 
-    tutorialFirst: 0
-    listCars: []
-  listSucursals:
-    teamSucursals: []
 --- !u!4 &1020274124
 Transform:
   m_ObjectHideFlags: 0
@@ -22980,48 +22960,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1020274125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1020274122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c117dfe194cedd44480503353a58bad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameEmployer: {fileID: 306688777}
-  emailEmployer: {fileID: 944805975}
-  sucursalManager: {fileID: 285799079}
-  gameObject: {fileID: 0}
---- !u!114 &1020274126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1020274122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eeca26f9e258c54e84321c1dc247aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelsEmployer:
-  - {fileID: 2139967785}
-  - {fileID: 1348444806}
-  principalTitle: {fileID: 454889770}
-  contentCars: {fileID: 0}
-  nameUser: {fileID: 576095157}
-  ageUser: {fileID: 291509646}
-  cellPhoneUser: {fileID: 2125340535}
-  numberLicenseDrive: {fileID: 925065394}
-  chasisNumber: {fileID: 925065394}
-  brandVehicle: {fileID: 1030794275}
-  modelVehicle: {fileID: 1609381579}
-  numberChasis: {fileID: 1896768943}
-  descriptionJob: {fileID: 992628462}
 --- !u!1 &1020753955
 GameObject:
   m_ObjectHideFlags: 0
@@ -26889,7 +26827,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274126}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeEmployer, Assembly-CSharp
         m_MethodName: AsignDatesCar
         m_Mode: 1
@@ -27570,7 +27508,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -27845,7 +27783,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -28485,7 +28423,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: CancelEmployer
         m_Mode: 1
@@ -30670,7 +30608,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: CancelEmployer
         m_Mode: 1
@@ -31966,7 +31904,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274126}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeEmployer, Assembly-CSharp
         m_MethodName: AsignDatesCar
         m_Mode: 1
@@ -37579,7 +37517,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274126}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeEmployer, Assembly-CSharp
         m_MethodName: SendDatesCar
         m_Mode: 1
@@ -40731,7 +40669,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: AddNewManager
         m_Mode: 1
@@ -40755,7 +40693,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: ClearInputFieldsManager
         m_Mode: 1
@@ -41241,7 +41179,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -42163,7 +42101,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: AddSucursalList
         m_Mode: 1
@@ -42290,7 +42228,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020274123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: SceneLoader
         m_Mode: 5
@@ -43311,7 +43249,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1020274125}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HomeManager, Assembly-CSharp
         m_MethodName: CleanDates
         m_Mode: 1

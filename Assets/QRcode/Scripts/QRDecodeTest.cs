@@ -12,6 +12,8 @@ public class QRDecodeTest : MonoBehaviour
     public GeneralBody results;
     public QRCodeDecodeController e_qrController;
     public String VINCode;
+    public Button[] buttons;
+    public GameObject loading;
 
     public Text UiText;
 
@@ -42,8 +44,7 @@ public class QRDecodeTest : MonoBehaviour
         Debug.Log(dataText);
         VINCode = dataText;
         this.UiText.text = $"VIN code is {dataText}, click on next to continue";
-        
-
+        buttons[0].interactable = true;
         // if (isOpenBrowserIfUrl) {
         // 	if (Utility.CheckIsUrlFormat(dataText))
         // 	{
@@ -66,15 +67,16 @@ public class QRDecodeTest : MonoBehaviour
     }
     public void OnNextBtn()
     {
-        VINCode = "1G1AD5F5XAZ184731";
+        loading.SetActive(true);
+        foreach(Button b in buttons) {b.interactable = false;}
+        //VINCode = "1G1AD5F5XAZ184731";
         string url = $"https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/{VINCode}?format=json";
-
-		print(url);
         RestClient.Get<GeneralBody>(url).Then(response =>
         {
             print(response);
             results = response;
             InformationManager.instance.LoadVinInfoScreen();
+            loading.SetActive(false);
         }).Catch(error =>
         {
             print("error");

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Nakama;
 using System.Linq;
-
+using UnityEngine.SceneManagement;
 
 
 public class AuthenticationHandler : MonoBehaviour
@@ -66,7 +66,10 @@ public class AuthenticationHandler : MonoBehaviour
 
 
     }
-
+    public void LoginHardcodeado()
+    {
+        SceneManager.LoadScene("ScanScene2");
+    }   
     //log in de super usuario administrador:
     public async void LoginSadmin()
     {
