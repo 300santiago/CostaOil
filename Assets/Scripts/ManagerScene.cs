@@ -68,10 +68,6 @@ public class ManagerScene : MonoBehaviour
         panelHomeEmployer.SetActive(false);
         backgroundNormal.SetActive(false);
         panelHomeManager.SetActive(false);
-
-        
-
-
     }
     void Start()
     {

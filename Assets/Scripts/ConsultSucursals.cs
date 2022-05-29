@@ -15,7 +15,7 @@ public class ConsultSucursals : MonoBehaviour
     [SerializeField] TMP_Text titleNameSucursal;
 
     [Header("classes")]
- 
+
     public GameObject prefabSucurals;
     public RectTransform contentSucursals;
 
@@ -25,18 +25,23 @@ public class ConsultSucursals : MonoBehaviour
     {
         instance = this;
         panelSucursals.SetActive(true);
-        panelOptionsSucursal.SetActive(false);    
+        panelOptionsSucursal.SetActive(false);
     }
 
     private void Start()
     {
+        Invoke(nameof(LoadInfo), 2f);
+    }
+    public void LoadInfo()
+    {
+        print(DataHolder.superAdminClass.listSucursals.Count);
         titlePrincipal.text = $"SUCURSALS CREATED: {DataHolder.superAdminClass.listSucursals.Count}";
-    
+
         foreach (Sucursals p in DataHolder.superAdminClass.listSucursals)
         {
             GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
             tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(p);
-        }    
+        }
     }
     public void SceneLoader()
     {

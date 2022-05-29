@@ -9,9 +9,6 @@ public class Sucursals
 {
     public string nameSucursal;
 
-    public Sucursals()
-    {
-        
-    }
+    public Sucursals() {}
 }
 

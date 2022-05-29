@@ -54,7 +54,9 @@ public class TutorialScene : MonoBehaviour
     public static Sucursals _sucursals;
     public static ListSucursals listSucursals = new ListSucursals();
     public static TutorialScene instance;
-
+    [Header("Error")]
+    public GameObject errorGO;
+    public TMP_Text errorTxt;
 
     private void Awake() 
     {
@@ -95,7 +97,7 @@ public class TutorialScene : MonoBehaviour
             Debug.Log("super User");
             panelsTutorial[0].SetActive(true);
             textTutorial.text = $"This application allows you to organize your workspace. Here is a quick explanation of the first steps";
-            textTitle.text = $"FIRST STEPS WITH THE PLATFORM SUPER USER";
+            textTitle.text = $"FIRST STEPS ON THE SUPERUSER PLATFORM";
         }
         //manager user
         else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
@@ -116,19 +118,19 @@ public class TutorialScene : MonoBehaviour
         {
             case 0:
             imagesTutorialSP[1].SetActive(true);
-            textTutorial.text = $"With this application you can create new branch offices with the following button";
+            textTutorial.text = $"You can create new branch offices with the following button";
             counterTutorial++;
             break;
 
             case 1:
             imagesTutorialSP[2].SetActive(true);
-            textTutorial.text = $"with this application you can create the administrators of the work sites";
+            textTutorial.text = $"You can create administrators for branches";
             counterTutorial++;
             break;
 
             case 2:
             imagesTutorialSP[3].SetActive(true);
-            textTutorial.text = $"with this application you can create new mechanical employers";
+            textTutorial.text = $"You can create new employees";
             counterTutorial++;
             break;
 
@@ -147,8 +149,8 @@ public class TutorialScene : MonoBehaviour
             {
                 imagesTutorialSP[i].SetActive(false);
             }
-            textTitle.text = $"Environment settings of Super User";
-            textTutorial.text = $"The first process is to enter your name";
+            textTitle.text = $"SUPER USER SETTINGS";
+            textTutorial.text = $"The first step is to enter your name";
             inputNameSPpanel.SetActive(true);
 
             numbersTutorialSP[0].SetActive(true);
@@ -156,7 +158,12 @@ public class TutorialScene : MonoBehaviour
             break;
 
             case 5:
-            textTutorial.text = $"The second process is to enter the name of your first sucursal";
+            if (textNameSuperUser.text.Length < 1){
+                errorTxt.text = "Please enter a valid username";
+                errorGO.SetActive(true);
+                return;
+            }
+            textTutorial.text = $"The second step is to enter the name of your first sucursal";
             DataHolder.superUserclass.nameSuperUser = textNameSuperUser.text;
             DataHolder.superUserclass.tutorialFirst = true;
             DataHolder.instance.WriteNakamaSuperUser(AuthenticationHandler.instance.email);
@@ -168,9 +175,13 @@ public class TutorialScene : MonoBehaviour
             break;
 
             case 6:
+            if (textNameSucursal.text.Length < 1){
+                errorTxt.text = "Please enter a valid sucursal name";
+                errorGO.SetActive(true);
+                return;
+            }
             textTitle.text = $"Finally";
             textTutorial.text = $"Great Job welcome to the Oil aplication";
-            inputNameSucursal.SetActive(false);
             imageLogo.SetActive(true);
             for (int i = 0; i<numbersTutorialSP.Length; i++)
             {
@@ -184,6 +195,7 @@ public class TutorialScene : MonoBehaviour
             // add sucursal in the list:
             DataHolder.superAdminClass.listSucursals.Add(_sucursals);
             DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
+            inputNameSucursal.SetActive(false);
             counterTutorial++;
             break;
 
