@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using System.Threading;
 using System.Threading.Tasks;
 
-public class  AuthenticationHandler : MonoBehaviour
+public class AuthenticationHandler : MonoBehaviour
 {
 
 
@@ -30,10 +30,7 @@ public class  AuthenticationHandler : MonoBehaviour
 
     [Header("Variables credentials")]
     public string email;
-    public string _emailSuperAdmin = "admin@hotmail.com";
     private string password;
-
-
     [Header("Classes")]
     public SuperUserClass superUserClass;
     public ListSucursals listSucursals;
@@ -47,9 +44,10 @@ public class  AuthenticationHandler : MonoBehaviour
     public BasicUserEmployer basicUserEmployer;
     public BasicUserManager basicUserManager;
     public static AuthenticationHandler instance;
-
-    [Header("Variables SuperAdmin")]
-    private string superAdminEmail = "superadmin@costaoil.com";
+    [Header("Variables Super Admin User")] //This user holds all the database as employees list, manager List, sucursal List
+    public string superUserAdminEmail = "superuseradmin@correo.com";
+    [Header("Variables SuperUser")]
+    public string superAdminEmail = "superadmin@costaoil.com";
     private string superAdminPassword = "Super1234.";
     private string superAdminName = "SuperAdmin";
 
@@ -83,9 +81,9 @@ public class  AuthenticationHandler : MonoBehaviour
     public async void LoginSadmin()
     {
         string _passwordSuperAdmin = "12345678";
-        sessionSuperAdmin = await client.AuthenticateEmailAsync("superuseradmin@correo.com", _passwordSuperAdmin, "Super User Admin", false);
+        sessionSuperAdmin = await client.AuthenticateEmailAsync(superUserAdminEmail, _passwordSuperAdmin, "Super User Admin", false);
         DataHolder.instance.sessionSuperAdmin = sessionSuperAdmin;
-        ReadMyStorageObjectsSadmin(_emailSuperAdmin);
+        ReadMyStorageObjectsSadmin(superUserAdminEmail);
     }
     // log in normal de usuarios:
     public async void Login()
@@ -118,12 +116,10 @@ public class  AuthenticationHandler : MonoBehaviour
     //sign up de Super Usuario Administrador:
     public async void SignUpSuperAdminUser()
     {
-        string _emailSuperAdmin;
         string _passwordSuperAdmin;
-        _emailSuperAdmin = "superuseradmin@correo.com";
         _passwordSuperAdmin = "12345678";
-        sessionSuperAdmin = await client.AuthenticateEmailAsync(_emailSuperAdmin, _passwordSuperAdmin, "Super User Admin", true);
-        StorageObjectsSadmin(_emailSuperAdmin);
+        sessionSuperAdmin = await client.AuthenticateEmailAsync(superUserAdminEmail, _passwordSuperAdmin, "Super User Admin", true);
+        StorageObjectsSadmin(superUserAdminEmail);
     }
     //escritura nakama Super Usuario Administrador:
     public async void StorageObjectsSadmin(string _emailSuperAdmin)
@@ -151,7 +147,7 @@ public class  AuthenticationHandler : MonoBehaviour
     public async void ReadMyStorageObjectsSadmin(string _emailSuperAdmin)
     {
         IApiReadStorageObjectId[] objectsId =
-       {
+        {
             new StorageObjectId
             {
                 Collection = _emailSuperAdmin,
@@ -210,7 +206,7 @@ public class  AuthenticationHandler : MonoBehaviour
 
         foreach (IApiStorageObject o in userData)
         {
-            print(o.Key + "/" + o.Value);
+            //print(o.Key + "/" + o.Value);
         }
 
         for (int i = 0; i < userData.Length; i++)
@@ -303,7 +299,7 @@ public class  AuthenticationHandler : MonoBehaviour
         await client.WriteStorageObjectsAsync(session, writeObjects);
         DataHolder.userEmployer = userEmployer;
         DataHolder.superAdminClass.listEmployers.Add(basicUserEmployer);
-        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
     }
 
 

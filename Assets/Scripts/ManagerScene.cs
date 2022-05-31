@@ -113,7 +113,7 @@ public class ManagerScene : MonoBehaviour
         //DataHolder.sucursals = sucursals;
         //AuthenticationHandler.instance.AddSucursal(sucursals);
         DataHolder.superAdminClass.listSucursals.Add(sucursals);
-        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
         textNameSucursal.text = string.Empty;
     }
 

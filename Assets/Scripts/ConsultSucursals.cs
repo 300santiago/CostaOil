@@ -30,11 +30,10 @@ public class ConsultSucursals : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(LoadInfo), 2f);
+        Invoke(nameof(LoadInfo), 1f);
     }
     public void LoadInfo()
     {
-        print(DataHolder.superAdminClass.listSucursals.Count);
         titlePrincipal.text = $"SUCURSALS CREATED: {DataHolder.superAdminClass.listSucursals.Count}";
 
         foreach (Sucursals p in DataHolder.superAdminClass.listSucursals)

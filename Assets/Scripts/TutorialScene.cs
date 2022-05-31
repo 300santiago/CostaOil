@@ -194,7 +194,7 @@ public class TutorialScene : MonoBehaviour
             };
             // add sucursal in the list:
             DataHolder.superAdminClass.listSucursals.Add(_sucursals);
-            DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance._emailSuperAdmin);
+            DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
             inputNameSucursal.SetActive(false);
             counterTutorial++;
             break;
