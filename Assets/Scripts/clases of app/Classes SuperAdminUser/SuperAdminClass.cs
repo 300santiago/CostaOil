@@ -8,7 +8,7 @@ public class SuperAdminClass
 {
     public string nameAdmin = "SuperAdmin";
     public List<Sucursals> listSucursals = new List<Sucursals>();
-    public List<BasicUserManager> listAdmins = new List<BasicUserManager>();
+    public List<UserManager> listAdmins = new List<UserManager>();
     public SuperAdminClass() {}
 }
 

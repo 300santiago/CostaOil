@@ -39,4 +39,22 @@ public class PanelManagerMainScene : MonoBehaviour
         foreach(GameObject g in employeePanels) {g.SetActive(false);}
         _panel.SetActive(true);
     }
+    public void LoadPanelIndex(int _index, int userType)
+    {
+        if(userType == 0)
+        {
+            foreach(GameObject g in superUserPanels) {g.SetActive(false);}
+            superUserPanels[_index].SetActive(true);
+        }
+        else if (userType == 1)
+        {
+            foreach(GameObject g in adminPanels) {g.SetActive(false);}
+            adminPanels[_index].SetActive(true);
+        }
+        else if (userType == 2)
+        {
+            foreach(GameObject g in employeePanels) {g.SetActive(false);}
+            employeePanels[_index].SetActive(true);
+        }
+    }
 }

@@ -8,7 +8,7 @@ using System;
 public class Sucursals 
 {
     public string nameSucursal;
-    public BasicUserManager sucursalManager = new BasicUserManager();
+    public UserManager sucursalManager = new UserManager();
     public List<BasicUserEmployee> listEmployee = new List<BasicUserEmployee>();
 
     public Sucursals() {}

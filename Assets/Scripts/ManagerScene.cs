@@ -41,8 +41,6 @@ public class ManagerScene : MonoBehaviour
 
     [Header("prefabs")]
     public GameObject prefabSucurals;
-
-    //private string nameManager;
     private int counterfirst = 0;
     public string passwordaleatory;
     public string passwordaleatoryManager;
@@ -54,6 +52,13 @@ public class ManagerScene : MonoBehaviour
     [Header("Loading")]
     public GameObject loadingPanel;
     public static ManagerScene instance;
+	[Header("New Credentials")]
+	public GameObject newCredentialsPanel;
+	public TMP_Text newEmail, newPassword, newName, newId;
+	[Header("Error MSG")]
+	public GameObject errorPanel;
+	public TMP_Text errorTxt;
+
     private void Awake()
     {
         instance = this;
@@ -76,6 +81,7 @@ public class ManagerScene : MonoBehaviour
             titleManager.text = $"Welcome Manager: {DataHolder.userManager.nameManager}";
         }
         backgroundNormal.SetActive(true);
+        loadingPanel.SetActive(false);
     }
 
 
@@ -90,27 +96,7 @@ public class ManagerScene : MonoBehaviour
         panelSavePlayers.SetActive(true);
     }
 
-    public async void AddSucursalList()
-    {
-        LoadingOn();
-        sucursals = new Sucursals
-        {
-            nameSucursal = textNameSucursal.text
-        };
-        try
-        {
-            DataHolder.superAdminClass.listSucursals.Add(sucursals);
-            DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
-            textNameSucursal.text = string.Empty;
-            LoadingOff();
-            ConsultSucursals.instance.LoadDetailBranch(DataHolder.superAdminClass.listSucursals.Count-1);
-        }
-        catch
-        {
-            print("error");
-            throw;
-        }
-    }
+    
 
     public void CancelEmployer()
     {
@@ -150,44 +136,97 @@ public class ManagerScene : MonoBehaviour
         textEmailEmployer.text = string.Empty;
         textNameEmployer.text = string.Empty;
     }
-    public void ClearInputFieldsManager()
+    
+
+
+
+
+    
+
+    
+    public void LoadingOn() { loadingPanel.SetActive(true); }
+    public void LoadingOff() { loadingPanel.SetActive(false); }
+
+#region Sucursal Management
+    public async void AddSucursalList()
     {
-        emailManager.text = string.Empty;
-        nameManager.text = string.Empty;
+        LoadingOn();
+        sucursals = new Sucursals
+        {
+            nameSucursal = textNameSucursal.text
+        };
+        try
+        {
+            DataHolder.superAdminClass.listSucursals.Add(sucursals);
+            DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+            textNameSucursal.text = string.Empty;
+            LoadingOff();
+            ConsultSucursals.instance.LoadDetailBranch(DataHolder.superAdminClass.listSucursals.Count-1);
+        }
+        catch
+        {
+            print("error");
+            throw;
+        }
     }
-
-
-
-
-    public void AddNewManager()
+	public void AddListDropDownSucursals()
     {
-        string _emailManager;
-        string _passwordManager;
-        string _nameManager;
-
+        ScriptDropDown.instance.DropDownAddListSucursals(DataHolder.superAdminClass.listSucursals.Count-1, false);
+    }
+#endregion
+#region Manager Management
+	//Add a new manager from new sucursal creation module
+	public void AddNewManager()
+    {
+		LoadingOn();
         string charactersPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         int longcharacters = charactersPassword.Length;
         char letter;
-        int lengPassword = 10;
+        int lengPassword = 8;
         passwordaleatoryManager = string.Empty;
         for (int i = 0; i < lengPassword; i++)
         {
             letter = charactersPassword[Random.Range(0, longcharacters)];
             passwordaleatoryManager += letter.ToString();
         }
-
-        _emailManager = emailManager.text;
-        //_passwordManager = passwordaleatoryManager;
-        _passwordManager = "12345678";
-        _nameManager = nameManager.text;
-
-        AuthenticationHandler.instance.SignUpNewManager(_emailManager, _passwordManager, _nameManager, ScriptDropDown.instance.nameSucursal);
+        AuthenticationHandler.instance.SignUpNewManager(emailManager.text, passwordaleatoryManager, nameManager.text, ScriptDropDown.instance.nameSucursal);
     }
-
-    public void AddListDropDown()
+	public void ClearInputFieldsManager()
     {
-        ScriptDropDown.instance.DropDownAddList();
+        emailManager.text = string.Empty;
+        nameManager.text = string.Empty;
     }
-    public void LoadingOn() { loadingPanel.SetActive(true); }
-    public void LoadingOff() { loadingPanel.SetActive(false); }
+	public void OnClickButtonCreateManager()
+	{
+		if(emailManager.text.Length < 1 || nameManager.text.Length < 1)
+		{
+			ShowError("Please insert valid values in the Admin information");
+			return;
+		}
+		PanelManagerMainScene.instance.LoadPanelIndex(3, 0);
+	}
+#endregion
+#region Users Credentials
+	public void ShowNewCredentials(string _newEmail, string _newPassword, string _newName, string _newId)
+	{	
+		newEmail.text = _newEmail;
+		newPassword.text = _newPassword;
+		newName.text = _newName;
+		newId.text = _newId;
+		newCredentialsPanel.SetActive(true);
+	}
+#endregion
+#region Error
+	public void ShowError(string _error)
+	{
+		errorPanel.SetActive(true);
+		errorTxt.text = _error;
+		Invoke(nameof(HideError), 2f);
+	}
+	public void HideError()
+	{
+		errorTxt.text = string.Empty;
+		errorPanel.SetActive(false);
+	}
+#endregion
 }

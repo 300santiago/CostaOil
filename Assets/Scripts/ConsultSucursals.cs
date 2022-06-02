@@ -62,7 +62,7 @@ public class ConsultSucursals : MonoBehaviour
         }
         else
         {
-            foreach (BasicUserManager b in DataHolder.superAdminClass.listAdmins)
+            foreach (UserManager b in DataHolder.superAdminClass.listAdmins)
             {
                 adminList.options.Add(new TMP_Dropdown.OptionData() { text = b.nameManager });
             }

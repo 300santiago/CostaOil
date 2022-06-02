@@ -12,12 +12,9 @@ public class UserManager
     public string emailManager;
     public string sucursalManager;
     public string idManager;
-
+    public string passwordAdmin;
     public bool tutorialFirst;
 
-    public UserManager()
-    {
-        
-    }
+    public UserManager() {}
 
 }

@@ -46,6 +46,7 @@ public class DataHolder : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         instance = this;   
     }
+    //Write information to the Admin User which holds the database information
     public async void WriteNakamaAdmUser(string email)
     {
         IApiWriteStorageObject[] writeObjects = new[]
@@ -60,7 +61,7 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
     }
-
+    //Write information to the super user Boss
     public async void WriteNakamaSuperUser(string email)
     {
         IApiWriteStorageObject[] writeObjects = new[]

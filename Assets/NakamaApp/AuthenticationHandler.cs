@@ -323,9 +323,68 @@ public class AuthenticationHandler : MonoBehaviour
     public async void SignUpNewManager(string _emailManager, string _passwordManager, string _nameManager, string _nameSucursal)
     {
         session = await client.AuthenticateEmailAsync(_emailManager, _passwordManager, _nameManager, true);
-        //StorageObjectsManager(_emailManager, _passwordManager, _nameManager, _nameSucursal);
+        StorageObjectsManager(_emailManager, _passwordManager, _nameManager, _nameSucursal);
     }
+    public async void StorageObjectsManager(string email,  string _password, string _name, string _nameSucursal)
+    {
+        string managerID = "";
+        if(DataHolder.superAdminClass.listAdmins.Count < 1)
+        {
+            managerID = "ad01";
+        }
+        else 
+        {
+            managerID = $"ad{DataHolder.superAdminClass.listAdmins.Count+1}";
+        }
+        userManager = new UserManager
+        {
+            nameManager = _name,
+            emailManager = email,
+            sucursalManager = _nameSucursal,
+            tutorialFirst = false,
+            idManager = managerID,
+            passwordAdmin = _password,
+        };
+        usersPermissions = new UsersPermissions
+        {
+            createUserEmployer = true,
+            createUserManager = false,
+            createNewSucursals = false,
+            createNewWorkCar = false,
+        };
+        IApiWriteStorageObject[] writeObjects = new[]
+        {
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserInfo",
+                Value = JsonUtility.ToJson(userManager)
+            },
 
+            new WriteStorageObject
+            {
+                Collection = email,
+                Key = "UserPermissions",
+                Value = JsonUtility.ToJson(usersPermissions)        
+            },
+        };
+        await client.WriteStorageObjectsAsync(session, writeObjects);
+
+        for (int i = 0; i < DataHolder.superAdminClass.listSucursals.Count; i++)
+        {
+            if(DataHolder.superAdminClass.listSucursals[i].nameSucursal == _nameSucursal)
+            {
+                DataHolder.superAdminClass.listSucursals[i].sucursalManager = userManager;
+                break;
+            }
+        }
+        ManagerScene.instance.LoadingOff();
+        ManagerScene.instance.ClearInputFieldsManager();
+        PanelManagerMainScene.instance.LoadMainPanelSuper();
+        ManagerScene.instance.ShowNewCredentials(email, _password, _name, managerID);
+        DataHolder.superAdminClass.listAdmins.Add(userManager);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+    }
     public async void ReadMyStorageObjectsUserManager(string email)
     {
         IApiReadStorageObjectId[] objectsId = {
