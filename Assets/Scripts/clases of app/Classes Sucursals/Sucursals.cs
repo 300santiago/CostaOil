@@ -8,6 +8,8 @@ using System;
 public class Sucursals 
 {
     public string nameSucursal;
+    public BasicUserManager sucursalManager = new BasicUserManager();
+    public List<BasicUserEmployee> listEmployee = new List<BasicUserEmployee>();
 
     public Sucursals() {}
 }

@@ -23,14 +23,14 @@ public class PrefabEmployers : MonoBehaviour
     
 
 
-    public BasicUserEmployer thisBasicUserEmployer = new BasicUserEmployer();
+    public BasicUserEmployee thisBasicUserEmployer = new BasicUserEmployee();
     
 
-    public void AssignEmployers(BasicUserEmployer userEmployer)
+    public void AssignEmployers(BasicUserEmployee userEmployer)
     {
         thisBasicUserEmployer = userEmployer;
-        thisBasicUserEmployer.emailEmployer = userEmployer.emailEmployer;
-        thisBasicUserEmployer.idEmployer = userEmployer.idEmployer;
+        thisBasicUserEmployer.emailEmployee = userEmployer.emailEmployee;
+        thisBasicUserEmployer.idEmployee = userEmployer.idEmployee;
     }
 
     public async void ReadUserEmployer()
@@ -39,9 +39,9 @@ public class PrefabEmployers : MonoBehaviour
         {
             new StorageObjectId
             {
-                Collection = thisBasicUserEmployer.emailEmployer,
+                Collection = thisBasicUserEmployer.emailEmployee,
                 Key = "UserInfo",
-                UserId = thisBasicUserEmployer.idEmployer,
+                UserId = thisBasicUserEmployer.idEmployee,
             },
         };
         IApiStorageObjects objects = await DataHolder.instance.client.ReadStorageObjectsAsync(DataHolder.instance.session, objectsId);
@@ -51,10 +51,10 @@ public class PrefabEmployers : MonoBehaviour
         {
             if (userData[i].Key == "UserInfo")
             {
-                DataHolder.userEmployer = JsonUtility.FromJson<UserEmployer>(userData[i].Value);
-                Debug.Log(DataHolder.userEmployer.nameEmployer);
-                textInfoEmail.text = DataHolder.userEmployer.emailEmployer;
-                textInfoName.text = DataHolder.userEmployer.nameEmployer;
+                DataHolder.userEmployer = JsonUtility.FromJson<UserEmployee>(userData[i].Value);
+                Debug.Log(DataHolder.userEmployer.nameEmployee);
+                textInfoEmail.text = DataHolder.userEmployer.emailEmployee;
+                textInfoName.text = DataHolder.userEmployer.nameEmployee;
             }
         }
     }

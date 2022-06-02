@@ -21,6 +21,10 @@ public class ConsultSucursals : MonoBehaviour
 
     public static ConsultSucursals instance;
 
+    [Header("Detailed Info")]
+    public TMP_Text sucursalName;
+    public TMP_Dropdown adminList;
+    public GameObject noneText;
     private void Awake()
     {
         instance = this;
@@ -30,7 +34,7 @@ public class ConsultSucursals : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(LoadInfo), 1f);
+        //Invoke(nameof(LoadInfo), 1f);
     }
     public void LoadInfo()
     {
@@ -45,5 +49,31 @@ public class ConsultSucursals : MonoBehaviour
     public void SceneLoader()
     {
         SceneManager.LoadScene("ManagerScene");
+    }
+    public void LoadDetailBranch(int _index)
+    {
+        List<Sucursals> list = DataHolder.superAdminClass.listSucursals;
+        sucursalName.text = $" Watching {list[_index].nameSucursal} Sucursal";
+        adminList.ClearOptions();
+        if (DataHolder.superAdminClass.listAdmins.Count < 1)
+        {
+            adminList.gameObject.SetActive(false);
+            noneText.SetActive(true);
+        }
+        else
+        {
+            foreach (BasicUserManager b in DataHolder.superAdminClass.listAdmins)
+            {
+                adminList.options.Add(new TMP_Dropdown.OptionData() { text = b.nameManager });
+            }
+            DropdownItemsSelected(list, _index);
+            adminList.onValueChanged.AddListener(delegate { DropdownItemsSelected(list, _index); });
+        }
+
+    }
+    void DropdownItemsSelected(List<Sucursals> list, int _index)
+    {
+        int adminIndex = adminList.value;
+        list[_index].sucursalManager = DataHolder.superAdminClass.listAdmins[adminIndex];
     }
 }

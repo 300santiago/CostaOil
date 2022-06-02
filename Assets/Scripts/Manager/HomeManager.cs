@@ -22,7 +22,7 @@ public class HomeManager : MonoBehaviour
 
     private void Start()
     {
-        if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        if (DataHolder.usersPermissions.workerKind == WorkerKind.admin)
         {
             sucursalManager.text = $"You are the admin of {DataHolder.basicUserManager.sucursalManager} sucursal";  
         } 

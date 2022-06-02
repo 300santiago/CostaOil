@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class ListEmployersClass
 {
-    public List<UserEmployer> listEmployers = new List<UserEmployer>();
+    public List<UserEmployee> listEmployers = new List<UserEmployee>();
 
     public ListEmployersClass()
     {

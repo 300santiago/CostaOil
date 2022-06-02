@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class BasicUserManager
 {
-    public string nameManager;
+    public string emailManager, nameManager;
     public string sucursalManager;
     public string idManager;
 

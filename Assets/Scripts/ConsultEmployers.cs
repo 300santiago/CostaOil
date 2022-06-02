@@ -20,26 +20,26 @@ public class ConsultEmployers : MonoBehaviour
         //condition for instantiate prefabs of prefabs
         if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
         {
-            titleText.text = $"Employers for alls sucursals: {DataHolder.superAdminClass.listEmployers.Count}";
+            //titleText.text = $"Employers for alls sucursals: {DataHolder.superAdminClass.listEmployee.Count}";
 
-            foreach (BasicUserEmployer p in DataHolder.superAdminClass.listEmployers)
-            {
-                GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
-                tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
-            }
+            // foreach (BasicUserEmployee p in DataHolder.superAdminClass.listEmployee)
+            // {
+            //     GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
+            //     tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
+            // }
         }
 
         else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
         {
-            foreach (BasicUserEmployer p in DataHolder.superAdminClass.listEmployers)
-            {
-                if (p.sucursalEmployer == DataHolder.basicUserManager.sucursalManager)
-                {
-                    count = count + 1;
-                    GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
-                    tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
-                }
-            }
+            // foreach (BasicUserEmployee p in DataHolder.superAdminClass.listEmployee)
+            // {
+            //     if (p.sucursalEmployee == DataHolder.basicUserManager.sucursalManager)
+            //     {
+            //         count = count + 1;
+            //         GameObject tempPrefabEmp = Instantiate(prefabEmployers, contentEmployers);
+            //         tempPrefabEmp.GetComponent<PrefabEmployers>().AssignEmployers(p);
+            //     }
+            // }
             
              titleText.text = $"Employers for this sucursal {DataHolder.basicUserManager.sucursalManager} : {count}";
         }

@@ -39,29 +39,38 @@ public class LogInScene : MonoBehaviour
 
     public void AuthenticationUsers()
     {
-        if (DataHolder.superUserclass.tutorialFirst == false)
+        if(DataHolder.superUserclass != null)
         {
-            SceneManager.LoadScene("TutorialScene");
+            if (DataHolder.superUserclass.tutorialFirst == false)
+            {
+                SceneManager.LoadScene("TutorialScene");
+            }
+            else if (DataHolder.superUserclass.tutorialFirst == true)
+            {
+                SceneManager.LoadScene("MainScene");
+            }
         }
-        else if (DataHolder.superUserclass.tutorialFirst == true)
+        else if (DataHolder.userEmployer != null)
         {
-            SceneManager.LoadScene("ManagerScene");
+            if (DataHolder.userEmployer.tutorialFirst == false)
+            {
+                SceneManager.LoadScene("TutorialScene");
+            }
+            else if (DataHolder.userEmployer.tutorialFirst == true)
+            {
+                SceneManager.LoadScene("MainScene"); 
+            }
         }
-        else if (DataHolder.userEmployer.tutorialFirst == false)
+        else if (DataHolder.userManager != null)
         {
-            SceneManager.LoadScene("TutorialScene");
-        }
-        else if (DataHolder.userEmployer.tutorialFirst == true)
-        {
-            SceneManager.LoadScene("ManagerScene"); 
-        }
-        else if (DataHolder.userManager.tutorialFirst == true)
-        {
-            SceneManager.LoadScene("ManagerScene");
-        }
-        else if (DataHolder.userManager.tutorialFirst == false)
-        {
-            SceneManager.LoadScene("TutorialScene");
+            if (DataHolder.userManager.tutorialFirst == false)
+            {
+                SceneManager.LoadScene("TutorialScene");
+            }
+            else if (DataHolder.userManager.tutorialFirst == true)
+            {
+                SceneManager.LoadScene("MainScene");
+            }
         }
     }
 
@@ -71,7 +80,7 @@ public class LogInScene : MonoBehaviour
         panelCredentials.SetActive(false);
     }
 
-    public void DontShowLoadingPanel()
+    public void HideLoadingPanel()
     {
         panelLoading.SetActive(false);
     }

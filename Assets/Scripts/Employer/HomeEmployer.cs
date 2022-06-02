@@ -40,8 +40,11 @@ public class HomeEmployer : MonoBehaviour
     }
     private void Start()
     {
-        principalTitle.text = $"Welcome Employer {DataHolder.userEmployer.nameEmployer}";
-        panelsEmployer[0].SetActive(true);
+        if(DataHolder.usersPermissions.workerKind == WorkerKind.employee)
+        {
+            principalTitle.text = $"Welcome Employer {DataHolder.userEmployer.nameEmployee}";
+            panelsEmployer[0].SetActive(true);
+        }
     }
 
     public void DeleteDates()

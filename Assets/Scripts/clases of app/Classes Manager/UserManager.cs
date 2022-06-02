@@ -11,6 +11,8 @@ public class UserManager
     //public string positionEmployer;
     public string emailManager;
     public string sucursalManager;
+    public string idManager;
+
     public bool tutorialFirst;
 
     public UserManager()

@@ -14,7 +14,7 @@ public class DataHolder : MonoBehaviour
     [Header("classes:")]
     public static DataHolder instance;
     public static SuperUserClass superUserclass;
-    public static UserEmployer userEmployer;
+    public static UserEmployee userEmployer;
     public static UsersPermissions usersPermissions;
     public static UserManager userManager;
     public static Sucursals sucursals;
@@ -23,7 +23,7 @@ public class DataHolder : MonoBehaviour
     public static GroupManagers groupManagers;
     public static ListEmployersClass listEmployersClass;
     public static SuperAdminClass superAdminClass;
-    public static BasicUserEmployer basicUserEmployer;
+    public static BasicUserEmployee basicUserEmployer;
     public static BasicUserManager basicUserManager;
     //public static CarJobsClass carJobsClass;
 

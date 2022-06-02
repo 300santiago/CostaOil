@@ -10,14 +10,14 @@ public class GeneralUserEmployer : MonoBehaviour
     [SerializeField] TMP_Text nameUserEmployer;
     [SerializeField] TMP_Text positionUserEmployer;
     [SerializeField] TMP_Text emailUserEmployer;
-    public UserEmployer thisEmployer = new UserEmployer();
+    public UserEmployee thisEmployer = new UserEmployee();
 
-    public void  AssignValueEmployer (UserEmployer _userEmployer)
+    public void  AssignValueEmployer (UserEmployee _userEmployer)
     {
         thisEmployer = _userEmployer;
-        nameUserEmployer.text = _userEmployer.nameEmployer;
-        positionUserEmployer.text = _userEmployer.positionEmployer;
-        emailUserEmployer.text = $"Email: {_userEmployer.emailEmployer}";
+        nameUserEmployer.text = _userEmployer.nameEmployee;
+        positionUserEmployer.text = _userEmployer.positionEmployee;
+        emailUserEmployer.text = $"Email: {_userEmployer.emailEmployee}";
 
     }
 }

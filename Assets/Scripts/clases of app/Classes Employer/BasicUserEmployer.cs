@@ -4,13 +4,13 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class BasicUserEmployer
+public class BasicUserEmployee
 {
-    public string nameEmployer;
-    public string sucursalEmployer;
-    public string idEmployer;
-    public string emailEmployer;
-    public BasicUserEmployer()
+    public string nameEmployee;
+    public string sucursalEmployee;
+    public string idEmployee;
+    public string emailEmployee;
+    public BasicUserEmployee()
     {
         
     }

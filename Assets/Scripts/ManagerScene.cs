@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-
 public class ManagerScene : MonoBehaviour
 {
     [Header("Variables Texts")]
@@ -17,7 +16,6 @@ public class ManagerScene : MonoBehaviour
     public TMP_InputField textEmailEmployer;
 
     [Header("GameObjects panels")]
-    [SerializeField] GameObject panelHome;
     [SerializeField] GameObject panelSavePlayers;
     [SerializeField] GameObject backgroundNormal;
     public GameObject generalEmployer;
@@ -49,42 +47,30 @@ public class ManagerScene : MonoBehaviour
     public string passwordaleatory;
     public string passwordaleatoryManager;
     public Sucursals sucursals;
-    public UserEmployer userEmployer;
-
-   
-
-
+    public UserEmployee userEmployer;
     [Header("classes in scene")]
-
     //public GroupEmployers groupEmployers = new GroupEmployers();
     public ListSucursals listSucursals;
-   
+    [Header("Loading")]
+    public GameObject loadingPanel;
     public static ManagerScene instance;
-
     private void Awake()
     {
         instance = this;
-        panelHome.SetActive(false);
-        panelHomeEmployer.SetActive(false);
-        backgroundNormal.SetActive(false);
-        panelHomeManager.SetActive(false);
     }
     void Start()
     {
-
-        if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
+        if (DataHolder.usersPermissions.workerKind == WorkerKind.employee)
         {
             panelHomeEmployer.SetActive(true);
         }
-
-
-         if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
+        else if (DataHolder.usersPermissions.workerKind == WorkerKind.superUser)
         {
-            panelHome.SetActive(true);
+            PanelManagerMainScene.instance.LoadSuperUserPanel();
+            PanelManagerMainScene.instance.LoadMainPanelSuper();
             textTitleManager.text = $"Welcome Super User: {DataHolder.superUserclass.nameSuperUser}";
         }
-
-        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        else if (DataHolder.usersPermissions.workerKind == WorkerKind.admin)
         {
             panelHomeManager.SetActive(true);
             titleManager.text = $"Welcome Manager: {DataHolder.userManager.nameManager}";
@@ -104,17 +90,26 @@ public class ManagerScene : MonoBehaviour
         panelSavePlayers.SetActive(true);
     }
 
-    public void AddSucursalList()
+    public async void AddSucursalList()
     {
+        LoadingOn();
         sucursals = new Sucursals
         {
             nameSucursal = textNameSucursal.text
         };
-        //DataHolder.sucursals = sucursals;
-        //AuthenticationHandler.instance.AddSucursal(sucursals);
-        DataHolder.superAdminClass.listSucursals.Add(sucursals);
-        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
-        textNameSucursal.text = string.Empty;
+        try
+        {
+            DataHolder.superAdminClass.listSucursals.Add(sucursals);
+            DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+            textNameSucursal.text = string.Empty;
+            LoadingOff();
+            ConsultSucursals.instance.LoadDetailBranch(DataHolder.superAdminClass.listSucursals.Count-1);
+        }
+        catch
+        {
+            print("error");
+            throw;
+        }
     }
 
     public void CancelEmployer()
@@ -136,9 +131,9 @@ public class ManagerScene : MonoBehaviour
         passwordaleatory = string.Empty;
 
 
-        for  (int i = 0; i<lengPassword; i++)
+        for (int i = 0; i < lengPassword; i++)
         {
-            letter = charactersPassword[Random.Range(0,longcharacters)];
+            letter = charactersPassword[Random.Range(0, longcharacters)];
             passwordaleatory += letter.ToString();
         }
 
@@ -175,9 +170,9 @@ public class ManagerScene : MonoBehaviour
         char letter;
         int lengPassword = 10;
         passwordaleatoryManager = string.Empty;
-        for  (int i = 0; i<lengPassword; i++)
+        for (int i = 0; i < lengPassword; i++)
         {
-            letter = charactersPassword[Random.Range(0,longcharacters)];
+            letter = charactersPassword[Random.Range(0, longcharacters)];
             passwordaleatoryManager += letter.ToString();
         }
 
@@ -186,12 +181,13 @@ public class ManagerScene : MonoBehaviour
         _passwordManager = "12345678";
         _nameManager = nameManager.text;
 
-        AuthenticationHandler.instance.SignUpNewManager( _emailManager, _passwordManager,  _nameManager, ScriptDropDown.instance.nameSucursal); 
+        AuthenticationHandler.instance.SignUpNewManager(_emailManager, _passwordManager, _nameManager, ScriptDropDown.instance.nameSucursal);
     }
 
     public void AddListDropDown()
     {
         ScriptDropDown.instance.DropDownAddList();
     }
-    
+    public void LoadingOn() { loadingPanel.SetActive(true); }
+    public void LoadingOff() { loadingPanel.SetActive(false); }
 }

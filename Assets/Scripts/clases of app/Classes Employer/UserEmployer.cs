@@ -5,18 +5,16 @@ using System;
 using UnityEngine.UI;
 
 [Serializable]
-public class UserEmployer
+public class UserEmployee
 {
-    public string nameEmployer;
-    public string positionEmployer;
-    public string emailEmployer;
-    public string sucursalEmployer;
+    public string nameEmployee;
+    public string positionEmployee;
+    public string emailEmployee;
+    public string sucursalEmployee;
+    public string idEmployee;
     public bool tutorialFirst;
 
     public List<CarJobsClass> listCars = new List<CarJobsClass>();
 
-    public UserEmployer()
-    {
-
-    }
+    public UserEmployee() {}
 }

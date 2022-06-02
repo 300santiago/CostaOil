@@ -12,12 +12,11 @@ public class ConsultManagers : MonoBehaviour
 
     private void Start()
     {
-        foreach (BasicUserManager p in DataHolder.superAdminClass.listManagers)
-        {
-            GameObject tempPrefabManag = Instantiate(prefabManagers, contentManagers);
-            tempPrefabManag.GetComponent<PrefabManagers>().AssignManagers(p);
-        }    
-            
+        // foreach (BasicUserManager p in DataHolder.superAdminClass.listManagers)
+        // {
+        //     GameObject tempPrefabManag = Instantiate(prefabManagers, contentManagers);
+        //     tempPrefabManag.GetComponent<PrefabManagers>().AssignManagers(p);
+        // }    
     }
 
     public void LoadScene()

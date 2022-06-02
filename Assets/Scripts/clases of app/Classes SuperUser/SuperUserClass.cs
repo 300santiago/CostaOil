@@ -11,9 +11,6 @@ public class SuperUserClass
     public string emailSuperUser;
     public bool tutorialFirst;
 
-    public SuperUserClass()
-    {
-        
-    }
+    public SuperUserClass() {}
 }
 
