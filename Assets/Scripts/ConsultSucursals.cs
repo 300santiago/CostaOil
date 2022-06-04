@@ -6,10 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ConsultSucursals : MonoBehaviour
 {
-    [Header("GameObjects panels")]
-    public GameObject panelSucursals;
-    public GameObject panelOptionsSucursal;
-
     [Header("titles")]
     [SerializeField] TMP_Text titlePrincipal;
     [SerializeField] TMP_Text titleNameSucursal;
@@ -28,13 +24,6 @@ public class ConsultSucursals : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        panelSucursals.SetActive(true);
-        panelOptionsSucursal.SetActive(false);
-    }
-
-    private void Start()
-    {
-        //Invoke(nameof(LoadInfo), 1f);
     }
     public void LoadInfo()
     {
@@ -45,10 +34,6 @@ public class ConsultSucursals : MonoBehaviour
             GameObject tempPrefabSuc = Instantiate(prefabSucurals, contentSucursals);
             tempPrefabSuc.GetComponent<PrefabSucursals>().AssignSucursal(p);
         }
-    }
-    public void SceneLoader()
-    {
-        SceneManager.LoadScene("ManagerScene");
     }
     public void LoadDetailBranch(int _index)
     {

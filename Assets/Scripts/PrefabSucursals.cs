@@ -7,32 +7,26 @@ using UnityEngine.SceneManagement;
 
 public class PrefabSucursals : MonoBehaviour
 {
-    [Header("Panels Gameobjects")]
-    [SerializeField] GameObject panelShowInfo;
-    [SerializeField] GameObject panelSucursals;
-
     [Header("Texts")]
     [SerializeField] TMP_Text nameSucursalPrefb;
     [SerializeField] TMP_Text nameSucursals;
     [Header("Classes")]
     public Sucursals thisSucursal = new Sucursals();
-   
-
-    private void Start()
-    {
-        panelShowInfo.SetActive(false);
-    }
-
     public void AssignSucursal(Sucursals sucursals)
     {
         thisSucursal = sucursals;
         nameSucursalPrefb.text = $"{thisSucursal.nameSucursal}";
     }
-    public void ShowInfoSucursals()
+    public void DeleteSucursal()
     {
-        panelShowInfo.SetActive(true);
-        panelSucursals.SetActive(false);
-        nameSucursals.text = $"Name sucursal: {thisSucursal.nameSucursal}";
-        
+        for (int i = 0; i < DataHolder.superAdminClass.listSucursals.Count; i++)
+        {
+            if(DataHolder.superAdminClass.listSucursals[i].nameSucursal == thisSucursal.nameSucursal)
+            {
+                ManagerScene.instance.LoadingOn();
+                DataHolder.superAdminClass.listSucursals.RemoveAt(i);
+                DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+            }
+        }
     }
 }

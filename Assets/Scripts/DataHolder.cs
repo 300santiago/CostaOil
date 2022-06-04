@@ -60,6 +60,7 @@ public class DataHolder : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
+        ManagerScene.instance.LoadingOff();
     }
     //Write information to the super user Boss
     public async void WriteNakamaSuperUser(string email)
