@@ -17,6 +17,11 @@ public class PrefabSucursals : MonoBehaviour
         thisSucursal = sucursals;
         nameSucursalPrefb.text = $"{thisSucursal.nameSucursal}";
     }
+    public void OnDeleteSucursalBtn()
+    {
+        PanelManagerMainScene.instance.LoadPanelIndex(9, 0);
+        ManagerScene.instance.StoreSucursalToDelete(this);
+    }
     public void DeleteSucursal()
     {
         for (int i = 0; i < DataHolder.superAdminClass.listSucursals.Count; i++)
@@ -24,8 +29,20 @@ public class PrefabSucursals : MonoBehaviour
             if(DataHolder.superAdminClass.listSucursals[i].nameSucursal == thisSucursal.nameSucursal)
             {
                 ManagerScene.instance.LoadingOn();
+
+                //Delete the sucursal on the admin profile
+                for (int j = 0; j < DataHolder.superAdminClass.listAdmins.Count; j++)
+                {
+                    if (DataHolder.superAdminClass.listSucursals[i].sucursalManager.nameManager == DataHolder.superAdminClass.listAdmins[j].nameManager)
+                    {
+                        DataHolder.superAdminClass.listAdmins[j].sucursalManager = string.Empty;
+                        break;
+                    }
+                }
+                //Delete the sucursal from the database
                 DataHolder.superAdminClass.listSucursals.RemoveAt(i);
                 DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+                break;
             }
         }
     }

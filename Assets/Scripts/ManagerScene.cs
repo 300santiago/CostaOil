@@ -58,7 +58,8 @@ public class ManagerScene : MonoBehaviour
 	[Header("Error MSG")]
 	public GameObject errorPanel;
 	public TMP_Text errorTxt;
-
+    [Header("Sucursal Management")]
+    public PrefabSucursals sucursalToDelete;
     private void Awake()
     {
         instance = this;
@@ -173,6 +174,19 @@ public class ManagerScene : MonoBehaviour
     {
         ScriptDropDown.instance.DropDownAddListSucursals(DataHolder.superAdminClass.listSucursals.Count-1, false);
     }
+    public void StoreSucursalToDelete(PrefabSucursals _prefabSucursals)
+    {
+        sucursalToDelete = _prefabSucursals;
+    }
+    public void OnConfirmDeleteSucursal()
+    {
+        LoadingOn();
+        sucursalToDelete.DeleteSucursal();
+    }
+    public void OnCancelDeleteSucursal()
+    {
+        sucursalToDelete = null;
+    }
 #endregion
 #region Manager Management
 	//Add a new manager from new sucursal creation module
@@ -228,5 +242,8 @@ public class ManagerScene : MonoBehaviour
 		errorTxt.text = string.Empty;
 		errorPanel.SetActive(false);
 	}
+#endregion
+#region Delete Branch
+    
 #endregion
 }
