@@ -145,7 +145,7 @@ public class ManagerScene : MonoBehaviour
     
 
     
-    public void LoadingOn() { loadingPanel.SetActive(true); }
+    public void LoadingOn() { loadingPanel.SetActive(true); print("1");}
     public void LoadingOff() { loadingPanel.SetActive(false); }
 
 #region Sucursal Management

@@ -45,5 +45,22 @@ public class PrefabSucursals : MonoBehaviour
                 break;
             }
         }
+        ConsultSucursals.instance.ClearSucursalGO();
+        ConsultSucursals.instance.LoadInfo();
+        PanelManagerMainScene.instance.LoadPanelIndex(6, 0); //Load Consult sucursals panel
+    }
+    public void DetailSucursal()
+    {
+        int thisIndex = -1;
+        for (int i = 0; i < DataHolder.superAdminClass.listSucursals.Count; i++)
+        {
+            if (DataHolder.superAdminClass.listSucursals[i].nameSucursal == thisSucursal.nameSucursal)
+            {
+                thisIndex = i;
+                break;
+            }
+        }
+        ConsultSucursals.instance.LoadDetailBranch(thisIndex);
+        PanelManagerMainScene.instance.LoadPanelIndex(7, 0);
     }
 }

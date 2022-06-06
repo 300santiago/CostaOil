@@ -220,13 +220,6 @@ public class AuthenticationHandler : MonoBehaviour
             createNewSucursals = false,
             createNewWorkCar = true,
         };
-        basicUserEmployer = new BasicUserEmployee
-        {
-            nameEmployee = _nameEmployer,
-            sucursalEmployee = _sucursal,
-            emailEmployee = email,
-            idEmployee = session.UserId,
-        };
 
         IApiWriteStorageObject[] writeObjects = new[]
         {
@@ -244,16 +237,6 @@ public class AuthenticationHandler : MonoBehaviour
                 Collection = email,
                 Key = "UserPermissions",
                 Value = JsonUtility.ToJson(usersPermissions),
-                PermissionRead = 2,
-                PermissionWrite = 1
-
-            },
-
-            new WriteStorageObject
-            {
-                Collection = email,
-                Key = "BasicInfoUser",
-                Value = JsonUtility.ToJson(basicUserEmployer),
                 PermissionRead = 2,
                 PermissionWrite = 1
 
