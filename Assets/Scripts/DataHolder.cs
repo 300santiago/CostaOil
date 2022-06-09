@@ -32,7 +32,7 @@ public class DataHolder : MonoBehaviour
     public IClient client;
     public ISession session;
     public ISession sessionSuperAdmin;
-
+    private RetryConfiguration retryConfiguration;
     
 
     public string email;
@@ -60,7 +60,6 @@ public class DataHolder : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(sessionSuperAdmin, writeObjects);
-        ManagerScene.instance.LoadingOff();
     }
     //Write information to the super user Boss
     public async void WriteNakamaSuperUser(string email)
@@ -104,6 +103,23 @@ public class DataHolder : MonoBehaviour
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
     }
+    #region ChangePasswordEmployer
+    public async void ChangePassword(string _password, WorkerKind _workerKind)
+    {
+        if(_workerKind == WorkerKind.superUser)
+        {
+            await client.LinkEmailAsync(session, superUserclass.emailSuperUser, _password, retryConfiguration);
+        }
+        else if (_workerKind == WorkerKind.admin)
+        {
+            await client.LinkEmailAsync(session, userManager.emailManager, _password, retryConfiguration);
+        }
+        else if (_workerKind == WorkerKind.employee)
+        {
+            await client.LinkEmailAsync(session, userEmployer.emailEmployee, _password, retryConfiguration);
+        }
+    }
+    #endregion
 }
     
 

@@ -60,7 +60,7 @@ public class PrefabSucursals : MonoBehaviour
                 break;
             }
         }
-        ConsultSucursals.instance.LoadDetailBranch(thisIndex);
+        ConsultSucursals.instance.LoadDetailSpecificBranch(thisIndex, thisSucursal.sucursalManager);
         PanelManagerMainScene.instance.LoadPanelIndex(7, 0);
     }
 }

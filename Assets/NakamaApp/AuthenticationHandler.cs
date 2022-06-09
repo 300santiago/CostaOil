@@ -78,8 +78,6 @@ public class AuthenticationHandler : MonoBehaviour
     {
 
     }
-    //log in de super usuario administrador:
-    // log in normal de usuarios:
     public async void Login()
     {
         email = LogInScene.instance.emailCredentials.text;
@@ -324,7 +322,8 @@ public class AuthenticationHandler : MonoBehaviour
         }
         else
         {
-            managerID = $"ad{DataHolder.superAdminClass.listAdmins.Count + 1}";
+            managerID = $"ad{DataHolder.superAdminClass.adminCounter + 1}";
+            DataHolder.superAdminClass.adminCounter++;
         }
         userManager = new UserManager
         {
@@ -341,6 +340,7 @@ public class AuthenticationHandler : MonoBehaviour
             createUserManager = false,
             createNewSucursals = false,
             createNewWorkCar = false,
+            workerKind = WorkerKind.admin,
         };
         IApiWriteStorageObject[] writeObjects = new[]
         {

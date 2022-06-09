@@ -83,15 +83,15 @@ public class TutorialScene : MonoBehaviour
         inputNameSPpanel.SetActive(false);
         imageLogo.SetActive(false);
 
-        if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == false && DataHolder.usersPermissions.createUserManager == false)
+        if (DataHolder.usersPermissions.workerKind == WorkerKind.employee)
         {
             //employer user
             Debug.Log("employer");
             panelsTutorial[2].SetActive(true);
-            explicationEmployerText.text = $"Welcome {DataHolder.userEmployer.nameEmployee} This application allows you to organize your workspace.";
+            explicationEmployerText.text = $"Welcome {DataHolder.userEmployer.nameEmployee}, This application allows you to organize your workspace.";
         }
 
-        else if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
+        else if (DataHolder.usersPermissions.workerKind == WorkerKind.superUser)
         {
             // super user
             Debug.Log("super User");
@@ -100,12 +100,12 @@ public class TutorialScene : MonoBehaviour
             textTitle.text = $"FIRST STEPS ON THE SUPERUSER PLATFORM";
         }
         //manager user
-        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        else if (DataHolder.usersPermissions.workerKind == WorkerKind.admin)
         {
             Debug.Log("manager user");
             panelsTutorial[1].SetActive(true);
             iconsManager[0].SetActive(true);
-            explicationManagerText.text = $"Welcome {DataHolder.userManager.nameManager} This application allows you to organize your workspace.";
+            explicationManagerText.text = $"Welcome {DataHolder.userManager.nameManager}, This application allows you to organize your workspace.";
         }
     }
 
@@ -192,7 +192,7 @@ public class TutorialScene : MonoBehaviour
                     }
                 }
                 textTitle.text = $"Finally";
-                textTutorial.text = $"Great Job welcome to the Oil aplication";
+                textTutorial.text = $"Great Job, welcome to the Oil aplication";
                 imageLogo.SetActive(true);
                 for (int i = 0; i < numbersTutorialSP.Length; i++)
                 {
@@ -325,10 +325,22 @@ public class TutorialScene : MonoBehaviour
                 break;
 
             case 3:
+                if(string.IsNullOrEmpty(inputPasswordManager.text))
+                {
+                    errorTxt.text = "Please enter a valid password";
+                    errorGO.SetActive(true);
+                    return;
+                }
+                else if(inputPasswordManager.text.Length < 6)
+                {
+                    errorTxt.text = "Password must be 6 or more characters";
+                    errorGO.SetActive(true);
+                    return;
+                }
                 numbersManager.SetActive(false);
-                //DataHolder.userManager.passwordManager = inputPasswordManager.text;
+                DataHolder.instance.ChangePassword(inputPasswordManager.text, WorkerKind.admin);
                 titleTextManager.text = "Finally";
-                explicationManagerText.text = "Great Job Welcome to the Oil Aplication";
+                explicationManagerText.text = "Great Job, Welcome to the Oil Aplication";
                 string emailManager;
                 emailManager = AuthenticationHandler.instance.email;
                 //DataHolder.instance.ChangePasswordManager(emailManager);

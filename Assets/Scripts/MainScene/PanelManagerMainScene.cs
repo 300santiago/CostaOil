@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PanelManagerMainScene : MonoBehaviour
 {
     public static PanelManagerMainScene instance;
@@ -56,5 +56,9 @@ public class PanelManagerMainScene : MonoBehaviour
             foreach(GameObject g in employeePanels) {g.SetActive(false);}
             employeePanels[_index].SetActive(true);
         }
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
