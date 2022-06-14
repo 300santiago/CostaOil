@@ -113,6 +113,7 @@ public class DataHolder : MonoBehaviour
         else if (_workerKind == WorkerKind.admin)
         {
             await client.LinkEmailAsync(session, userManager.emailManager, _password, retryConfiguration);
+            TutorialScene.instance.AfterChangePswAdmin();
         }
         else if (_workerKind == WorkerKind.employee)
         {

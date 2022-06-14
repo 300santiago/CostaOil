@@ -184,7 +184,7 @@ public class TutorialScene : MonoBehaviour
                 }
                 for (int i = 0; i < DataHolder.superAdminClass.listSucursals.Count; i++)
                 {
-                    if(DataHolder.superAdminClass.listSucursals[i].nameSucursal == textNameSucursal.text)
+                    if (DataHolder.superAdminClass.listSucursals[i].nameSucursal == textNameSucursal.text)
                     {
                         errorTxt.text = "This sucursal name already exists";
                         errorGO.SetActive(true);
@@ -325,13 +325,13 @@ public class TutorialScene : MonoBehaviour
                 break;
 
             case 3:
-                if(string.IsNullOrEmpty(inputPasswordManager.text))
+                if (string.IsNullOrEmpty(inputPasswordManager.text))
                 {
                     errorTxt.text = "Please enter a valid password";
                     errorGO.SetActive(true);
                     return;
                 }
-                else if(inputPasswordManager.text.Length < 6)
+                else if (inputPasswordManager.text.Length < 6)
                 {
                     errorTxt.text = "Password must be 6 or more characters";
                     errorGO.SetActive(true);
@@ -339,17 +339,32 @@ public class TutorialScene : MonoBehaviour
                 }
                 numbersManager.SetActive(false);
                 DataHolder.instance.ChangePassword(inputPasswordManager.text, WorkerKind.admin);
-                titleTextManager.text = "Finally";
-                explicationManagerText.text = "Great Job, Welcome to the Oil Aplication";
-                string emailManager;
-                emailManager = AuthenticationHandler.instance.email;
-                //DataHolder.instance.ChangePasswordManager(emailManager);
-                DataHolder.userManager.tutorialFirst = true;
-                DataHolder.instance.WriteNakamaManagerrUser(AuthenticationHandler.instance.email);
-                passwordManager.SetActive(false);
-                counterManager++;
+                // for (int i = 0; i < DataHolder.superAdminClass.listAdmins.Count; i++)
+                // {
+                //     if (DataHolder.superAdminClass.listAdmins[i].emailManager == DataHolder.userManager.emailManager)
+                //     {
+                //         DataHolder.superAdminClass.listAdmins[i].passwordAdmin = inputPasswordManager.text;
+                //         DataHolder.superAdminClass.listAdmins[i].tutorialFirst = true;
+                //         for (int j = 0; j < DataHolder.superAdminClass.listSucursals.Count; j++)
+                //         {
+                //             if (DataHolder.superAdminClass.listSucursals[j].nameSucursal == DataHolder.superAdminClass.listAdmins[i].sucursalManager)
+                //             {
+                //                 DataHolder.superAdminClass.listSucursals[j].sucursalManager.passwordAdmin = inputPasswordManager.text;
+                //                 DataHolder.superAdminClass.listSucursals[j].sucursalManager.tutorialFirst = true;
+                //             }
+                //         }
+                //     }
+                // }
+                // titleTextManager.text = "Finally";
+                // explicationManagerText.text = "Great Job, Welcome to the Oil Aplication";
+                // string emailManager;
+                // emailManager = AuthenticationHandler.instance.email;
+                // //DataHolder.instance.ChangePasswordManager(emailManager);
+                // DataHolder.userManager.tutorialFirst = true;
+                // DataHolder.instance.WriteNakamaManagerrUser(AuthenticationHandler.instance.email);
+                // passwordManager.SetActive(false);
+                // counterManager++;
                 break;
-
             case 4:
                 inputPasswordManager.text = string.Empty;
                 SceneManager.LoadScene("ManagerScene");
@@ -357,7 +372,39 @@ public class TutorialScene : MonoBehaviour
         }
     }
 
-
+    public void AfterChangePswAdmin()
+    {
+        print(DataHolder.userManager.emailManager);
+        for (int i = 0; i < DataHolder.superAdminClass.listAdmins.Count; i++)
+        {
+            print(DataHolder.superAdminClass.listAdmins[i].emailManager);
+            if (DataHolder.superAdminClass.listAdmins[i].emailManager == DataHolder.userManager.emailManager)
+            {
+                print(DataHolder.superAdminClass.listAdmins[i].passwordAdmin);
+                DataHolder.superAdminClass.listAdmins[i].passwordAdmin = inputPasswordManager.text;
+                DataHolder.superAdminClass.listAdmins[i].tutorialFirst = true;
+                print(DataHolder.superAdminClass.listAdmins[i].passwordAdmin);
+                for (int j = 0; j < DataHolder.superAdminClass.listSucursals.Count; j++)
+                {
+                    if (DataHolder.superAdminClass.listSucursals[j].nameSucursal == DataHolder.superAdminClass.listAdmins[i].sucursalManager)
+                    {
+                        DataHolder.superAdminClass.listSucursals[j].sucursalManager.passwordAdmin = inputPasswordManager.text;
+                        DataHolder.superAdminClass.listSucursals[j].sucursalManager.tutorialFirst = true;
+                    }
+                }
+            }
+        }
+        titleTextManager.text = "Finally";
+        explicationManagerText.text = "Great Job, Welcome to the Oil Aplication";
+        string emailManager;
+        emailManager = AuthenticationHandler.instance.email;
+        //DataHolder.instance.ChangePasswordManager(emailManager);
+        DataHolder.userManager.tutorialFirst = true;
+        DataHolder.instance.WriteNakamaManagerrUser(AuthenticationHandler.instance.email);
+        DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+        passwordManager.SetActive(false);
+        counterManager++;
+    }
     public void sucursals()
     {
         Debug.Log("sucursals");

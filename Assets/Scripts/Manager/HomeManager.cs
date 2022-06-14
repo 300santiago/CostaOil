@@ -17,14 +17,11 @@ public class HomeManager : MonoBehaviour
     [Header("Text in scene")]
     [SerializeField] TMP_Text sucursalManager;
 
-    [Header("classes to use")]
-    public GameObject gameObject;
-
     private void Start()
     {
         if (DataHolder.usersPermissions.workerKind == WorkerKind.admin)
         {
-            sucursalManager.text = $"You are the admin of {DataHolder.basicUserManager.sucursalManager} sucursal";  
+            sucursalManager.text = $"Sucrusal: {DataHolder.userManager.sucursalManager}";  
         } 
     }
 
