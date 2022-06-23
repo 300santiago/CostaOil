@@ -88,7 +88,7 @@ public class TutorialScene : MonoBehaviour
             //employer user
             Debug.Log("employer");
             panelsTutorial[2].SetActive(true);
-            explicationEmployerText.text = $"Welcome {DataHolder.userEmployer.nameEmployee}, This application allows you to organize your workspace.";
+            explicationEmployerText.text = $"Welcome {DataHolder.userEmployee.nameEmployee}, This application allows you to organize your workspace.";
         }
 
         else if (DataHolder.usersPermissions.workerKind == WorkerKind.superUser)
@@ -275,7 +275,7 @@ public class TutorialScene : MonoBehaviour
                 titleTextEmployer.text = "Finally";
                 explicationEmployerText.text = "Great Job Welcome to the Oil Aplication";
                 //DataHolder.instance.ChangePasswordEmployer(emailEmployer);
-                DataHolder.userEmployer.tutorialFirst = true;
+                DataHolder.userEmployee.tutorialFirst = true;
                 DataHolder.instance.WriteNakamaEmployerUser(AuthenticationHandler.instance.email);
                 counterEmployer++;
 
@@ -372,7 +372,7 @@ public class TutorialScene : MonoBehaviour
         }
     }
 
-    public void AfterChangePswAdmin()
+    public void AfterChangePswAdmin(string _password)
     {
         print(DataHolder.userManager.emailManager);
         for (int i = 0; i < DataHolder.superAdminClass.listAdmins.Count; i++)
@@ -400,6 +400,7 @@ public class TutorialScene : MonoBehaviour
         emailManager = AuthenticationHandler.instance.email;
         //DataHolder.instance.ChangePasswordManager(emailManager);
         DataHolder.userManager.tutorialFirst = true;
+        DataHolder.userManager.passwordAdmin = _password;
         DataHolder.instance.WriteNakamaManagerrUser(AuthenticationHandler.instance.email);
         DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
         passwordManager.SetActive(false);

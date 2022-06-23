@@ -129,7 +129,7 @@ public class ManagerScene : MonoBehaviour
         _passwordEmployer = "12345678";
         _nameEmployer = textNameEmployer.text;
 
-        AuthenticationHandler.instance.SignUpNewEmployers(_emailEmployer, _passwordEmployer, _nameEmployer, ScriptDropDown.instance.nameSucursal);
+        AuthenticationHandler.instance.SignUpNewEmployee(_emailEmployer, _passwordEmployer, _nameEmployer, ScriptDropDown.instance.nameSucursal);
     }
 
     public void ClearInputFieldsEmployer()

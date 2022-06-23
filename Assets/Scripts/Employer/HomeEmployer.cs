@@ -42,7 +42,7 @@ public class HomeEmployer : MonoBehaviour
     {
         if(DataHolder.usersPermissions.workerKind == WorkerKind.employee)
         {
-            principalTitle.text = $"Welcome Employer {DataHolder.userEmployer.nameEmployee}";
+            principalTitle.text = $"Welcome Employer {DataHolder.userEmployee.nameEmployee}";
             panelsEmployer[0].SetActive(true);
         }
     }
@@ -75,7 +75,7 @@ public class HomeEmployer : MonoBehaviour
     
     public void SendDatesCar()
     {
-        DataHolder.userEmployer.listCars.Add(thiscarJobsClass);
+        DataHolder.userEmployee.listCars.Add(thiscarJobsClass);
         DataHolder.instance.WriteNakamaEmployerUser(AuthenticationHandler.instance.email);
     }
 }

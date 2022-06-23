@@ -50,13 +50,13 @@ public class LogInScene : MonoBehaviour
                 SceneManager.LoadScene("MainScene");
             }
         }
-        else if (DataHolder.userEmployer != null)
+        else if (DataHolder.userEmployee != null)
         {
-            if (DataHolder.userEmployer.tutorialFirst == false)
+            if (DataHolder.userEmployee.tutorialFirst == false)
             {
                 SceneManager.LoadScene("TutorialScene");
             }
-            else if (DataHolder.userEmployer.tutorialFirst == true)
+            else if (DataHolder.userEmployee.tutorialFirst == true)
             {
                 SceneManager.LoadScene("MainScene"); 
             }

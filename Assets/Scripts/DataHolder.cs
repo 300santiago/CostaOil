@@ -14,7 +14,7 @@ public class DataHolder : MonoBehaviour
     [Header("classes:")]
     public static DataHolder instance;
     public static SuperUserClass superUserclass;
-    public static UserEmployee userEmployer;
+    public static UserEmployee userEmployee;
     public static UsersPermissions usersPermissions;
     public static UserManager userManager;
     public static Sucursals sucursals;
@@ -84,7 +84,7 @@ public class DataHolder : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserInfo",
-                Value = JsonUtility.ToJson(userEmployer)
+                Value = JsonUtility.ToJson(userEmployee)
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
@@ -113,11 +113,11 @@ public class DataHolder : MonoBehaviour
         else if (_workerKind == WorkerKind.admin)
         {
             await client.LinkEmailAsync(session, userManager.emailManager, _password, retryConfiguration);
-            TutorialScene.instance.AfterChangePswAdmin();
+            TutorialScene.instance.AfterChangePswAdmin(_password);
         }
         else if (_workerKind == WorkerKind.employee)
         {
-            await client.LinkEmailAsync(session, userEmployer.emailEmployee, _password, retryConfiguration);
+            await client.LinkEmailAsync(session, userEmployee.emailEmployee, _password, retryConfiguration);
         }
     }
     #endregion

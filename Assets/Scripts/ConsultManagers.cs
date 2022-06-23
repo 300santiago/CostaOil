@@ -23,7 +23,7 @@ public class ConsultManagers : MonoBehaviour
     {
         UsersPermissions usersPermissions = new UsersPermissions
         {
-            createUserEmployer = true,
+            createUserEmployee = true,
             createUserManager = true,
             createNewSucursals = true,
             createNewWorkCar = true,

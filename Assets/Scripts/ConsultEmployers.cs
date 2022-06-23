@@ -18,7 +18,7 @@ public class ConsultEmployers : MonoBehaviour
     void Start()
     {
         //condition for instantiate prefabs of prefabs
-        if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
+        if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployee == true && DataHolder.usersPermissions.createUserManager == true)
         {
             //titleText.text = $"Employers for alls sucursals: {DataHolder.superAdminClass.listEmployee.Count}";
 
@@ -29,7 +29,7 @@ public class ConsultEmployers : MonoBehaviour
             // }
         }
 
-        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployee == true && DataHolder.usersPermissions.createUserManager == false)
         {
             // foreach (BasicUserEmployee p in DataHolder.superAdminClass.listEmployee)
             // {
@@ -47,11 +47,11 @@ public class ConsultEmployers : MonoBehaviour
 
     public void SceneLoader()
     {   
-        if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == true)
+        if (DataHolder.usersPermissions.createNewSucursals == true && DataHolder.usersPermissions.createNewWorkCar == true && DataHolder.usersPermissions.createUserEmployee == true && DataHolder.usersPermissions.createUserManager == true)
         {
             usersPermissions = new UsersPermissions
             {
-                createUserEmployer = true,
+                createUserEmployee = true,
                 createUserManager = true,
                 createNewSucursals = true,
                 createNewWorkCar = true,
@@ -60,11 +60,11 @@ public class ConsultEmployers : MonoBehaviour
         SceneManager.LoadScene("ManagerScene");
         }
 
-        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployer == true && DataHolder.usersPermissions.createUserManager == false)
+        else if (DataHolder.usersPermissions.createNewSucursals == false && DataHolder.usersPermissions.createNewWorkCar == false && DataHolder.usersPermissions.createUserEmployee == true && DataHolder.usersPermissions.createUserManager == false)
         {
             usersPermissions2 = new UsersPermissions
             {
-                createUserEmployer = true,
+                createUserEmployee = true,
                 createUserManager = false,
                 createNewSucursals = false,
                 createNewWorkCar = false,

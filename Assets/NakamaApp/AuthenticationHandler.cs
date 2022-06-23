@@ -35,7 +35,7 @@ public class AuthenticationHandler : MonoBehaviour
     public SuperUserClass superUserClass;
     public ListSucursals listSucursals;
     public Sucursals sucursals;
-    public UserEmployee userEmployer;
+    public UserEmployee userEmployee;
     public UsersPermissions usersPermissions;
     public UserManager userManager;
     public GroupManagers groupManagers;
@@ -193,30 +193,42 @@ public class AuthenticationHandler : MonoBehaviour
     //creacion de usuarios nuevos por medio de SP
     ///////////////////////////////////////////////////////////////
     //Usuario Employer:
-    public async void SignUpNewEmployers(string _emailEmployer, string _password, string _nameEmployer, string _sucursal)
+    public async void SignUpNewEmployee(string _emailEmployee, string _password, string _nameEmployee, string _sucursal)
     {
-        session = await client.AuthenticateEmailAsync(_emailEmployer, _password, _nameEmployer, true);
-        StorageObjectsEmployer(_emailEmployer, _password, _nameEmployer, _sucursal);
+        session = await client.AuthenticateEmailAsync(_emailEmployee, _password, _nameEmployee, true);
+        StorageObjectsEmployee(_emailEmployee, _password, _nameEmployee, _sucursal);
     }
 
-    public async void StorageObjectsEmployer(string email, string _passwordEmployer, string _nameEmployer, string _sucursal)
+    public async void StorageObjectsEmployee(string email, string _passwordEmployee, string _nameEmployee, string _sucursal)
     {
-
-        userEmployer = new UserEmployee
+        string employeeID = "";
+        if(DataHolder.superAdminClass.listEmployees.Count < 1)
         {
-            nameEmployee = _nameEmployer,
+            employeeID = "em01";
+        }
+        else
+        {
+            employeeID = $"em{DataHolder.superAdminClass.employeeCounter + 1}";
+            DataHolder.superAdminClass.employeeCounter ++;
+        }
+        userEmployee = new UserEmployee
+        {
+            nameEmployee = _nameEmployee,
             positionEmployee = "",
             emailEmployee = email,
             sucursalEmployee = _sucursal,
+            idEmployee = employeeID,
             tutorialFirst = false,
+            password = _passwordEmployee,
         };
 
         usersPermissions = new UsersPermissions
         {
-            createUserEmployer = false,
+            createUserEmployee = false,
             createUserManager = false,
             createNewSucursals = false,
             createNewWorkCar = true,
+            workerKind = WorkerKind.employee,
         };
 
         IApiWriteStorageObject[] writeObjects = new[]
@@ -225,7 +237,7 @@ public class AuthenticationHandler : MonoBehaviour
             {
                 Collection = email,
                 Key = "UserInfo",
-                Value = JsonUtility.ToJson(userEmployer),
+                Value = JsonUtility.ToJson(userEmployee),
                 PermissionRead = 2,
                 PermissionWrite = 1
             },
@@ -241,9 +253,20 @@ public class AuthenticationHandler : MonoBehaviour
             },
         };
         await client.WriteStorageObjectsAsync(session, writeObjects);
-        DataHolder.userEmployer = userEmployer;
+        DataHolder.userEmployee = userEmployee;
+        //Write the worker into the database account
+        DataHolder.superAdminClass.listEmployees.Add(userEmployee);
+        for (int i = 0; i < DataHolder.superAdminClass.listSucursals.Count; i++)
+        {
+            if(DataHolder.superAdminClass.listSucursals[i].nameSucursal == userEmployee.sucursalEmployee)
+            {
+                DataHolder.superAdminClass.listSucursals[i].listEmployee.Add(userEmployee);
+            }
+        }
+
         //DataHolder.superAdminClass.listEmployee.Add(basicUserEmployer);
         DataHolder.instance.WriteNakamaAdmUser(AuthenticationHandler.instance.superUserAdminEmail);
+        HomeManager.instance.HideLoadingPanel(email, _passwordEmployee);
     }
 
 
@@ -284,7 +307,7 @@ public class AuthenticationHandler : MonoBehaviour
         {
             if (userData[i].Key == "UserInfo")
             {
-                DataHolder.userEmployer = JsonUtility.FromJson<UserEmployee>(userData[i].Value);
+                DataHolder.userEmployee = JsonUtility.FromJson<UserEmployee>(userData[i].Value);
             }
             else if (userData[i].Key == "UserPermissions")
             {
@@ -336,7 +359,7 @@ public class AuthenticationHandler : MonoBehaviour
         };
         usersPermissions = new UsersPermissions
         {
-            createUserEmployer = true,
+            createUserEmployee = true,
             createUserManager = false,
             createNewSucursals = false,
             createNewWorkCar = false,
@@ -448,7 +471,7 @@ public class AuthenticationHandler : MonoBehaviour
         };
         usersPermissions = new UsersPermissions
         {
-            createUserEmployer = true,
+            createUserEmployee = true,
             createUserManager = true,
             createNewSucursals = true,
             createNewWorkCar = true,
@@ -574,7 +597,7 @@ public class AuthenticationHandler : MonoBehaviour
         {
             if (_userData[i].Key == "UserInfo")
             {
-                DataHolder.userEmployer = JsonUtility.FromJson<UserEmployee>(_userData[i].Value);
+                DataHolder.userEmployee = JsonUtility.FromJson<UserEmployee>(_userData[i].Value);
             }
         }
     }

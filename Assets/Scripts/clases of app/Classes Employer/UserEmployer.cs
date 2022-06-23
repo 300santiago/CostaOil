@@ -12,6 +12,7 @@ public class UserEmployee
     public string emailEmployee;
     public string sucursalEmployee;
     public string idEmployee;
+    public string password;
     public bool tutorialFirst;
 
     public List<CarJobsClass> listCars = new List<CarJobsClass>();

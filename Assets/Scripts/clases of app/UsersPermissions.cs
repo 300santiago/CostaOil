@@ -8,7 +8,7 @@ public enum WorkerKind {superUser, admin, employee}
 [Serializable]
 public class UsersPermissions
 {
-    public bool createUserEmployer;
+    public bool createUserEmployee;
     public bool createUserManager;
     public bool createNewSucursals;
     public bool createNewWorkCar;
